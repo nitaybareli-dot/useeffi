@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+/* Monochrome system: black, white, a few greys, hairlines. No accent color. */
+@theme {
+  --color-ink: #0b0b0b;
+  --color-paper: #ffffff;
+  --color-fog: #f5f5f3;
+  --color-line: #e4e4e1;
+  --color-mute: #6e6e6a;
+  --color-faint: #8c8c88;
+  --color-dim: #a0a09c;
+}
+
+@theme inline {
+  /* Latin glyphs come from Geist, Hebrew glyphs fall through to Heebo. */
+  --font-sans: var(--font-geist), var(--font-heebo), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+.on-dark ::selection {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.on-dark :focus-visible {
+  outline-color: var(--color-paper);
+}
+
+/* Keep browser autofill from painting a light box over the dark contact form. */
+.on-dark input:-webkit-autofill,
+.on-dark textarea:-webkit-autofill {
+  -webkit-text-fill-color: var(--color-paper);
+  caret-color: var(--color-paper);
+  box-shadow: 0 0 0 1000px var(--color-ink) inset;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Scroll reveal with no JavaScript; browsers without support just show the content. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
