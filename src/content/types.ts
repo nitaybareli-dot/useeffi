@@ -16,7 +16,8 @@ export type Shell = {
     services: string;
     industries: string;
     process: string;
-    why: string;
+    /** Leave out to hide the "why" link. */
+    why?: string;
     faq: string;
     cta: string;
     /** Label of the link to the other language. */
@@ -120,16 +121,6 @@ export type HeDict = Shell & {
     ctaPrimary: string;
     ctaSecondary: string;
     facts: string[];
-    mock: {
-      label: string;
-      title: string;
-      badge: string;
-      columns: [string, string, string, string];
-      rows: { item: string; planned: string; billed: string; status: string; flagged?: boolean }[];
-      finding: string;
-      pending: string;
-      caption: string;
-    };
     strip: { label: string; items: { name: string; id: string }[] };
   };
   decides: { eyebrow: string; title: string; lead: string; cards: Numbered[] };
@@ -154,13 +145,6 @@ export type HeDict = Shell & {
     lead: string;
     outcomeLabel: string;
     steps: { title: string; duration: string; text: string; outcome: string }[];
-  };
-  why: {
-    eyebrow: string;
-    title: string;
-    columns: [string, string, string, string];
-    rows: { label: string; values: [string, string, string, string] }[];
-    points: TitledText[];
   };
   security: {
     eyebrow: string;
