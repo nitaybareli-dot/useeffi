@@ -13,7 +13,8 @@
   --accent-tint: #eef3ff;
   --dark-muted: #b4b4b0;
   --accent-on-dark: #8fb0ff;
-  --ok: #15803d;
+  /* #15803D from the brief, a touch darker so it reaches 4.5:1 on --ok-bg. */
+  --ok: #157d3b;
   --ok-bg: #e8f5ec;
   --warn: #b45309;
   --warn-bg: #fef3c7;
