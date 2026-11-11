@@ -25,13 +25,8 @@ export function Frame({
 }
 
 /** Small eyebrow label above a heading. Colors come from `.type-eyebrow`. */
-export function Label({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
-  return (
-    <p className="type-eyebrow flex items-center gap-2.5">
-      <span aria-hidden="true" className={`h-1.5 w-1.5 ${dark ? "bg-accent-on-dark" : "bg-accent"}`} />
-      {children}
-    </p>
-  );
+export function Label({ children }: { children: ReactNode; dark?: boolean }) {
+  return <p className="type-eyebrow">{children}</p>;
 }
 
 /** Two digit counter: 01, 02, 03. */

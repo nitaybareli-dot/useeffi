@@ -25,7 +25,7 @@ export function Header({
     { href: `${base}#services`, label: nav.services },
     { href: `${base}#industries`, label: nav.industries },
     { href: `${base}#process`, label: nav.process },
-    { href: `${base}#why`, label: nav.why },
+    ...(nav.why ? [{ href: `${base}#why`, label: nav.why }] : []),
     { href: `${base}#faq`, label: nav.faq },
   ];
 
