@@ -43,7 +43,7 @@ export function Industries({ t }: { t: HeDict }) {
   };
 
   return (
-    <section id="industries" className="border-b border-line">
+    <section id="industries" className="border-b border-line bg-fog">
       <Frame>
         <div className={`reveal flex flex-col items-center pb-10 pt-16 text-center md:pb-12 md:pt-24 ${pad}`}>
           <h2 className="type-h2 max-w-3xl">{u.title}</h2>
@@ -51,7 +51,7 @@ export function Industries({ t }: { t: HeDict }) {
         </div>
 
         <div className="flex justify-start overflow-x-auto px-5 pb-10 [scrollbar-width:none] sm:px-10 lg:justify-center md:pb-12">
-          <div role="tablist" aria-label={u.title} className="inline-flex shrink-0 gap-1 rounded-full bg-fog p-1">
+          <div role="tablist" aria-label={u.title} className="inline-flex shrink-0 gap-1 rounded-full border border-line bg-paper p-1">
             {u.tabs.map((tab, index) => {
               const selected = index === active;
               return (
@@ -69,7 +69,7 @@ export function Industries({ t }: { t: HeDict }) {
                   onClick={() => select(index)}
                   onKeyDown={onKeyDown}
                   className={`h-11 shrink-0 scroll-mt-40 rounded-full px-5 text-[15px] transition-colors ${
-                    selected ? "bg-paper font-medium text-ink shadow-sm" : "text-body hover:text-accent"
+                    selected ? "bg-ink font-medium text-white" : "text-body hover:text-accent"
                   }`}
                 >
                   {tab.name}
@@ -88,13 +88,13 @@ export function Industries({ t }: { t: HeDict }) {
             hidden={index !== active}
             className="border-t border-line lg:grid-cols-[0.9fr_1.1fr] [&:not([hidden])]:grid"
           >
-            <div className={`flex flex-col justify-between gap-8 bg-fog py-10 lg:py-14 ${pad}`}>
+            <div className={`flex flex-col justify-between gap-8 bg-paper py-10 lg:py-14 ${pad}`}>
               <p className="max-w-md text-balance text-2xl font-medium leading-snug text-ink sm:text-[28px]">
                 {tab.intro}
               </p>
               <p className="type-eyebrow">{tab.name}</p>
             </div>
-            <ul className="lg:border-s lg:border-line">
+            <ul className="bg-paper lg:border-s lg:border-line">
               {tab.cases.map((item, caseIndex) => (
                 <li
                   key={item.title}
