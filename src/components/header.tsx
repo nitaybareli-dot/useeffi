@@ -2,7 +2,7 @@
 
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import type { Dict } from "@/content/types";
+import type { Shell } from "@/content/types";
 import { CtaLink } from "./cta-link";
 import { Logo } from "./logo";
 
@@ -13,8 +13,8 @@ export function Header({
   base,
   switchHref,
 }: {
-  nav: Dict["nav"];
-  a11y: Dict["a11y"];
+  nav: Shell["nav"];
+  a11y: Shell["a11y"];
   home: string;
   /** "" on the landing page (pure hash links), the home path elsewhere. */
   base: string;
@@ -41,7 +41,7 @@ export function Header({
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-ink/65 transition-colors hover:text-ink"
+              className="text-[15px] text-body transition-colors hover:text-accent"
             >
               {link.label}
             </a>
@@ -53,16 +53,16 @@ export function Header({
             href={switchHref}
             lang={nav.switchLang}
             hrefLang={nav.switchLang}
-            className="px-1 py-2 text-sm text-ink/65 transition-colors hover:text-ink"
+            className="px-1 py-2 text-[15px] text-body transition-colors hover:text-accent"
           >
             {nav.switchLabel}
           </a>
-          <CtaLink href={`${base}#contact`} location="header" size="sm" className="max-sm:hidden">
+          <CtaLink href={`${base}#contact`} location="header" size="sm" arrow className="max-sm:hidden">
             {nav.cta}
           </CtaLink>
           <button
             type="button"
-            className="-me-2 grid h-10 w-10 place-items-center lg:hidden"
+            className="-me-2 grid h-10 w-10 place-items-center text-ink lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? a11y.menuClose : a11y.menuOpen}
@@ -88,7 +88,7 @@ export function Header({
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="block border-b border-line py-5 text-2xl font-light tracking-tight"
+              className="block border-b border-line py-5 text-2xl font-medium text-ink"
             >
               {link.label}
             </a>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import type { Dict } from "@/content/types";
+import type { Shell } from "@/content/types";
 
 export const SITE_URL = "https://useeffi.com";
 export const SITE_NAME = "Effi";
@@ -16,7 +16,7 @@ export function pagePath(kind: PageKind, lang: "he" | "en") {
 }
 
 /** Shared metadata for both language trees, with hreflang alternates. */
-export function buildMetadata(t: Dict, kind: PageKind = "home"): Metadata {
+export function buildMetadata(t: Shell, kind: PageKind = "home"): Metadata {
   const title = kind === "home" ? t.meta.title : `${t.privacy.title} | ${SITE_NAME}`;
   const description = kind === "home" ? t.meta.description : t.privacy.intro;
   const url = pagePath(kind, t.lang);
@@ -48,7 +48,7 @@ export function buildMetadata(t: Dict, kind: PageKind = "home"): Metadata {
   };
 }
 
-export function organizationJsonLd(t: Dict) {
+export function organizationJsonLd(t: Shell) {
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",

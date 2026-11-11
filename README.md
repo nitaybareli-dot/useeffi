@@ -15,23 +15,26 @@ Open http://localhost:3000.
 
 ## Where things live
 
-- `src/content/he.ts`, `src/content/en.ts`: all copy. Both files follow the shape in `src/content/types.ts`.
-- `src/components/`: page sections. `landing.tsx` sets their order.
+- `src/content/he.ts`, `src/content/en.ts`: all copy. Hebrew follows `HeDict`, English follows `Dict` (both in `src/content/types.ts`).
+- `src/components/he/`: the Hebrew landing page. `he/landing.tsx` sets the section order.
+- `src/components/en/`: the English landing page (original layout).
+- `src/components/` (top level): header, footer, buttons and layout pieces shared by both.
 - `src/app/(he)` and `src/app/(en)`: the two language trees, each with its own root layout (`lang` and `dir`).
-- `src/app/actions.ts`: contact form handler.
-- `src/app/globals.css`: colors and fonts (Tailwind theme).
+- `src/app/actions.ts`: contact form handler. `src/lib/leads.ts`: database and notification email.
+- `src/app/globals.css`: color tokens and type scale.
 
-## Contact form
+## Contact form and leads
 
-The form emails each lead through [Resend](https://resend.com). It needs these environment variables:
+Each submission is validated on the server, rate limited per IP (5 per 10 minutes) and saved to the `leads` table in Postgres (Neon). The visitor sees the success message only after the row is saved. Tables are created on first use; `db/schema.sql` has the same schema.
 
 | Variable | Purpose |
 | --- | --- |
-| `RESEND_API_KEY` | Resend API key (set by the Vercel Marketplace integration). |
-| `CONTACT_TO_EMAIL` | Where leads are sent. Several addresses can be comma separated. |
-| `CONTACT_FROM_EMAIL` | Optional sender, for example `Effi <hello@useeffi.com>`, once the domain is verified in Resend. Defaults to Resend's test sender. |
+| `DATABASE_URL` | Neon connection string. Set automatically when a Neon database is connected to the Vercel project. |
+| `LEAD_NOTIFY_EMAIL` | Optional. Where to email each new lead. Several addresses can be comma separated. Without it, no email is sent. |
+| `RESEND_API_KEY` | Needed only with `LEAD_NOTIFY_EMAIL`. |
+| `CONTACT_FROM_EMAIL` | Optional sender, for example `Effi <hello@useeffi.com>`, once the domain is verified in Resend. |
 
-Without the first two, the form shows an error instead of sending. Pull them locally with `vercel env pull`.
+To see leads: Vercel dashboard → Storage → the Neon database → Open in Neon → Tables → `leads`, or run `SELECT * FROM leads ORDER BY created_at DESC;` in the SQL editor. Pull the variables locally with `vercel env pull`.
 
 ## Analytics
 

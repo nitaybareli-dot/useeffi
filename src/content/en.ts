@@ -378,6 +378,7 @@ export const en: Dict = {
   },
   footer: {
     tagline: "AI that works inside the organization.",
+    copyright: "© 2026 Effi",
     rights: "All rights reserved.",
     privacy: "Privacy policy",
     navTitle: "Site",

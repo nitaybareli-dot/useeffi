@@ -24,31 +24,20 @@ export function Frame({
   );
 }
 
+/** Small eyebrow label above a heading. Colors come from `.type-eyebrow`. */
 export function Label({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
   return (
-    <p className={`flex items-center gap-2.5 text-[13px] ${dark ? "text-dim" : "text-mute"}`}>
-      <span aria-hidden="true" className={`h-1.5 w-1.5 ${dark ? "bg-paper" : "bg-ink"}`} />
+    <p className="type-eyebrow flex items-center gap-2.5">
+      <span aria-hidden="true" className={`h-1.5 w-1.5 ${dark ? "bg-accent-on-dark" : "bg-accent"}`} />
       {children}
     </p>
   );
 }
 
-/**
- * Renders a heading in two tones: the first sentence (or clause) in full
- * strength and the rest in grey.
- */
-export function TwoTone({ text, dark = false }: { text: string; dark?: boolean }) {
-  const match = text.match(/^(.+?[.?!])\s+(.+)$/) ?? text.match(/^(.+?,)\s+(.+)$/);
-  if (!match) return <>{text}</>;
-  return (
-    <>
-      {match[1]} <span className={dark ? "text-white/45" : "text-faint"}>{match[2]}</span>
-    </>
-  );
-}
+/** Two digit counter: 01, 02, 03. */
+export const num = (index: number) => String(index + 1).padStart(2, "0");
 
-export const headingClass =
-  "text-balance text-[clamp(2rem,4.2vw,3.5rem)] font-light leading-[1.08] tracking-[-0.025em]";
+export const headingClass = "type-h2";
 
 export function SectionHead({
   label,
@@ -56,27 +45,23 @@ export function SectionHead({
   lead,
   action,
   dark = false,
+  className = "py-16 sm:py-24",
 }: {
-  label: string;
+  label?: string;
   title: string;
   lead?: string;
   action?: ReactNode;
   dark?: boolean;
+  className?: string;
 }) {
   return (
     <div
-      className={`reveal flex flex-col gap-8 py-16 sm:py-24 lg:flex-row lg:items-end lg:justify-between ${pad}`}
+      className={`reveal flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between ${pad} ${className}`}
     >
       <div className="max-w-3xl">
-        <Label dark={dark}>{label}</Label>
-        <h2 className={`mt-6 ${headingClass}`}>
-          <TwoTone text={title} dark={dark} />
-        </h2>
-        {lead ? (
-          <p className={`mt-6 max-w-2xl text-lg leading-relaxed ${dark ? "text-dim" : "text-mute"}`}>
-            {lead}
-          </p>
-        ) : null}
+        {label ? <Label dark={dark}>{label}</Label> : null}
+        <h2 className={`${label ? "mt-6" : ""} ${headingClass}`}>{title}</h2>
+        {lead ? <p className="type-lead mt-6 max-w-2xl">{lead}</p> : null}
       </div>
       {action ? <div className="shrink-0">{action}</div> : null}
     </div>

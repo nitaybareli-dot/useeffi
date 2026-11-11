@@ -5,27 +5,26 @@ import { ArrowRight } from "lucide-react";
 import { useActionState, useEffect } from "react";
 import { sendContact, type ContactState } from "@/app/actions";
 import type { Dict } from "@/content/types";
-import { Frame, Label, TwoTone, pad } from "./ui";
+import { TrackingFields } from "../tracking-fields";
+import { Frame, Label, pad } from "../ui";
 
 const initialState: ContactState = { status: "idle" };
 
 /** Underline-only field on the dark background. */
 const fieldClass =
-  "mt-2 w-full rounded-none border-0 border-b border-white/25 bg-transparent px-0 py-2.5 text-base text-paper placeholder:text-white/30 focus:border-paper focus:shadow-[0_1px_0_0_#fff] focus:outline-none aria-[invalid=true]:border-red-400";
+  "mt-2 w-full rounded-none border-0 border-b border-white/40 bg-transparent px-0 py-2.5 text-base text-white placeholder:text-dark-muted focus:border-accent-on-dark focus:shadow-[0_1px_0_0_var(--accent-on-dark)] focus:outline-none aria-[invalid=true]:border-[#FCA5A5]";
 
 export function Contact({ t }: { t: Dict }) {
   const c = t.contact;
   return (
-    <section id="contact" className="on-dark bg-ink text-paper">
+    <section id="contact" className="on-dark bg-ink text-white">
       <Frame dark>
         <div className={`grid gap-14 py-20 sm:py-28 lg:grid-cols-2 lg:gap-24 ${pad}`}>
           <div className="reveal">
             <Label dark>{c.eyebrow}</Label>
-            <h2 className="mt-6 text-balance text-[clamp(2.3rem,5vw,4.25rem)] font-light leading-[1.05] tracking-[-0.03em]">
-              <TwoTone text={c.title} dark />
-            </h2>
-            <p className="mt-7 max-w-md text-lg leading-relaxed text-dim">{c.lead}</p>
-            <ul className="mt-12 max-w-md border-t border-white/12 text-[15px]">
+            <h2 className="type-h2 mt-6">{c.title}</h2>
+            <p className="type-lead mt-7 max-w-md">{c.lead}</p>
+            <ul className="type-item mt-12 max-w-md border-t border-white/12">
               {c.points.map((point) => (
                 <li key={point} className="border-b border-white/12 py-3.5">
                   {point}
@@ -52,8 +51,8 @@ function ContactForm({ t }: { t: Dict }) {
   if (state.status === "success") {
     return (
       <div role="status" className="flex min-h-72 flex-col justify-center">
-        <h3 className="text-3xl font-light tracking-tight sm:text-4xl">{f.successTitle}</h3>
-        <p className="mt-4 text-lg text-dim">{f.successText}</p>
+        <h3 className="type-h2">{f.successTitle}</h3>
+        <p className="type-lead mt-4">{f.successText}</p>
       </div>
     );
   }
@@ -64,7 +63,7 @@ function ContactForm({ t }: { t: Dict }) {
     const code = state.fields?.[name];
     if (!code) return null;
     return (
-      <span id={`${name}-error`} className="mt-2 block text-sm text-red-400">
+      <span id={`${name}-error`} className="mt-2 block text-sm text-[#FCA5A5]">
         {code === "email" ? f.errorEmail : f.errorRequired}
       </span>
     );
@@ -75,12 +74,13 @@ function ContactForm({ t }: { t: Dict }) {
     "aria-describedby": state.fields?.[name] ? `${name}-error` : undefined,
   });
 
-  const labelClass = "block text-[13px] text-dim";
-  const optional = <span className="text-white/35"> ({f.optional})</span>;
+  const labelClass = "block text-[15px] text-dark-muted";
+  const optional = <span> ({f.optional})</span>;
 
   return (
     <form action={formAction} noValidate className="relative grid content-start gap-x-8 gap-y-8 sm:grid-cols-2">
       <input type="hidden" name="lang" value={t.lang} />
+      <TrackingFields />
       {/* Honeypot field, hidden from people and assistive tech. */}
       <div aria-hidden="true" className="absolute -start-[9999px] h-0 w-0 overflow-hidden">
         <label>
@@ -168,7 +168,7 @@ function ContactForm({ t }: { t: Dict }) {
 
       <div className="sm:col-span-2">
         {state.error === "send" ? (
-          <p role="alert" className="mb-6 border-s-2 border-red-400 ps-4 text-[15px] text-red-300">
+          <p role="alert" className="mb-6 border-s-2 border-[#FCA5A5] ps-4 text-[15px] text-[#FCA5A5]">
             {f.errorSend}
           </p>
         ) : null}
@@ -176,14 +176,14 @@ function ContactForm({ t }: { t: Dict }) {
           <button
             type="submit"
             disabled={pending}
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-paper px-7 py-3.5 text-[15px] font-medium text-ink transition-colors hover:bg-paper/85 disabled:opacity-60"
+            className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-accent px-7 text-base font-medium text-white transition-colors hover:bg-accent-hover disabled:opacity-60"
           >
             {pending ? f.sending : f.submit}
             {pending ? null : <ArrowRight className="h-4 w-4 rtl:-scale-x-100" aria-hidden="true" />}
           </button>
-          <p className="text-[13px] text-dim">
+          <p className="text-sm text-dark-muted">
             {f.consentPrefix}{" "}
-            <a href={t.privacyHref} className="underline underline-offset-4 hover:text-paper">
+            <a href={t.privacyHref} className="text-accent-on-dark underline underline-offset-4 hover:text-white">
               {f.consentLink}
             </a>
             .
