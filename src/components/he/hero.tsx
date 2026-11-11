@@ -1,7 +1,7 @@
 import { Check } from "lucide-react";
 import type { HeDict } from "@/content/types";
 import { CtaLink } from "../cta-link";
-import { Frame, Label, pad } from "../ui";
+import { Frame, pad } from "../ui";
 
 export function Hero({ t }: { t: HeDict }) {
   const h = t.hero;
@@ -10,8 +10,7 @@ export function Hero({ t }: { t: HeDict }) {
     <section id="hero" className="border-b border-line">
       <Frame>
         <div className={`section-y ${pad}`}>
-          <Label>{h.eyebrow}</Label>
-          <h1 className="type-h1 mt-6 lg:whitespace-nowrap">{h.title}</h1>
+          <h1 className="type-h1 lg:whitespace-nowrap">{h.title}</h1>
           <p className="mt-5 text-[28px] font-normal leading-snug text-mute">{h.tagline}</p>
           <p className="type-lead mt-6 max-w-2xl">{h.sub}</p>
 

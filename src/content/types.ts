@@ -114,7 +114,6 @@ export type Numbered = { title: string; text: string };
 /** Hebrew landing page content (the current layout). */
 export type HeDict = Shell & {
   hero: {
-    eyebrow: string;
     title: string;
     tagline: string;
     sub: string;
@@ -123,16 +122,14 @@ export type HeDict = Shell & {
     facts: string[];
     strip: { label: string; items: { name: string; id: string }[] };
   };
-  decides: { eyebrow: string; title: string; lead: string; cards: Numbered[] };
+  decides: { title: string; lead: string; cards: Numbered[] };
   services: {
-    eyebrow: string;
     title: string;
     lead: string;
     cta: string;
     items: { tag: string; title: string; key: string; text: string; items: string[] }[];
   };
   industries: {
-    eyebrow: string;
     title: string;
     lead: string;
     tabs: { id: string; name: string; intro: string; cases: TitledText[] }[];
@@ -140,14 +137,12 @@ export type HeDict = Shell & {
     cta: string;
   };
   process: {
-    eyebrow: string;
     title: string;
     lead: string;
     outcomeLabel: string;
     steps: { title: string; duration: string; text: string; outcome: string }[];
   };
   security: {
-    eyebrow: string;
     title: string;
     lead: string;
     items: (TitledText & {
@@ -156,7 +151,6 @@ export type HeDict = Shell & {
   };
   faq: { title: string; items: { q: string; a: string }[] };
   contact: {
-    eyebrow: string;
     title: string;
     lead: string;
     points: string[];
