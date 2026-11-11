@@ -25,16 +25,20 @@ Open http://localhost:3000.
 
 ## Contact form and leads
 
-Each submission is validated on the server, rate limited per IP (5 per 10 minutes) and saved to the `leads` table in Postgres (Neon). The visitor sees the success message only after the row is saved. Tables are created on first use; `db/schema.sql` has the same schema.
+Each submission is validated on the server, rate limited per IP (5 per 10 minutes) and saved before the visitor sees the success message. Storage is picked automatically:
+
+1. **Postgres (Neon)** when `DATABASE_URL` is set: rows in the `leads` table, created on first use (`db/schema.sql` has the same schema).
+2. **Vercel Blob** otherwise, when `BLOB_READ_WRITE_TOKEN` is set: one private JSON file per lead under `leads/YYYY-MM-DD/`. The store `effi-leads` is connected to the project.
 
 | Variable | Purpose |
 | --- | --- |
-| `DATABASE_URL` | Neon connection string. Set automatically when a Neon database is connected to the Vercel project. |
+| `BLOB_READ_WRITE_TOKEN` | Set automatically by the connected Blob store `effi-leads`. |
+| `DATABASE_URL` | Optional. Neon connection string; when set, leads go to Postgres instead. |
 | `LEAD_NOTIFY_EMAIL` | Optional. Where to email each new lead. Several addresses can be comma separated. Without it, no email is sent. |
 | `RESEND_API_KEY` | Needed only with `LEAD_NOTIFY_EMAIL`. |
 | `CONTACT_FROM_EMAIL` | Optional sender, for example `Effi <hello@useeffi.com>`, once the domain is verified in Resend. |
 
-To see leads: Vercel dashboard → Storage → the Neon database → Open in Neon → Tables → `leads`, or run `SELECT * FROM leads ORDER BY created_at DESC;` in the SQL editor. Pull the variables locally with `vercel env pull`.
+To see leads in Blob: Vercel dashboard → Storage → `effi-leads` → Browser → `leads/`, then open a date folder and a file. With Postgres: Storage → the Neon database → Open in Neon → Tables → `leads`.
 
 ## Analytics
 

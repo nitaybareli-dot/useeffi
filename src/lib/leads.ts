@@ -1,5 +1,14 @@
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { neon, type NeonQueryFunction } from "@neondatabase/serverless";
+import { put } from "@vercel/blob";
+
+/**
+ * Where leads are stored:
+ * - Postgres (Neon) when DATABASE_URL or POSTGRES_URL is set.
+ * - Otherwise Vercel Blob (private), when BLOB_READ_WRITE_TOKEN is set:
+ *   one JSON file per lead under leads/YYYY-MM-DD/.
+ */
+const hasPostgres = () => Boolean(process.env.DATABASE_URL || process.env.POSTGRES_URL);
 
 export type Lead = {
   name: string;
@@ -69,7 +78,7 @@ const hashIp = (ip: string) => createHash("sha256").update(`effi-lead:${ip}`).di
  * Records an attempt for this IP and reports whether it is over the limit.
  * The IP is stored only as a hash, and attempts older than a day are removed.
  */
-export async function isRateLimited(ip: string) {
+async function pgRateLimited(ip: string) {
   await ensureSchema();
   const sql = db();
   const ipHash = hashIp(ip);
@@ -84,8 +93,7 @@ export async function isRateLimited(ip: string) {
   return false;
 }
 
-/** Inserts the lead and returns its id. Throws if the row was not written. */
-export async function saveLead(lead: Lead) {
+async function pgSaveLead(lead: Lead) {
   await ensureSchema();
   const sql = db();
   const empty = (value: string) => value || null;
@@ -100,6 +108,49 @@ export async function saveLead(lead: Lead) {
   const id = rows[0]?.id;
   if (id === undefined) throw new Error("Insert returned no id");
   return String(id);
+}
+
+/** Per-instance limiter used with Blob storage, which has no shared counter. */
+const attempts = new Map<string, number[]>();
+
+function memoryRateLimited(ip: string) {
+  const now = Date.now();
+  const windowStart = now - RATE_WINDOW_MINUTES * 60_000;
+  const key = hashIp(ip);
+  const recent = (attempts.get(key) ?? []).filter((time) => time > windowStart);
+  if (recent.length >= RATE_LIMIT) {
+    attempts.set(key, recent);
+    return true;
+  }
+  recent.push(now);
+  attempts.set(key, recent);
+  if (attempts.size > 5000) attempts.clear();
+  return false;
+}
+
+async function blobSaveLead(lead: Lead) {
+  if (!process.env.BLOB_READ_WRITE_TOKEN) throw new Error("No lead storage configured");
+  const createdAt = new Date().toISOString();
+  const id = randomUUID().slice(0, 8);
+  const record = { id, created_at: createdAt, ...lead, status: "new" };
+  // Time-first file names sort leads chronologically in the Blob browser.
+  const pathname = `leads/${createdAt.slice(0, 10)}/${createdAt.replace(/[:.]/g, "-")}-${id}.json`;
+  await put(pathname, JSON.stringify(record, null, 2), {
+    access: "private",
+    contentType: "application/json; charset=utf-8",
+    addRandomSuffix: false,
+  });
+  return id;
+}
+
+/** Reports whether this IP is over the submission limit, and records the attempt. */
+export async function isRateLimited(ip: string) {
+  return hasPostgres() ? pgRateLimited(ip) : memoryRateLimited(ip);
+}
+
+/** Saves the lead and returns its id. Throws if it was not written. */
+export async function saveLead(lead: Lead) {
+  return hasPostgres() ? pgSaveLead(lead) : blobSaveLead(lead);
 }
 
 const escapeHtml = (value: string) =>
