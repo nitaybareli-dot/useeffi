@@ -90,17 +90,19 @@ export function Process({ t }: { t: HeDict }) {
       <Frame dark>
         <SectionHead label={p.eyebrow} title={p.title} lead={p.lead} dark className="pt-16 md:pt-24" />
         <ol className={`relative mt-12 grid gap-12 pb-16 md:mt-16 md:pb-24 lg:grid-cols-4 lg:gap-8 ${pad}`}>
-          {/* Connecting line: horizontal on desktop, vertical on smaller screens. */}
-          <span
-            aria-hidden="true"
-            className="absolute inset-y-0 start-[calc(1.25rem+4px)] w-px bg-white/20 sm:start-[calc(2.5rem+4px)] lg:hidden"
-          />
+          {/* Connecting line: one horizontal line on desktop, a vertical segment per step below that. */}
           <span
             aria-hidden="true"
             className="absolute inset-x-10 top-[4px] hidden h-px bg-white/20 lg:block"
           />
           {p.steps.map((step, index) => (
             <li key={step.title} className="relative flex flex-col ps-8 lg:ps-0 lg:pt-10">
+              {index < p.steps.length - 1 ? (
+                <span
+                  aria-hidden="true"
+                  className="absolute start-[4px] top-4 -bottom-12 w-px bg-white/20 lg:hidden"
+                />
+              ) : null}
               <span
                 aria-hidden="true"
                 className="absolute start-0 top-1.5 h-2.5 w-2.5 rounded-full bg-accent-on-dark lg:top-0"
@@ -138,8 +140,8 @@ export function Why({ t }: { t: HeDict }) {
       <Frame>
         <SectionHead label={w.eyebrow} title={w.title} className="pt-16 pb-12 md:pt-24 md:pb-14" />
 
-        {/* Desktop and tablet: comparison table. */}
-        <div className={`hidden md:block ${pad}`}>
+        {/* From 1024px: comparison table. */}
+        <div className={`hidden lg:block ${pad}`}>
           <table className="w-full table-fixed border-collapse text-start">
             <thead>
               <tr>
@@ -183,8 +185,8 @@ export function Why({ t }: { t: HeDict }) {
           </table>
         </div>
 
-        {/* Mobile: one card per option, Effi first. */}
-        <div className={`grid gap-4 md:hidden ${pad}`}>
+        {/* Below 1024px: one card per option, Effi first. */}
+        <div className={`grid gap-4 sm:grid-cols-2 lg:hidden ${pad}`}>
           {mobileOrder.map((columnIndex) => {
             const highlighted = columnIndex === effi;
             return (
