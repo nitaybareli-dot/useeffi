@@ -20,12 +20,12 @@ const head = "section-y";
 export function Decides({ t }: { t: HeDict }) {
   const d = t.decides;
   return (
-    <section className="border-b border-line">
-      <Frame>
-        <SectionHead title={d.title} lead={d.lead} className={head} />
-        <div className={`${cells} md:grid-cols-3`}>
+    <section className="on-dark bg-ink text-white">
+      <Frame dark>
+        <SectionHead title={d.title} lead={d.lead} dark className={head} />
+        <div className="grid gap-px border-t border-white/12 bg-white/12 md:grid-cols-3">
           {d.cards.map((card, index) => (
-            <article key={card.title} className="bg-paper p-8 lg:p-10">
+            <article key={card.title} className="bg-ink p-8 lg:p-10">
               <p dir="ltr" className="type-num text-start text-2xl font-medium rtl:text-right">
                 {num(index)}
               </p>
@@ -140,7 +140,7 @@ const icons: Record<HeDict["security"]["items"][number]["icon"], LucideIcon> = {
 export function Security({ t }: { t: HeDict }) {
   const s = t.security;
   return (
-    <section className="border-b border-line bg-fog">
+    <section className="border-b border-line">
       <Frame>
         <SectionHead title={s.title} lead={s.lead} className="pt-16 pb-12 md:pt-24 md:pb-14" />
         <div className={`grid gap-4 pb-16 sm:grid-cols-2 md:pb-24 lg:grid-cols-3 ${pad}`}>
@@ -163,7 +163,7 @@ export function Security({ t }: { t: HeDict }) {
 export function Faq({ t }: { t: HeDict }) {
   const f = t.faq;
   return (
-    <section id="faq" className="border-b border-line">
+    <section id="faq" className="border-b border-line bg-fog">
       <Frame>
         <div className={`section-y grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 ${pad}`}>
           <div className="reveal">
