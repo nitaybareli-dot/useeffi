@@ -7,7 +7,7 @@ import { sendContact, type ContactState } from "@/app/actions";
 import type { HeDict } from "@/content/types";
 import { buttonBase } from "../cta-link";
 import { TrackingFields } from "../tracking-fields";
-import { Frame, Label, pad } from "../ui";
+import { Frame, pad } from "../ui";
 
 const initialState: ContactState = { status: "idle" };
 
@@ -22,8 +22,7 @@ export function Contact({ t }: { t: HeDict }) {
         <div className={`section-y grid gap-x-20 gap-y-10 lg:grid-cols-2 ${pad}`}>
           {/* The headline spans both columns so it stays on one line on desktop. */}
           <div className="reveal lg:col-span-2">
-            <Label dark>{c.eyebrow}</Label>
-            <h2 className="type-h2 mt-6 lg:whitespace-nowrap">{c.title}</h2>
+            <h2 className="type-h2 lg:whitespace-nowrap">{c.title}</h2>
           </div>
           <div>
             <p className="type-lead max-w-md">{c.lead}</p>

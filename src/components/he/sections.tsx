@@ -22,7 +22,7 @@ export function Decides({ t }: { t: HeDict }) {
   return (
     <section className="border-b border-line">
       <Frame>
-        <SectionHead label={d.eyebrow} title={d.title} lead={d.lead} className={head} />
+        <SectionHead title={d.title} lead={d.lead} className={head} />
         <div className={`${cells} md:grid-cols-3`}>
           {d.cards.map((card, index) => (
             <article key={card.title} className="bg-paper p-8 lg:p-10">
@@ -45,7 +45,6 @@ export function Services({ t }: { t: HeDict }) {
     <section id="services" className="border-b border-line">
       <Frame>
         <SectionHead
-          label={s.eyebrow}
           title={s.title}
           lead={s.lead}
           className={head}
@@ -88,7 +87,7 @@ export function Process({ t }: { t: HeDict }) {
   return (
     <section id="process" className="on-dark bg-ink text-white">
       <Frame dark>
-        <SectionHead label={p.eyebrow} title={p.title} lead={p.lead} dark className="pt-16 md:pt-24" />
+        <SectionHead title={p.title} lead={p.lead} dark className="pt-16 md:pt-24" />
         <ol className={`relative mt-12 grid gap-12 pb-16 md:mt-16 md:pb-24 lg:grid-cols-4 lg:gap-8 ${pad}`}>
           {/* Connecting line: one horizontal line on desktop, a vertical segment per step below that. */}
           <span
@@ -143,7 +142,7 @@ export function Security({ t }: { t: HeDict }) {
   return (
     <section className="border-b border-line bg-fog">
       <Frame>
-        <SectionHead label={s.eyebrow} title={s.title} lead={s.lead} className="pt-16 pb-12 md:pt-24 md:pb-14" />
+        <SectionHead title={s.title} lead={s.lead} className="pt-16 pb-12 md:pt-24 md:pb-14" />
         <div className={`grid gap-4 pb-16 sm:grid-cols-2 md:pb-24 lg:grid-cols-3 ${pad}`}>
           {s.items.map((item) => {
             const Icon = icons[item.icon];
