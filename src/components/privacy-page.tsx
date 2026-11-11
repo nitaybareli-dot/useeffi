@@ -1,11 +1,11 @@
-import type { Dict } from "@/content/types";
+import type { Shell } from "@/content/types";
 import { pagePath } from "@/lib/site";
 import { Footer } from "./footer";
 import { Header } from "./header";
-import { SkipLink } from "./landing";
+import { SkipLink } from "./skip-link";
 import { Frame, pad } from "./ui";
 
-export function PrivacyPage({ t }: { t: Dict }) {
+export function PrivacyPage({ t }: { t: Shell }) {
   const p = t.privacy;
   const switchHref = pagePath("privacy", t.nav.switchLang);
 
@@ -16,17 +16,17 @@ export function PrivacyPage({ t }: { t: Dict }) {
       <main id="main">
         <Frame>
           <div className={`max-w-3xl py-16 sm:py-24 ${pad}`}>
-            <h1 className="text-[clamp(2.3rem,5vw,4rem)] font-light leading-[1.05] tracking-[-0.03em]">
+            <h1 className="type-h1">
               {p.title}
             </h1>
-            <p className="mt-4 text-[13px] text-mute">{p.updated}</p>
-            <p className="mt-10 text-lg leading-relaxed">{p.intro}</p>
+            <p className="mt-4 text-sm text-mute">{p.updated}</p>
+            <p className="type-lead mt-10">{p.intro}</p>
 
             {p.sections.map((section) => (
               <section key={section.title} className="mt-12 border-t border-line pt-8">
-                <h2 className="text-xl font-medium tracking-tight">{section.title}</h2>
+                <h2 className="type-h3">{section.title}</h2>
                 {section.body.map((paragraph) => (
-                  <p key={paragraph} className="mt-3 leading-relaxed text-mute">
+                  <p key={paragraph} className="type-card mt-3">
                     {paragraph}
                   </p>
                 ))}
@@ -35,7 +35,7 @@ export function PrivacyPage({ t }: { t: Dict }) {
 
             <a
               href={t.home}
-              className="mt-14 inline-block underline decoration-ink/30 underline-offset-4 hover:decoration-ink"
+              className="mt-14 inline-block text-accent underline underline-offset-4 hover:text-accent-hover"
             >
               {p.back}
             </a>

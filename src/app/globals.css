@@ -1,17 +1,41 @@
 @import "tailwindcss";
 
-/* Monochrome system: black, white, a few greys, hairlines. No accent color. */
-@theme {
-  --color-ink: #0b0b0b;
-  --color-paper: #ffffff;
-  --color-fog: #f5f5f3;
-  --color-line: #e4e4e1;
-  --color-mute: #6e6e6a;
-  --color-faint: #8c8c88;
-  --color-dim: #a0a09c;
+/* Design tokens. Every color on the site comes from this list. */
+:root {
+  --ink: #0b0b0b;
+  --bg: #ffffff;
+  --bg-alt: #f5f5f3;
+  --text: #2b2b29;
+  --text-muted: #5f5f5b;
+  --border: #e4e4e0;
+  --accent: #1d4ed8;
+  --accent-hover: #1e40af;
+  --accent-tint: #eef3ff;
+  --dark-muted: #b4b4b0;
+  --accent-on-dark: #8fb0ff;
+  --ok: #15803d;
+  --ok-bg: #e8f5ec;
+  --warn: #b45309;
+  --warn-bg: #fef3c7;
 }
 
 @theme inline {
+  --color-ink: var(--ink);
+  --color-paper: var(--bg);
+  --color-fog: var(--bg-alt);
+  --color-body: var(--text);
+  --color-mute: var(--text-muted);
+  --color-line: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-tint: var(--accent-tint);
+  --color-dark-muted: var(--dark-muted);
+  --color-accent-on-dark: var(--accent-on-dark);
+  --color-ok: var(--ok);
+  --color-ok-bg: var(--ok-bg);
+  --color-warn: var(--warn);
+  --color-warn-bg: var(--warn-bg);
+
   /* Latin glyphs come from Geist, Hebrew glyphs fall through to Heebo. */
   --font-sans: var(--font-geist), var(--font-heebo), ui-sans-serif, system-ui, sans-serif;
 }
@@ -23,39 +47,104 @@ html {
 }
 
 body {
-  background: var(--color-paper);
-  color: var(--color-ink);
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
+/* Type scale. */
+@layer components {
+  .type-h1 {
+    font-size: clamp(40px, 5.5vw, 68px);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .type-h2 {
+    font-size: clamp(30px, 3.4vw, 42px);
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .type-h3 {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--ink);
+  }
+  .type-lead {
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .type-card {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text-muted);
+  }
+  .type-item {
+    font-size: 16px;
+    color: var(--text);
+  }
+  .type-eyebrow {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  .type-num {
+    color: var(--accent);
+  }
+
+  .on-dark .type-h1,
+  .on-dark .type-h2,
+  .on-dark .type-h3,
+  .on-dark .type-lead,
+  .on-dark .type-item {
+    color: #ffffff;
+  }
+  .on-dark .type-card,
+  .on-dark .type-eyebrow {
+    color: var(--dark-muted);
+  }
+  .on-dark .type-num {
+    color: var(--accent-on-dark);
+  }
+
+  /* Vertical rhythm for sections in the Hebrew layout. */
+  .section-y {
+    padding-block: 64px;
+  }
+  @media (min-width: 768px) {
+    .section-y {
+      padding-block: 96px;
+    }
+  }
+}
+
 ::selection {
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--accent);
+  color: #ffffff;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-ink);
-  outline-offset: 3px;
-}
-
-.on-dark ::selection {
-  background: var(--color-paper);
-  color: var(--color-ink);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .on-dark :focus-visible {
-  outline-color: var(--color-paper);
+  outline-color: var(--accent-on-dark);
 }
 
 /* Keep browser autofill from painting a light box over the dark contact form. */
 .on-dark input:-webkit-autofill,
 .on-dark textarea:-webkit-autofill {
-  -webkit-text-fill-color: var(--color-paper);
-  caret-color: var(--color-paper);
-  box-shadow: 0 0 0 1000px var(--color-ink) inset;
+  -webkit-text-fill-color: #ffffff;
+  caret-color: #ffffff;
+  box-shadow: 0 0 0 1000px #161616 inset;
 }
 
 @keyframes reveal {
@@ -83,5 +172,11 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }

@@ -1,6 +1,6 @@
-import { Landing } from "@/components/landing";
+import { EnLanding } from "@/components/en/landing";
 import { en } from "@/content/en";
 
 export default function HomePage() {
-  return <Landing t={en} />;
+  return <EnLanding t={en} />;
 }
