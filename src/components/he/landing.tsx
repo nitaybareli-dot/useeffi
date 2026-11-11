@@ -1,24 +1,16 @@
-import type { Dict } from "@/content/types";
+import type { HeDict } from "@/content/types";
 import { organizationJsonLd, pagePath } from "@/lib/site";
+import { Footer } from "../footer";
+import { Header } from "../header";
+import { SkipLink } from "../skip-link";
 import { Contact } from "./contact";
-import { Footer } from "./footer";
-import { Header } from "./header";
 import { Hero } from "./hero";
-import { Faq, Gap, Process, Security, Services, Why } from "./sections";
-import { UseCases } from "./use-cases";
+import { Industries } from "./industries";
+import { Decides, Faq, Process, Security, Services, Why } from "./sections";
+import { StickyCta } from "./sticky-cta";
 
-export function SkipLink({ label }: { label: string }) {
-  return (
-    <a
-      href="#main"
-      className="sr-only focus:not-sr-only focus:fixed focus:start-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-ink focus:px-5 focus:py-3 focus:text-sm focus:font-medium focus:text-paper"
-    >
-      {label}
-    </a>
-  );
-}
-
-export function Landing({ t }: { t: Dict }) {
+/** Hebrew landing page. Section order is fixed by the brief. */
+export function HeLanding({ t }: { t: HeDict }) {
   const switchHref = pagePath("home", t.nav.switchLang);
 
   return (
@@ -27,9 +19,9 @@ export function Landing({ t }: { t: Dict }) {
       <Header nav={t.nav} a11y={t.a11y} home={t.home} base="" switchHref={switchHref} />
       <main id="main">
         <Hero t={t} />
-        <Gap t={t} />
+        <Decides t={t} />
         <Services t={t} />
-        <UseCases t={t} />
+        <Industries t={t} />
         <Process t={t} />
         <Why t={t} />
         <Security t={t} />
@@ -37,6 +29,7 @@ export function Landing({ t }: { t: Dict }) {
         <Contact t={t} />
       </main>
       <Footer t={t} base="" switchHref={switchHref} />
+      <StickyCta label={t.sticky} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

@@ -3,7 +3,7 @@
 import { track } from "@vercel/analytics";
 import { useRef, useState, type KeyboardEvent } from "react";
 import type { Dict } from "@/content/types";
-import { Frame, Label, TwoTone, headingClass, pad } from "./ui";
+import { Frame, Label, headingClass, pad } from "../ui";
 
 export function UseCases({ t }: { t: Dict }) {
   const u = t.industries;
@@ -34,10 +34,8 @@ export function UseCases({ t }: { t: Dict }) {
       <Frame>
         <div className={`reveal flex flex-col items-center pb-12 pt-16 text-center sm:pt-24 ${pad}`}>
           <Label>{u.eyebrow}</Label>
-          <h2 className={`mt-6 max-w-3xl ${headingClass}`}>
-            <TwoTone text={u.title} />
-          </h2>
-          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-mute">{u.lead}</p>
+          <h2 className={`mt-6 max-w-3xl ${headingClass}`}>{u.title}</h2>
+          <p className="type-lead mt-6 max-w-2xl">{u.lead}</p>
         </div>
 
         <div className="flex justify-start overflow-x-auto px-5 pb-12 [scrollbar-width:none] sm:justify-center sm:px-10">
@@ -63,7 +61,7 @@ export function UseCases({ t }: { t: Dict }) {
                   onClick={() => select(index)}
                   onKeyDown={onKeyDown}
                   className={`shrink-0 rounded-full px-4 py-2 text-sm transition-colors ${
-                    selected ? "bg-paper text-ink shadow-sm" : "text-mute hover:text-ink"
+                    selected ? "bg-paper text-ink shadow-sm" : "text-mute hover:text-accent"
                   }`}
                 >
                   {tab.name}
@@ -83,10 +81,10 @@ export function UseCases({ t }: { t: Dict }) {
             className="border-t border-line lg:grid-cols-[0.9fr_1.1fr] [&:not([hidden])]:grid"
           >
             <div className={`flex flex-col justify-between gap-10 bg-fog py-10 lg:py-14 ${pad}`}>
-              <p className="max-w-md text-balance text-2xl font-light leading-snug tracking-tight sm:text-3xl sm:leading-snug">
+              <p className="max-w-md text-balance text-2xl font-medium leading-snug text-ink sm:text-3xl sm:leading-snug">
                 {tab.intro}
               </p>
-              <p className="text-[13px] text-mute">{tab.name}</p>
+              <p className="type-eyebrow">{tab.name}</p>
             </div>
             <ul className="lg:border-s lg:border-line">
               {tab.cases.map((item, caseIndex) => (
@@ -94,8 +92,8 @@ export function UseCases({ t }: { t: Dict }) {
                   key={item.title}
                   className={`py-7 ${pad} ${caseIndex > 0 ? "border-t border-line" : "max-lg:border-t max-lg:border-line"}`}
                 >
-                  <h3 className="font-medium">{item.title}</h3>
-                  <p className="mt-1.5 max-w-xl leading-relaxed text-mute">{item.text}</p>
+                  <h3 className="type-h3">{item.title}</h3>
+                  <p className="type-card mt-1.5 max-w-xl">{item.text}</p>
                 </li>
               ))}
             </ul>
@@ -106,7 +104,7 @@ export function UseCases({ t }: { t: Dict }) {
           {u.note}{" "}
           <a
             href="#contact"
-            className="whitespace-nowrap text-ink underline decoration-ink/30 underline-offset-4 hover:decoration-ink"
+            className="whitespace-nowrap text-accent underline underline-offset-4 hover:text-accent-hover"
           >
             {u.noteCta}
           </a>

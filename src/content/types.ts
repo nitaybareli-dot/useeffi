@@ -2,7 +2,8 @@ export type Lang = "he" | "en";
 
 export type TitledText = { title: string; text: string };
 
-export type Dict = {
+/** Fields both languages share: header, footer, privacy page and metadata. */
+export type Shell = {
   lang: Lang;
   dir: "rtl" | "ltr";
   locale: string;
@@ -22,6 +23,28 @@ export type Dict = {
     switchLabel: string;
     switchLang: Lang;
   };
+  footer: {
+    tagline: string;
+    /** Copyright line shown before `rights`. */
+    copyright: string;
+    rights: string;
+    privacy: string;
+    navTitle: string;
+    legalTitle: string;
+    /** Label of the contact link in the footer; falls back to nav.cta. */
+    cta?: string;
+  };
+  privacy: {
+    title: string;
+    updated: string;
+    intro: string;
+    sections: { title: string; body: string[] }[];
+    back: string;
+  };
+};
+
+/** English landing page content (the original layout). */
+export type Dict = Shell & {
   hero: {
     eyebrow: string;
     titleA: string;
@@ -83,12 +106,94 @@ export type Dict = {
       errorEmail: string;
     };
   };
-  footer: { tagline: string; rights: string; privacy: string; navTitle: string; legalTitle: string };
-  privacy: {
+};
+
+export type Numbered = { title: string; text: string };
+
+/** Hebrew landing page content (the current layout). */
+export type HeDict = Shell & {
+  hero: {
+    eyebrow: string;
     title: string;
-    updated: string;
-    intro: string;
-    sections: { title: string; body: string[] }[];
-    back: string;
+    tagline: string;
+    sub: string;
+    ctaPrimary: string;
+    ctaSecondary: string;
+    facts: string[];
+    mock: {
+      label: string;
+      title: string;
+      badge: string;
+      columns: [string, string, string, string];
+      rows: { item: string; planned: string; billed: string; status: string; flagged?: boolean }[];
+      finding: string;
+      pending: string;
+      caption: string;
+    };
+    strip: { label: string; items: { name: string; id: string }[] };
   };
+  decides: { eyebrow: string; title: string; lead: string; cards: Numbered[] };
+  services: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    cta: string;
+    items: { tag: string; title: string; key: string; text: string; items: string[] }[];
+  };
+  industries: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    tabs: { id: string; name: string; intro: string; cases: TitledText[] }[];
+    note: string;
+    cta: string;
+  };
+  process: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    outcomeLabel: string;
+    steps: { title: string; duration: string; text: string; outcome: string }[];
+  };
+  why: {
+    eyebrow: string;
+    title: string;
+    columns: [string, string, string, string];
+    rows: { label: string; values: [string, string, string, string] }[];
+    points: TitledText[];
+  };
+  security: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    items: (TitledText & {
+      icon: "database" | "key-round" | "file-clock" | "user-check" | "scale" | "test-tube";
+    })[];
+  };
+  faq: { title: string; items: { q: string; a: string }[] };
+  contact: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    points: string[];
+    form: {
+      name: string;
+      company: string;
+      phone: string;
+      email: string;
+      role: string;
+      message: string;
+      optional: string;
+      submit: string;
+      consentPrefix: string;
+      consentLink: string;
+      consentSuffix: string;
+      success: string;
+      errorSend: string;
+      errorRequired: string;
+      errorEmail: string;
+      errorPhone: string;
+    };
+  };
+  sticky: string;
 };

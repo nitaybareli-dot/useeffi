@@ -1,6 +1,6 @@
-import { Landing } from "@/components/landing";
+import { HeLanding } from "@/components/he/landing";
 import { he } from "@/content/he";
 
 export default function HomePage() {
-  return <Landing t={he} />;
+  return <HeLanding t={he} />;
 }
