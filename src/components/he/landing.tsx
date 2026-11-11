@@ -6,7 +6,7 @@ import { SkipLink } from "../skip-link";
 import { Contact } from "./contact";
 import { Hero } from "./hero";
 import { Industries } from "./industries";
-import { Decides, Faq, Process, Security, Services, Why } from "./sections";
+import { Decides, Faq, Process, Security, Services } from "./sections";
 import { StickyCta } from "./sticky-cta";
 
 /** Hebrew landing page. Section order is fixed by the brief. */
@@ -23,7 +23,6 @@ export function HeLanding({ t }: { t: HeDict }) {
         <Services t={t} />
         <Industries t={t} />
         <Process t={t} />
-        <Why t={t} />
         <Security t={t} />
         <Faq t={t} />
         <Contact t={t} />

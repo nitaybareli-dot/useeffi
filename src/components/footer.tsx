@@ -15,7 +15,7 @@ export function Footer({
     { href: `${base}#services`, label: t.nav.services },
     { href: `${base}#industries`, label: t.nav.industries },
     { href: `${base}#process`, label: t.nav.process },
-    { href: `${base}#why`, label: t.nav.why },
+    ...(t.nav.why ? [{ href: `${base}#why`, label: t.nav.why }] : []),
     { href: `${base}#faq`, label: t.nav.faq },
     { href: `${base}#contact`, label: t.footer.cta ?? t.nav.cta },
   ];
