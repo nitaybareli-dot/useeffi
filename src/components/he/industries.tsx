@@ -4,7 +4,7 @@ import { track } from "@vercel/analytics";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import type { HeDict } from "@/content/types";
 import { CtaLink } from "../cta-link";
-import { Frame, Label, pad } from "../ui";
+import { Frame, pad } from "../ui";
 
 /**
  * Industry tabs. Each tab button carries the industry id (#real-estate,
@@ -46,13 +46,12 @@ export function Industries({ t }: { t: HeDict }) {
     <section id="industries" className="border-b border-line">
       <Frame>
         <div className={`reveal flex flex-col items-center pb-10 pt-16 text-center md:pb-12 md:pt-24 ${pad}`}>
-          <Label>{u.eyebrow}</Label>
-          <h2 className="type-h2 mt-6 max-w-3xl">{u.title}</h2>
+          <h2 className="type-h2 max-w-3xl">{u.title}</h2>
           <p className="type-lead mt-6 max-w-2xl">{u.lead}</p>
         </div>
 
         <div className="flex justify-start overflow-x-auto px-5 pb-10 [scrollbar-width:none] sm:px-10 lg:justify-center md:pb-12">
-          <div role="tablist" aria-label={u.eyebrow} className="inline-flex shrink-0 gap-1 rounded-full bg-fog p-1">
+          <div role="tablist" aria-label={u.title} className="inline-flex shrink-0 gap-1 rounded-full bg-fog p-1">
             {u.tabs.map((tab, index) => {
               const selected = index === active;
               return (
