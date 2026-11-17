@@ -28,7 +28,7 @@ export function Hero({ t }: { t: Landing }) {
         }}
       >
         <div>
-          <Wordmark size="clamp(44px, 5.4vw, 80px)" loop />
+          <Wordmark size="clamp(36px, 4.2vw, 60px)" loop />
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 14, color: "var(--lp-soft)" }}>
           <span className="lp-pulse" style={{ width: 8, height: 8, borderRadius: 999, background: "var(--acc)" }} />
