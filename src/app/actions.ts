@@ -2,7 +2,7 @@
 
 import { headers } from "next/headers";
 import { after } from "next/server";
-import { isRateLimited, notifyLead, saveLead, type Lead } from "@/lib/leads";
+import { isRateLimited, notifyLead, saveLead, type Lead, type LeadContext } from "@/lib/leads";
 
 type Field = "name" | "company" | "role" | "email" | "phone" | "message";
 
@@ -21,6 +21,28 @@ const PHONE_CHARS = /^\+?[\d\s\-().]+$/;
 function isPhone(value: string) {
   const digits = value.replace(/\D/g, "").length;
   return PHONE_CHARS.test(value) && digits >= 9 && digits <= 15;
+}
+
+/** Rough visit context for the notification email (Vercel adds the geo headers). */
+async function visitContext(): Promise<LeadContext> {
+  const h = await headers();
+  const decode = (value: string | null) => {
+    if (!value) return undefined;
+    try {
+      return decodeURIComponent(value);
+    } catch {
+      return value;
+    }
+  };
+  const ua = h.get("user-agent") ?? "";
+  const device = /iPhone|Android.+Mobile|Mobile/i.test(ua) ? "נייד" : /iPad|Tablet/i.test(ua) ? "טאבלט" : ua ? "מחשב" : undefined;
+  let country = h.get("x-vercel-ip-country") ?? undefined;
+  try {
+    if (country) country = new Intl.DisplayNames(["he"], { type: "region" }).of(country) ?? country;
+  } catch {
+    // Keep the two-letter code.
+  }
+  return { country, city: decode(h.get("x-vercel-ip-city")), device };
 }
 
 async function clientIp() {
@@ -88,6 +110,7 @@ export async function sendContact(_previous: ContactState, formData: FormData): 
     return { status: "error", error: "send", values };
   }
 
-  after(() => notifyLead(lead, id));
+  const context = await visitContext();
+  after(() => notifyLead(lead, id, context));
   return { status: "success" };
 }
