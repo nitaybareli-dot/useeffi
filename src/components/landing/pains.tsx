@@ -1,14 +1,17 @@
 import type { Landing } from "@/content/landing";
 import { Label } from "./parts";
+import { PainsTrigger } from "./pains-trigger";
 
 /**
- * Pain points. As each line scrolls in, Effi's green block runs along it and
- * strikes it out (the text stays readable), and the answer appears beside it.
+ * Pain points. When each line reaches the middle of the screen, Effi's block
+ * runs along it and strikes it out at a readable pace (the text stays
+ * readable), then the answer appears beside it.
  */
 export function Pains({ t }: { t: Landing }) {
   const p = t.pains;
   return (
     <section>
+      <PainsTrigger />
       <div className="lp-wrap lp-section" style={{ display: "flex", flexDirection: "column", gap: "clamp(40px, 5vw, 64px)" }}>
         <div className="lp-rv" style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <Label n="01">{p.label}</Label>
