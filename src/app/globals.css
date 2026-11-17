@@ -625,6 +625,34 @@ body {
   background: transparent;
 }
 
+/* Closed chat after a successful send. */
+.lp-chat-done {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 40px 28px 44px;
+  text-align: center;
+  animation: lp-msg 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.lp-chat-done p {
+  margin: 0;
+  max-width: 440px;
+  font-size: 20px;
+  line-height: 1.45;
+}
+.lp-done-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 99px;
+  background: rgba(91, 140, 255, 0.14);
+  color: var(--acc);
+  font-size: 14px;
+  font-weight: 600;
+}
+
 /* WhatsApp-style light chat. */
 [dir="rtl"] .lp-back {
   transform: scaleX(-1);
