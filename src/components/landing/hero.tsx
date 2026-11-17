@@ -10,12 +10,12 @@ const STRAIGHT = [
   "M600,200 L40,200",
   "M600,200 C560,200 540,280 500,280 L40,280",
 ];
-const TANGLE_STROKES = ["#5a5a5a", "#3e3e3e", "#4a4a4a"];
+const TANGLE_OPACITY = [1, 0.7, 0.85];
 
 export function Hero({ t }: { t: Landing }) {
   const h = t.hero;
   return (
-    <section className="lp-grid" style={{ borderBottom: "1px solid #1c1c1c", overflow: "hidden" }}>
+    <section className="lp-grid" style={{ borderBottom: "1px solid var(--lp-border)", overflow: "hidden" }}>
       <div
         className="lp-wrap"
         style={{
@@ -31,11 +31,11 @@ export function Hero({ t }: { t: Landing }) {
           <span className="lp-pulse" style={{ width: 8, height: 8, borderRadius: 999, background: "var(--acc)" }} />
           <span>{h.eyebrow}</span>
         </div>
-        <h1 className="lp-h1" style={{ maxWidth: 1100, fontSize: "clamp(44px, 6vw, 92px)" }}>
+        <h1 className="lp-h1" style={{ maxWidth: 1100, fontSize: "clamp(40px, 5.2vw, 80px)" }}>
           {h.titleA}{" "}
           <span className="lp-dim">{h.titleB}</span>
         </h1>
-        <p className="lp-lead" style={{ maxWidth: 620, fontSize: "clamp(18px, 1.6vw, 22px)", color: "#c7c7c7" }}>
+        <p className="lp-lead" style={{ maxWidth: 620, fontSize: "clamp(18px, 1.6vw, 22px)", color: "var(--lp-fg2)" }}>
           {h.sub}
         </p>
 
@@ -47,7 +47,7 @@ export function Hero({ t }: { t: Landing }) {
             </div>
             <div className="lp-fade-in" style={{ display: "flex", flexDirection: "column", gap: 4, textAlign: "end" }}>
               <span style={{ color: "var(--acc)" }}>{h.after.label}</span>
-              <span style={{ color: "#c7c7c7" }}>{h.after.text}</span>
+              <span style={{ color: "var(--lp-fg2)" }}>{h.after.text}</span>
             </div>
           </div>
           <svg viewBox="0 70 1200 270" width="100%" role="img" aria-label={h.flowAlt} style={{ display: "block", overflow: "visible" }}>
@@ -59,9 +59,8 @@ export function Hero({ t }: { t: Landing }) {
                     className="lp-draw"
                     pathLength={1}
                     d={d}
-                    stroke={TANGLE_STROKES[i]}
+                    style={{ stroke: "var(--lp-tangle)", opacity: TANGLE_OPACITY[i], animationDelay: `${i * 0.25}s` }}
                     strokeWidth="1.5"
-                    style={{ animationDelay: `${i * 0.25}s` }}
                   />
                 ))}
                 {STRAIGHT.map((d) => (
@@ -69,7 +68,7 @@ export function Hero({ t }: { t: Landing }) {
                 ))}
               </g>
               {TANGLE.map((d, i) => (
-                <circle key={d} r="3" fill={i === 0 ? "#bdbdbd" : "#8c8c8c"}>
+                <circle key={d} r="3" style={{ fill: i === 0 ? "var(--lp-fg2)" : "var(--lp-mute)" }}>
                   <animateMotion dur={`${9 + i}s`} begin={`${i * 2}s`} repeatCount="indefinite" path={d} />
                 </circle>
               ))}
@@ -83,10 +82,10 @@ export function Hero({ t }: { t: Landing }) {
                   <rect key={y} x="34" y={y} width="12" height="12" rx="2" style={{ fill: "var(--acc)" }} />
                 ))}
               </g>
-              <rect x="598" y="178" width="44" height="44" rx="6" fill="#000" stroke="#fff" strokeWidth="1.5" />
+              <rect x="598" y="178" width="44" height="44" rx="6" strokeWidth="1.5" style={{ fill: "var(--lp-bg)", stroke: "var(--lp-fg)" }} />
               <rect className="lp-pulse" x="613" y="193" width="14" height="14" rx="2" style={{ fill: "var(--acc)" }} />
             </g>
-            <text x="620" y="252" textAnchor="middle" fill="#fff" fontSize="13" style={{ fontFamily: "var(--font-plex-mono), monospace" }} letterSpacing="2">
+            <text x="620" y="252" textAnchor="middle" fontSize="13" style={{ fill: "var(--lp-fg)", fontFamily: "var(--font-plex-mono), monospace" }} letterSpacing="2">
               EFFI
             </text>
           </svg>

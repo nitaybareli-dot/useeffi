@@ -186,14 +186,59 @@ body {
    Landing page (2026 redesign). Everything is scoped under .lp so the
    privacy pages keep the original light theme.
    =================================================================== */
-.lp {
+.lp,
+.lp-dark {
   --acc: #5b8cff;
   --lp-line: #1f1f1f;
   --lp-mute: #8c8c8c;
   --lp-soft: #a3a3a3;
   --lp-paper: #f5f3ef;
-  background: #000;
-  color: #fff;
+  --lp-bg: #000;
+  --lp-fg: #fff;
+  --lp-fg2: #c7c7c7;
+  --lp-dim-c: #6b6b6b;
+  --lp-border: #1c1c1c;
+  --lp-border2: #2a2a2a;
+  --lp-card: #070707;
+  --lp-card2: #0b0b0b;
+  --lp-field: #111;
+  --lp-bubble: #151515;
+  --lp-gridline: rgba(255, 255, 255, 0.05);
+  --lp-header: rgba(0, 0, 0, 0.8);
+  --lp-tangle: #5a5a5a;
+  --lp-wm-tail: #5a5a5a;
+  --lp-err: #fca5a5;
+  background: var(--lp-bg);
+  color: var(--lp-fg);
+}
+/* Light theme: the page goes white; the Effi demo stays dark to stand out. */
+.lp[data-theme="light"] {
+  --acc: #3b6ef5;
+  --lp-line: #e8e5de;
+  --lp-mute: #77756f;
+  --lp-soft: #5c5b56;
+  --lp-paper: #f3f0e9;
+  --lp-bg: #fcfbf8;
+  --lp-fg: #0a0a0a;
+  --lp-fg2: #3a3a36;
+  --lp-dim-c: #a3a19b;
+  --lp-border: #e8e5de;
+  --lp-border2: #d9d5cc;
+  --lp-card: #fff;
+  --lp-card2: #f7f5f0;
+  --lp-field: #fff;
+  --lp-bubble: #f1eee8;
+  --lp-gridline: rgba(0, 0, 0, 0.045);
+  --lp-header: rgba(252, 251, 248, 0.86);
+  --lp-tangle: #a8a59e;
+  --lp-wm-tail: #b4b1aa;
+  --lp-err: #c2410c;
+}
+.lp-dark {
+  background: var(--lp-bg);
+  color: var(--lp-fg);
+}
+.lp {
   font-family: var(--font-sans);
   min-width: 0;
 }
@@ -221,8 +266,8 @@ body {
   color: #0a0a0a;
 }
 .lp-grid {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-image: linear-gradient(var(--lp-gridline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--lp-gridline) 1px, transparent 1px);
   background-size: 80px 80px;
   background-position: center top;
 }
@@ -243,7 +288,7 @@ body {
 }
 .lp-dim {
   display: block;
-  color: #6b6b6b;
+  color: var(--lp-dim-c);
 }
 .lp-light .lp-dim {
   color: #8a8a84;
@@ -266,7 +311,7 @@ body {
 .lp-label i {
   width: 32px;
   height: 1px;
-  background: #2a2a2a;
+  background: var(--lp-border2);
 }
 .lp-light .lp-label {
   color: #5c5c57;
@@ -336,7 +381,7 @@ body {
   max-width: 0;
   overflow: hidden;
   white-space: nowrap;
-  color: #5a5a5a;
+  color: var(--lp-wm-tail);
 }
 .lp-wm-tail span {
   display: inline-block;
@@ -468,7 +513,7 @@ body {
   margin-top: -10px;
   border-radius: 6px;
   background: var(--acc);
-  box-shadow: 0 0 0 4px #000;
+  box-shadow: 0 0 0 4px var(--lp-bg);
   opacity: 0;
 }
 .lp-runner svg {
@@ -483,7 +528,7 @@ body {
 /* Pains: rows waiting below the middle of the screen start un-struck, then
    play once (data-play) at a pace people can follow. */
 .lp-pain[data-wait] .lp-strike { width: 0; }
-.lp-pain[data-wait] .lp-pain-words { color: #fff; }
+.lp-pain[data-wait] .lp-pain-words { color: var(--lp-fg); }
 .lp-pain[data-wait] .lp-answer { opacity: 0; transform: translateY(8px); }
 .lp-pain[data-play] .lp-strike { animation: lp-strike-t 1.3s linear 0.35s both; }
 .lp-pain[data-play] .lp-pain-words { animation: lp-dim-t 1.3s linear 0.35s both; }
@@ -500,8 +545,8 @@ body {
   to { width: 0; }
 }
 @keyframes lp-dim-back {
-  from { color: #8c8c8c; }
-  to { color: #fff; }
+  from { color: var(--lp-mute); }
+  to { color: var(--lp-fg); }
 }
 @keyframes lp-answer-back {
   from { opacity: 1; transform: none; }
@@ -518,8 +563,8 @@ body {
   to { width: 100%; }
 }
 @keyframes lp-dim-t {
-  from { color: #fff; }
-  to { color: #8c8c8c; }
+  from { color: var(--lp-fg); }
+  to { color: var(--lp-mute); }
 }
 @keyframes lp-runner-t {
   0% { inset-inline-start: -10px; opacity: 0; transform: scale(0.6); }
@@ -545,8 +590,8 @@ body {
 }
 .lp-chat-in {
   align-self: flex-start;
-  background: #151515;
-  border: 1px solid #232323;
+  background: var(--lp-bubble);
+  border: 1px solid var(--lp-border);
   border-start-start-radius: 4px;
 }
 .lp-chat-out {
@@ -565,18 +610,18 @@ body {
   min-width: 0;
   min-height: 48px;
   padding: 12px 14px;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--lp-border2);
   border-radius: 10px;
-  background: #111;
-  color: #fff;
+  background: var(--lp-field);
+  color: var(--lp-fg);
   font: inherit;
   font-size: 17px;
 }
 .lp-chat-input::placeholder {
-  color: #6b6b6b;
+  color: var(--lp-dim-c);
 }
 .lp-chat-input[aria-invalid="true"] {
-  border-color: #fca5a5;
+  border-color: var(--lp-err);
 }
 
 /* Progress bar above the contact chat, with Effi hopping between stops. */
@@ -584,7 +629,7 @@ body {
   position: relative;
   padding: 44px 22px 34px;
   border-bottom: 1px solid var(--lp-line);
-  background: #090909;
+  background: var(--lp-card2);
 }
 .lp-steps ol {
   position: relative;
@@ -603,8 +648,8 @@ body {
   position: absolute;
   inset: 0;
   border-radius: 99px;
-  background: #0b0b0b;
-  border: 2px solid #2e2e2e;
+  background: var(--lp-card);
+  border: 2px solid var(--lp-border2);
   transition: background 0.3s, border-color 0.3s;
 }
 .lp-steps li[data-state="now"] i {
@@ -630,14 +675,14 @@ body {
   transition: color 0.3s;
 }
 .lp-steps li[data-state="now"] b {
-  color: #fff;
+  color: var(--lp-fg);
 }
 .lp-steps-rail {
   position: absolute;
   top: 50px;
   inset-inline: 29px;
   height: 2px;
-  background: #222;
+  background: var(--lp-border2);
 }
 .lp-steps-rail span {
   display: block;
@@ -695,13 +740,13 @@ body {
 }
 .lp-chat-log {
   scrollbar-width: thin;
-  scrollbar-color: #2a2a2a transparent;
+  scrollbar-color: var(--lp-border2) transparent;
 }
 .lp-chat-log::-webkit-scrollbar {
   width: 6px;
 }
 .lp-chat-log::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
+  background: var(--lp-border2);
   border-radius: 99px;
 }
 .lp-chat-log::-webkit-scrollbar-track {
@@ -764,7 +809,7 @@ body {
   bottom: 14px;
   inset-inline-start: 15px;
   width: 1px;
-  background: #262626;
+  background: var(--lp-border2);
 }
 .lp-next li {
   position: relative;
@@ -778,8 +823,8 @@ body {
   width: 31px;
   height: 31px;
   border-radius: 8px;
-  border: 1px solid #2e2e2e;
-  background: #000;
+  border: 1px solid var(--lp-border2);
+  background: var(--lp-bg);
   color: var(--acc);
   font-size: 12px;
 }
@@ -799,7 +844,7 @@ body {
 .lp-next-team {
   margin: 32px 0 0;
   padding-top: 20px;
-  border-top: 1px solid #1c1c1c;
+  border-top: 1px solid var(--lp-border);
   font-size: 14px;
   line-height: 1.55;
   color: var(--lp-mute);

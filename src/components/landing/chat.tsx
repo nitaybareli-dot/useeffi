@@ -22,7 +22,7 @@ function Status({ text, waiting }: { text: string; waiting?: boolean }) {
 export function Chat({ t }: { t: Landing }) {
   const c = t.chat;
   return (
-    <section style={{ borderTop: "1px solid #1c1c1c" }}>
+    <section className="lp-dark" style={{ borderTop: "1px solid #1c1c1c" }}>
       <div className="lp-wrap lp-section" style={{ display: "flex", flexDirection: "column", gap: "clamp(40px, 5vw, 64px)" }}>
         <div className="lp-head lp-rv">
           <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
