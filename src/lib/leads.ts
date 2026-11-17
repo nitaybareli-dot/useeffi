@@ -207,7 +207,11 @@ export async function notifyLead(lead: Lead, id: string) {
           .join("")}</table>`,
       }),
     });
-    if (!response.ok) console.error(`[leads] Resend responded with ${response.status} for lead ${id}`);
+    if (!response.ok) {
+      // Resend explains what it rejected (bad address, unverified sender...). No secrets in it.
+      const detail = (await response.text().catch(() => "")).slice(0, 300);
+      console.error(`[leads] Resend responded with ${response.status} for lead ${id}: ${detail}`);
+    }
   } catch (error) {
     console.error(`[leads] notification for lead ${id} failed`, error instanceof Error ? error.message : error);
   }
