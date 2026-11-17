@@ -6,7 +6,7 @@ const format = new Intl.NumberFormat("en-US");
 
 /** Demo counter that keeps ticking, so the log feels live. */
 export function OpsCounter() {
-  const [count, setCount] = useState(1284);
+  const [count, setCount] = useState(186);
   useEffect(() => {
     const timer = setInterval(() => setCount((n) => n + 1 + Math.floor(Math.random() * 3)), 1600);
     return () => clearInterval(timer);

@@ -35,7 +35,7 @@ export function Hero({ t }: { t: Landing }) {
           <span>{h.eyebrow}</span>
         </div>
         <h1 className="lp-h1" style={{ maxWidth: 1100 }}>
-          {h.titleA}
+          {h.titleA}{" "}
           <span className="lp-dim">{h.titleB}</span>
         </h1>
         <div className="lp-head" style={{ gap: "28px 48px" }}>

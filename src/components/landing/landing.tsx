@@ -19,27 +19,7 @@ export function Landing({ shell, t }: { shell: Shell; t: LandingCopy }) {
   return (
     <div className="lp" dir={shell.dir}>
       <SkipLink label={shell.a11y.skip} />
-      <header style={{ position: "sticky", top: 0, zIndex: 30, background: "rgba(0,0,0,0.8)", backdropFilter: "blur(14px)", borderBottom: "1px solid #1c1c1c" }}>
-        <div className="lp-wrap" style={{ paddingBlock: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
-          <a href={shell.home} aria-label="Effi" style={{ color: "#fff", textDecoration: "none" }}>
-            <Wordmark size="24px" loop slow />
-          </a>
-          <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-            <a
-              href={t.switchHref}
-              hrefLang={t.lang === "he" ? "en" : "he"}
-              lang={t.lang === "he" ? "en" : "he"}
-              className={t.lang === "he" ? "lp-mono" : undefined}
-              style={{ fontSize: 13, color: "var(--lp-soft)", textDecoration: "none" }}
-            >
-              {t.switchLabel}
-            </a>
-            <CtaButton href="#contact" location="header" size="md">
-              {t.headerCta}
-            </CtaButton>
-          </div>
-        </div>
-      </header>
+      <LandingHeader shell={shell} t={t} />
 
       <main id="main">
         <Hero t={t} />
@@ -50,25 +30,7 @@ export function Landing({ shell, t }: { shell: Shell; t: LandingCopy }) {
         <Contact t={t} privacyHref={shell.privacyHref} />
       </main>
 
-      <footer style={{ borderTop: "1px solid #1c1c1c" }}>
-        <div
-          className="lp-wrap"
-          style={{ paddingBlock: 32, display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 20, fontSize: 13, color: "var(--lp-mute)" }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <Wordmark size="18px" />
-            <span>{t.footer.tagline}</span>
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 24 }}>
-            <a href={shell.privacyHref} style={{ color: "var(--lp-soft)" }}>
-              {t.footer.privacy}
-            </a>
-            <span className="lp-mono" dir="ltr">
-              © 2026 EFFI
-            </span>
-          </div>
-        </div>
-      </footer>
+      <LandingFooter shell={shell} t={t} />
 
       <script
         type="application/ld+json"
@@ -77,5 +39,67 @@ export function Landing({ shell, t }: { shell: Shell; t: LandingCopy }) {
         }}
       />
     </div>
+  );
+}
+
+/** Sticky header with the logo, language switch and "let's talk". Shared with the privacy page. */
+export function LandingHeader({
+  shell,
+  t,
+  switchHref,
+  ctaHref = "#contact",
+}: {
+  shell: Shell;
+  t: LandingCopy;
+  switchHref?: string;
+  ctaHref?: string;
+}) {
+  return (
+    <header style={{ position: "sticky", top: 0, zIndex: 30, background: "rgba(0,0,0,0.8)", backdropFilter: "blur(14px)", borderBottom: "1px solid #1c1c1c" }}>
+      <div className="lp-wrap" style={{ paddingBlock: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
+        <a href={shell.home} aria-label="Effi" style={{ color: "#fff", textDecoration: "none" }}>
+          <Wordmark size="24px" loop slow />
+        </a>
+        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+          <a
+            href={switchHref ?? t.switchHref}
+            hrefLang={t.lang === "he" ? "en" : "he"}
+            lang={t.lang === "he" ? "en" : "he"}
+            className={t.lang === "he" ? "lp-mono" : undefined}
+            style={{ fontSize: 13, color: "var(--lp-soft)", textDecoration: "none" }}
+          >
+            {t.switchLabel}
+          </a>
+          <CtaButton href={ctaHref} location="header" size="md">
+            {t.headerCta}
+          </CtaButton>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+/** Footer with the tagline and privacy link. Shared with the privacy page. */
+export function LandingFooter({ shell, t }: { shell: Shell; t: LandingCopy }) {
+  return (
+    <footer style={{ borderTop: "1px solid #1c1c1c" }}>
+      <div
+        className="lp-wrap"
+        style={{ paddingBlock: 32, display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 20, fontSize: 13, color: "var(--lp-mute)" }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          <Wordmark size="18px" />
+          <span>{t.footer.tagline}</span>
+        </div>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 24 }}>
+          <a href={shell.privacyHref} style={{ color: "var(--lp-soft)" }}>
+            {t.footer.privacy}
+          </a>
+          <span className="lp-mono" dir="ltr">
+            © 2026 EFFI
+          </span>
+        </div>
+      </div>
+    </footer>
   );
 }

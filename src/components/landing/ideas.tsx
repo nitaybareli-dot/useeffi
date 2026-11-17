@@ -17,7 +17,7 @@ export function Ideas({ t }: { t: Landing }) {
         <div className="lp-rv" style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <Label n="04">{d.label}</Label>
           <h2 className="lp-h2">
-            {d.titleA}
+            {d.titleA}{" "}
             <span className="lp-dim">{d.titleB}</span>
           </h2>
         </div>

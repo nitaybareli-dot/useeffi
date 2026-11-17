@@ -1,48 +1,48 @@
+import { landingEn, landingHe } from "@/content/landing";
 import type { Shell } from "@/content/types";
 import { pagePath } from "@/lib/site";
-import { Footer } from "./footer";
-import { Header } from "./header";
+import { LandingFooter, LandingHeader } from "./landing/landing";
 import { SkipLink } from "./skip-link";
-import { Frame, pad } from "./ui";
 
+/** Privacy policy, in the same look, header and footer as the landing page. */
 export function PrivacyPage({ t }: { t: Shell }) {
   const p = t.privacy;
-  const switchHref = pagePath("privacy", t.nav.switchLang);
+  const copy = t.lang === "he" ? landingHe : landingEn;
 
   return (
-    <>
+    <div className="lp" dir={t.dir}>
       <SkipLink label={t.a11y.skip} />
-      <Header nav={t.nav} a11y={t.a11y} home={t.home} base={t.home} switchHref={switchHref} />
+      <LandingHeader
+        shell={t}
+        t={copy}
+        switchHref={pagePath("privacy", t.nav.switchLang)}
+        ctaHref={`${t.home === "/" ? "" : t.home}/#contact`}
+      />
       <main id="main">
-        <Frame>
-          <div className={`max-w-3xl py-16 sm:py-24 ${pad}`}>
-            <h1 className="type-h1">
-              {p.title}
-            </h1>
-            <p className="mt-4 text-sm text-mute">{p.updated}</p>
-            <p className="type-lead mt-10">{p.intro}</p>
+        <div className="lp-wrap" style={{ paddingBlock: "clamp(56px, 8vw, 96px)", maxWidth: 820 }}>
+          <h1 className="lp-h2" style={{ fontSize: "clamp(34px, 4.4vw, 56px)" }}>
+            {p.title}
+          </h1>
+          <p style={{ marginTop: 16, fontSize: 13, color: "var(--lp-mute)" }}>{p.updated}</p>
+          <p style={{ marginTop: 32, fontSize: 19, lineHeight: 1.6, color: "var(--lp-soft)" }}>{p.intro}</p>
 
-            {p.sections.map((section) => (
-              <section key={section.title} className="mt-12 border-t border-line pt-8">
-                <h2 className="type-h3">{section.title}</h2>
-                {section.body.map((paragraph) => (
-                  <p key={paragraph} className="type-card mt-3">
-                    {paragraph}
-                  </p>
-                ))}
-              </section>
-            ))}
+          {p.sections.map((section) => (
+            <section key={section.title} style={{ marginTop: 44, paddingTop: 28, borderTop: "1px solid #1c1c1c" }}>
+              <h2 style={{ margin: 0, fontSize: 22, fontWeight: 600 }}>{section.title}</h2>
+              {section.body.map((paragraph) => (
+                <p key={paragraph} style={{ margin: "12px 0 0", fontSize: 16, lineHeight: 1.65, color: "var(--lp-soft)" }}>
+                  {paragraph}
+                </p>
+              ))}
+            </section>
+          ))}
 
-            <a
-              href={t.home}
-              className="mt-14 inline-block text-accent underline underline-offset-4 hover:text-accent-hover"
-            >
-              {p.back}
-            </a>
-          </div>
-        </Frame>
+          <a href={t.home} style={{ display: "inline-block", marginTop: 48, color: "var(--acc)" }}>
+            {p.back}
+          </a>
+        </div>
       </main>
-      <Footer t={t} base={t.home} switchHref={switchHref} />
-    </>
+      <LandingFooter shell={t} t={copy} />
+    </div>
   );
 }
