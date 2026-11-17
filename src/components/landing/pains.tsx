@@ -47,7 +47,13 @@ export function Pains({ t }: { t: Landing }) {
                 >
                   <span className="lp-pain-words">{item.pain}</span>
                   <span className="lp-strike" aria-hidden="true" />
-                  <span className="lp-runner" aria-hidden="true" />
+                  <span className="lp-runner" aria-hidden="true">
+                    <svg viewBox="0 0 40 40" width="100%" height="100%">
+                      <rect className="lp-eye" x="11.5" y="11" width="6" height="12" rx="3" fill="#0a0a0a" />
+                      <rect className="lp-eye" x="22.5" y="11" width="6" height="12" rx="3" fill="#0a0a0a" />
+                      <path d="M14 28.5 Q20 33 26 28.5" fill="none" stroke="#0a0a0a" strokeWidth="2.6" strokeLinecap="round" />
+                    </svg>
+                  </span>
                 </span>
               </span>
               <span className="lp-answer" style={{ flex: "0 1 380px", minWidth: 0 }}>

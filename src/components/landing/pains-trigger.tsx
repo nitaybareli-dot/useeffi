@@ -23,19 +23,40 @@ export function PainsTrigger() {
     const pending = rows.filter((row) => row.getBoundingClientRect().top > line);
     pending.forEach((row) => row.setAttribute("data-wait", ""));
 
+    // Lines that cross the trigger together still play one after another,
+    // so each strike-out gets its own moment.
+    const GAP = 900;
+    let nextStart = 0;
+    const timers: number[] = [];
+    const play = (row: Element) => {
+      const now = performance.now();
+      const at = Math.max(now, nextStart);
+      nextStart = at + GAP;
+      timers.push(
+        window.setTimeout(() => {
+          row.removeAttribute("data-wait");
+          row.setAttribute("data-play", "");
+        }, at - now),
+      );
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          entry.target.removeAttribute("data-wait");
-          entry.target.setAttribute("data-play", "");
+        const hits = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        for (const entry of hits) {
           observer.unobserve(entry.target);
+          play(entry.target);
         }
       },
       { rootMargin: "0px 0px -40% 0px" },
     );
     pending.forEach((row) => observer.observe(row));
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      timers.forEach((id) => window.clearTimeout(id));
+    };
   }, []);
 
   return <span ref={ref} hidden />;

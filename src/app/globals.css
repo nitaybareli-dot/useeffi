@@ -438,14 +438,17 @@ body {
 .lp-runner {
   position: absolute;
   top: 52%;
-  inset-inline-start: calc(100% - 7px);
-  width: 14px;
-  height: 14px;
-  margin-top: -7px;
-  border-radius: 3px;
+  inset-inline-start: calc(100% - 10px);
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  border-radius: 6px;
   background: var(--acc);
   box-shadow: 0 0 0 4px #000;
   opacity: 0;
+}
+.lp-runner svg {
+  display: block;
 }
 .lp-answer {
   display: flex;
@@ -471,11 +474,12 @@ body {
   to { color: #8c8c8c; }
 }
 @keyframes lp-runner-t {
-  0% { inset-inline-start: -7px; opacity: 0; }
-  13% { inset-inline-start: -7px; opacity: 1; }
-  81% { inset-inline-start: calc(100% - 7px); opacity: 1; }
-  100% { inset-inline-start: calc(100% - 7px); opacity: 0; }
+  0% { inset-inline-start: -10px; opacity: 0; transform: scale(0.6); }
+  13% { inset-inline-start: -10px; opacity: 1; transform: scale(1); }
+  81% { inset-inline-start: calc(100% - 10px); opacity: 1; transform: scale(1); }
+  100% { inset-inline-start: calc(100% - 10px); opacity: 0; transform: scale(0.6); }
 }
+
 @keyframes lp-answer-t {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: none; }
