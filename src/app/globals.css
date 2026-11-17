@@ -690,6 +690,9 @@ body {
   0%, 100% { transform: scaleX(1); opacity: 1; }
   50% { transform: scaleX(0.5); opacity: 0.4; }
 }
+#contact-chat {
+  scroll-margin-top: 88px;
+}
 .lp-chat-log {
   scrollbar-width: thin;
   scrollbar-color: #2a2a2a transparent;

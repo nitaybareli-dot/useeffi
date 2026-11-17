@@ -14,8 +14,8 @@ export function Arrow() {
 }
 
 /**
- * "Book a call" goes straight to the chat with Effi: the chat is centred on
- * screen and the first answer box gets focus, so the visitor can just type.
+ * "Let's talk" goes straight to the chat with Effi: on a computer the chat is
+ * centred and the answer box gets focus; on a phone the whole chat is shown.
  * Without JavaScript the plain #contact link still works.
  */
 function onCtaClick(event: MouseEvent<HTMLAnchorElement>, href: string, location: string) {
@@ -29,9 +29,14 @@ export function goToChat() {
   const chat = document.getElementById("contact-chat");
   if (!chat) return false;
   const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  chat.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "center" });
+  // On phones the keyboard would cover half the chat, so show the whole chat
+  // from its top and let the visitor tap the answer box themselves.
+  const phone = window.matchMedia("(max-width: 720px)").matches;
+  chat.scrollIntoView({ behavior: still ? "auto" : "smooth", block: phone ? "start" : "center" });
   history.replaceState(null, "", "#contact");
-  window.setTimeout(() => document.getElementById("contact-chat-input")?.focus({ preventScroll: true }), still ? 0 : 600);
+  if (!phone) {
+    window.setTimeout(() => document.getElementById("contact-chat-input")?.focus({ preventScroll: true }), still ? 0 : 600);
+  }
   return true;
 }
 
