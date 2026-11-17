@@ -187,13 +187,14 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
             <span className="lp-pulse" style={{ width: 8, height: 8, borderRadius: 999, background: "var(--acc)" }} />
             {c.meta}
           </span>
-          <h2 className="lp-h2" style={{ fontSize: "clamp(40px, 5.6vw, 88px)", maxWidth: 1050 }}>
+          <h2 className="lp-h2" style={{ fontSize: "clamp(32px, 4vw, 60px)", maxWidth: 900 }}>
             {c.titleA}
             <span className="lp-dim">{c.titleB}</span>
           </h2>
         </div>
 
         <form
+          id="contact-chat"
           action={formAction}
           onSubmit={onSubmit}
           noValidate
@@ -219,9 +220,6 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
               <span style={{ fontSize: 15, fontWeight: 600 }}>{t.chat.name}</span>
               <span style={{ fontSize: 12, color: "var(--acc)" }}>{c.online}</span>
             </div>
-            <span className="lp-mono" dir="ltr" style={{ fontSize: 12, color: "var(--lp-mute)" }}>
-              {done ? FIELDS.length : step + 1}/{FIELDS.length}
-            </span>
           </div>
 
           <Steps labels={FIELDS.map((f) => shortLabels[f])} pos={done ? FIELDS.length : answers.length} />
@@ -241,7 +239,7 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
             </div>
           ) : (
             <>
-          <div ref={logRef} aria-live="polite" className="lp-chat-log" style={{ display: "flex", flexDirection: "column", gap: 10, padding: 20, minHeight: 260, maxHeight: 420, overflowY: "auto" }}>
+          <div ref={logRef} aria-live="polite" className="lp-chat-log" style={{ display: "flex", flexDirection: "column", gap: 10, padding: 20, minHeight: 200, maxHeight: 380, overflowY: "auto" }}>
             {answers.map((value, i) => (
               <div key={`q${i}`} style={{ display: "contents" }}>
                 <EffiBubble>{ask(i)}</EffiBubble>
