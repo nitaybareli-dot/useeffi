@@ -21,13 +21,18 @@ export function Arrow() {
 function onCtaClick(event: MouseEvent<HTMLAnchorElement>, href: string, location: string) {
   track("cta_click", { location });
   if (href !== "#contact") return;
+  if (goToChat()) event.preventDefault();
+}
+
+/** Centre the chat with Effi and focus its answer box. Returns false if the chat isn't on this page. */
+export function goToChat() {
   const chat = document.getElementById("contact-chat");
-  if (!chat) return;
-  event.preventDefault();
+  if (!chat) return false;
   const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   chat.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "center" });
   history.replaceState(null, "", "#contact");
   window.setTimeout(() => document.getElementById("contact-chat-input")?.focus({ preventScroll: true }), still ? 0 : 600);
+  return true;
 }
 
 /** Link styled as the primary button that reports clicks to Vercel Analytics. */
