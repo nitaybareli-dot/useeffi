@@ -1,7 +1,7 @@
 "use client";
 
 import { track } from "@vercel/analytics";
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties, MouseEvent, ReactNode } from "react";
 
 /** Arrow that points toward the reading end of the line. */
 export function Arrow() {
@@ -11,6 +11,23 @@ export function Arrow() {
       <path d="m11 18-6-6 6-6" />
     </svg>
   );
+}
+
+/**
+ * "Book a call" goes straight to the chat with Effi: the chat is centred on
+ * screen and the first answer box gets focus, so the visitor can just type.
+ * Without JavaScript the plain #contact link still works.
+ */
+function onCtaClick(event: MouseEvent<HTMLAnchorElement>, href: string, location: string) {
+  track("cta_click", { location });
+  if (href !== "#contact") return;
+  const chat = document.getElementById("contact-chat");
+  if (!chat) return;
+  event.preventDefault();
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  chat.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "center" });
+  history.replaceState(null, "", "#contact");
+  window.setTimeout(() => document.getElementById("contact-chat-input")?.focus({ preventScroll: true }), still ? 0 : 600);
 }
 
 /** Link styled as the primary button that reports clicks to Vercel Analytics. */
@@ -28,7 +45,7 @@ export function CtaButton({
   children: ReactNode;
 }) {
   return (
-    <a href={href} onClick={() => track("cta_click", { location })} className={`lp-btn lp-btn-${size}`}>
+    <a href={href} onClick={(event) => onCtaClick(event, href, location)} className={`lp-btn lp-btn-${size}`}>
       {children}
       {arrow ? <Arrow /> : null}
     </a>
