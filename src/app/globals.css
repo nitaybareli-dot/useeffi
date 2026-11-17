@@ -405,121 +405,32 @@ body {
 /* The flow runs right to left in Hebrew and left to right in English. */
 [dir="ltr"] .lp-flow-art {
   transform: scaleX(-1);
-  transform-origin: 344.8px 240px;
+  transform-origin: 600px 200px;
 }
-.lp-hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: clamp(40px, 5vw, 72px);
-  align-items: center;
+/* Effi rides along in the sticky header button and hops now and then. */
+.lp-btn:has(.lp-btn-effi) {
+  gap: 10px;
+  padding-inline-start: 12px;
 }
-.lp-hero-title .lp-dim {
+.lp-btn-effi {
   display: block;
-}
-.lp-hero-art {
-  width: 100%;
-  max-width: 520px;
-  justify-self: center;
-}
-@media (min-width: 960px) {
-  .lp-hero-grid {
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  }
-  .lp-hero-title {
-    font-size: clamp(52px, 5vw, 84px);
-  }
-  .lp-hero-art {
-    max-width: none;
-  }
-}
-
-/* Small Effi that keeps you company once the hero is gone, and takes you to the chat. */
-.lp-float {
-  position: fixed;
-  z-index: 40;
-  bottom: clamp(16px, 3vw, 28px);
-  inset-inline-end: clamp(16px, 3vw, 28px);
-  display: block;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: #fff;
-  font: inherit;
-  cursor: pointer;
-  opacity: 0;
-  transform: translateY(16px) scale(0.9);
-  pointer-events: none;
-  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.3, 1.4, 0.5, 1);
-}
-.lp-float[data-on] {
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
-}
-.lp-float-face {
-  display: block;
-  border-radius: 14px;
-  box-shadow: 0 8px 24px rgba(91, 140, 255, 0.28), 0 2px 6px rgba(0, 0, 0, 0.5);
-  transition: transform 0.2s ease;
-}
-.lp-float:hover .lp-float-face,
-.lp-float:focus-visible .lp-float-face {
-  transform: translateY(-3px) rotate(-6deg);
-}
-.lp-float-tip {
-  position: absolute;
-  top: 50%;
-  inset-inline-end: calc(100% + 12px);
-  padding: 9px 14px;
-  border-radius: 999px;
-  background: #fff;
-  color: #0a0a0a;
-  font-size: 14px;
-  font-weight: 500;
-  white-space: nowrap;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  transform: translate(var(--lp-tip-shift, 8px), -50%);
-  transition: opacity 0.25s ease, transform 0.25s ease;
-  pointer-events: none;
-}
-[dir="rtl"] .lp-float-tip {
-  --lp-tip-shift: -8px;
-}
-.lp-float[data-peek] .lp-float-tip,
-.lp-float:hover .lp-float-tip,
-.lp-float:focus-visible .lp-float-tip {
-  opacity: 1;
-  transform: translate(0, -50%);
-}
-.lp-float:focus-visible {
-  outline: none;
-}
-.lp-float:focus-visible .lp-float-face {
-  outline: 2px solid #fff;
-  outline-offset: 3px;
+  transform-origin: 50% 100%;
 }
 @media (prefers-reduced-motion: no-preference) {
-  .lp-float[data-on] .lp-float-bob {
-    animation: lp-float-bob 7s ease-in-out 1.5s infinite;
+  .lp-btn-effi {
+    animation: lp-effi-nudge 9s ease-in-out 3s infinite;
+  }
+  .lp-btn:hover .lp-btn-effi {
+    animation: lp-hop 0.55s cubic-bezier(0.3, 0, 0.3, 1) both;
   }
 }
-.lp-float-bob {
-  display: block;
+@keyframes lp-effi-nudge {
+  0%, 88%, 100% { transform: translateY(0) rotate(0); }
+  91% { transform: translateY(-5px) rotate(-6deg); }
+  94% { transform: translateY(0) rotate(0); }
+  97% { transform: translateY(-2px) rotate(4deg); }
 }
-@keyframes lp-float-bob {
-  0%, 82%, 100% { transform: translateY(0) rotate(0); }
-  86% { transform: translateY(-7px) rotate(-5deg); }
-  90% { transform: translateY(0) rotate(0); }
-  94% { transform: translateY(-4px) rotate(4deg); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .lp-float,
-  .lp-float-tip,
-  .lp-float-face {
-    transition: none;
-  }
-}
+
 .lp-pulse {
   animation: lp-pulse 1.8s ease-in-out infinite;
 }
@@ -578,6 +489,30 @@ body {
 .lp-pain[data-play] .lp-pain-words { animation: lp-dim-t 1.3s linear 0.35s both; }
 .lp-pain[data-play] .lp-runner { animation: lp-runner-t 1.9s linear 0.1s both; }
 .lp-pain[data-play] .lp-answer { animation: lp-answer-t 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) 1.7s both; }
+/* Scrolling back up rewinds a line slowly: the answer leaves, Effi runs back
+   and the strike-out shrinks, so the line can play again on the way down. */
+.lp-pain[data-undo] .lp-answer { animation: lp-answer-back 0.4s ease both; }
+.lp-pain[data-undo] .lp-strike { animation: lp-strike-back 1.4s linear 0.35s both; }
+.lp-pain[data-undo] .lp-pain-words { animation: lp-dim-back 1.4s linear 0.35s both; }
+.lp-pain[data-undo] .lp-runner { animation: lp-runner-back 2s linear 0.1s both; }
+@keyframes lp-strike-back {
+  from { width: 100%; }
+  to { width: 0; }
+}
+@keyframes lp-dim-back {
+  from { color: #8c8c8c; }
+  to { color: #fff; }
+}
+@keyframes lp-answer-back {
+  from { opacity: 1; transform: none; }
+  to { opacity: 0; transform: translateY(8px); }
+}
+@keyframes lp-runner-back {
+  0% { inset-inline-start: calc(100% - 10px); opacity: 0; transform: scale(0.6); }
+  12% { inset-inline-start: calc(100% - 10px); opacity: 1; transform: scale(1); }
+  82% { inset-inline-start: -10px; opacity: 1; transform: scale(1); }
+  100% { inset-inline-start: -10px; opacity: 0; transform: scale(0.6); }
+}
 @keyframes lp-strike-t {
   from { width: 0; }
   to { width: 100%; }

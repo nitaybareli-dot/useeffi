@@ -5,10 +5,10 @@ import { SkipLink } from "../skip-link";
 import { Chat } from "./chat";
 import { Contact } from "./contact";
 import { Cost } from "./cost";
-import { EffiFloat } from "./effi-float";
 import { Hero } from "./hero";
 import { Ideas } from "./ideas";
 import { Pains } from "./pains";
+import { Avatar } from "./avatar";
 import { CtaButton } from "./parts";
 import { Wordmark } from "./wordmark";
 
@@ -32,7 +32,6 @@ export function Landing({ shell, t }: { shell: Shell; t: LandingCopy }) {
       </main>
 
       <LandingFooter shell={shell} t={t} />
-      <EffiFloat label={t.headerCta} />
 
       <script
         type="application/ld+json"
@@ -73,6 +72,9 @@ export function LandingHeader({
             {t.switchLabel}
           </a>
           <CtaButton href={ctaHref} location="header" size="md">
+            <span className="lp-btn-effi">
+              <Avatar size={24} invert />
+            </span>
             {t.headerCta}
           </CtaButton>
         </div>
