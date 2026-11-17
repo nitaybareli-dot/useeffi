@@ -28,7 +28,7 @@ const INPUT_TYPES: Record<Field, { type: string; autoComplete: string; dir?: "lt
 
 function EffiBubble({ children, error = false }: { children: string; error?: boolean }) {
   return (
-    <div className="lp-chat-in" style={error ? { color: "#fca5a5" } : undefined}>
+    <div className="lp-chat-in" style={error ? { color: "var(--lp-err)" } : undefined}>
       {children}
     </div>
   );
@@ -150,7 +150,7 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
   const showEmail = submitted || done;
 
   return (
-    <section id="contact" className="lp-grid" style={{ position: "relative", overflow: "hidden", borderTop: "1px solid #1c1c1c" }}>
+    <section id="contact" className="lp-grid" style={{ position: "relative", overflow: "hidden", borderTop: "1px solid var(--lp-border)" }}>
 
       <div className="lp-wrap lp-section" style={{ position: "relative", display: "flex", flexDirection: "column", gap: "clamp(40px, 5vw, 56px)" }}>
         <div className="lp-rv" style={{ display: "flex", flexDirection: "column", gap: 24 }}>
@@ -171,7 +171,7 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
           onSubmit={onSubmit}
           noValidate
           className="lp-rv"
-          style={{ position: "relative", flex: "1 1 520px", minWidth: 0, maxWidth: 720, border: "1px solid #262626", borderRadius: 16, background: "#070707", overflow: "hidden" }}
+          style={{ position: "relative", flex: "1 1 520px", minWidth: 0, maxWidth: 720, border: "1px solid var(--lp-border2)", borderRadius: 16, background: "var(--lp-card)", overflow: "hidden" }}
         >
           <input type="hidden" name="lang" value={t.lang} />
           <TrackingFields />
@@ -186,7 +186,7 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
             <input key={FIELDS[i]} type="hidden" name={FIELDS[i]} value={value} />
           ))}
 
-          <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "14px 18px", borderBottom: "1px solid var(--lp-line)", background: "#0b0b0b" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "14px 18px", borderBottom: "1px solid var(--lp-line)", background: "var(--lp-card2)" }}>
             <Avatar size={36} />
             <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}>
               <span style={{ fontSize: 15, fontWeight: 600 }}>{t.chat.name}</span>

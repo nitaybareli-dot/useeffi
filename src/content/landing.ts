@@ -118,8 +118,8 @@ export const landingHe: Landing = {
   headerCta: "בואו נדבר",
   hero: {
     eyebrow: "הטמעת AI בארגונים",
-    titleA: "מה שלקח ימים,",
-    titleB: "לוקח דקות.",
+    titleA: "AI כבר מוכן לעבוד אצלכם.",
+    titleB: "אנחנו נבנה אותו יחד איתכם.",
     sub: "לומדים איך העבודה אצלכם באמת מתנהלת, ובונים יחד איתכם בדיוק את מה שהכי יעזור. כל ארגון מקבל אפי משלו.",
     cta: "בואו נדבר",
     before: { label: "היום", text: "ידני · מפוזר · איטי" },
@@ -297,8 +297,8 @@ export const landingEn: Landing = {
   headerCta: "Let's talk",
   hero: {
     eyebrow: "AI implementation for organizations",
-    titleA: "What took days",
-    titleB: "now takes minutes.",
+    titleA: "AI is ready to work for you.",
+    titleB: "We'll build it with you.",
     sub: "We learn how work really runs at your place, and build with you exactly what will help most. Every organization gets its own Effi.",
     cta: "Let's talk",
     before: { label: "Today", text: "Manual · scattered · slow" },

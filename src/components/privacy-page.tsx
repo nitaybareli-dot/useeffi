@@ -10,7 +10,7 @@ export function PrivacyPage({ t }: { t: Shell }) {
   const copy = t.lang === "he" ? landingHe : landingEn;
 
   return (
-    <div className="lp" dir={t.dir}>
+    <div className="lp" data-theme="light" dir={t.dir}>
       <SkipLink label={t.a11y.skip} />
       <LandingHeader
         shell={t}

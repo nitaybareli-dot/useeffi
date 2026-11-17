@@ -18,7 +18,7 @@ import { Wordmark } from "./wordmark";
  */
 export function Landing({ shell, t }: { shell: Shell; t: LandingCopy }) {
   return (
-    <div className="lp" dir={shell.dir}>
+    <div className="lp" data-theme="light" dir={shell.dir}>
       <SkipLink label={shell.a11y.skip} />
       <LandingHeader shell={shell} t={t} />
 
@@ -56,9 +56,9 @@ export function LandingHeader({
   ctaHref?: string;
 }) {
   return (
-    <header style={{ position: "sticky", top: 0, zIndex: 30, background: "rgba(0,0,0,0.8)", backdropFilter: "blur(14px)", borderBottom: "1px solid #1c1c1c" }}>
+    <header style={{ position: "sticky", top: 0, zIndex: 30, background: "var(--lp-header)", backdropFilter: "blur(14px)", borderBottom: "1px solid var(--lp-border)" }}>
       <div className="lp-wrap" style={{ paddingBlock: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
-        <a href={shell.home} aria-label="Effi" style={{ color: "#fff", textDecoration: "none" }}>
+        <a href={shell.home} aria-label="Effi" style={{ color: "var(--lp-fg)", textDecoration: "none" }}>
           <Wordmark size="24px" loop />
         </a>
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
@@ -86,7 +86,7 @@ export function LandingHeader({
 /** Footer with the tagline and privacy link. Shared with the privacy page. */
 export function LandingFooter({ shell, t }: { shell: Shell; t: LandingCopy }) {
   return (
-    <footer style={{ borderTop: "1px solid #1c1c1c" }}>
+    <footer style={{ borderTop: "1px solid var(--lp-border)" }}>
       <div
         className="lp-wrap"
         style={{ paddingBlock: 32, display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 20, fontSize: 13, color: "var(--lp-mute)" }}
