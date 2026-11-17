@@ -124,6 +124,8 @@ export type Landing = {
     errorPhone: string;
     /** Effi's questions, one per field: name, company, phone, email. "{name}" is the visitor's first name. */
     questions: [string, string, string, string];
+    /** Short labels for the progress bar above the chat. */
+    steps: [string, string, string, string];
     online: string;
     send: string;
     /** Shown after the lead is saved. "{name}" is the visitor's first name. */
@@ -325,6 +327,7 @@ export const landingHe: Landing = {
     errorRequired: "שדה חובה",
     errorEmail: "כתובת האימייל לא תקינה",
     errorPhone: "מספר הטלפון לא תקין",
+    steps: ["שם", "חברה", "טלפון", "מייל"],
     questions: [
       "היי, אני אפי. נתחיל בהיכרות קצרה: איך קוראים לך?",
       "נעים מאוד, {name}. מאיזו חברה?",
@@ -531,6 +534,7 @@ export const landingEn: Landing = {
     errorRequired: "Required",
     errorEmail: "Please enter a valid email",
     errorPhone: "Please enter a valid phone number",
+    steps: ["Name", "Company", "Phone", "Email"],
     questions: [
       "Hi, I'm Effi. Let's start with a quick intro: what's your name?",
       "Nice to meet you, {name}. Which company are you with?",

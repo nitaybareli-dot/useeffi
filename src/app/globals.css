@@ -499,6 +499,132 @@ body {
   border-color: #fca5a5;
 }
 
+/* Progress bar above the contact chat, with Effi hopping between stops. */
+.lp-steps {
+  position: relative;
+  padding: 44px 22px 34px;
+  border-bottom: 1px solid var(--lp-line);
+  background: #090909;
+}
+.lp-steps ol {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lp-steps li {
+  position: relative;
+  width: 14px;
+  height: 14px;
+}
+.lp-steps li i {
+  position: absolute;
+  inset: 0;
+  border-radius: 99px;
+  background: #0b0b0b;
+  border: 2px solid #2e2e2e;
+  transition: background 0.3s, border-color 0.3s;
+}
+.lp-steps li[data-state="now"] i {
+  border-color: var(--acc);
+}
+.lp-steps li[data-state="done"] i {
+  background: var(--acc);
+  border-color: var(--acc);
+}
+.lp-steps .lp-steps-goal i {
+  border-radius: 3px;
+  transform: rotate(45deg);
+}
+.lp-steps li b {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--lp-mute);
+  transition: color 0.3s;
+}
+.lp-steps li[data-state="now"] b {
+  color: #fff;
+}
+.lp-steps-rail {
+  position: absolute;
+  top: 50px;
+  inset-inline: 29px;
+  height: 2px;
+  background: #222;
+}
+.lp-steps-rail span {
+  display: block;
+  height: 100%;
+  background: var(--acc);
+  transition: width 0.55s cubic-bezier(0.45, 0, 0.25, 1);
+}
+.lp-steps-effi {
+  position: absolute;
+  top: 11px;
+  width: 30px;
+  height: 30px;
+  transition: inset-inline-start 0.55s cubic-bezier(0.45, 0, 0.25, 1);
+}
+.lp-hop {
+  position: relative;
+  z-index: 1;
+  display: block;
+  transform-origin: 50% 100%;
+}
+.lp-hop-shadow {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  bottom: -5px;
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(91, 140, 255, 0.35);
+  filter: blur(1px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .lp-hop {
+    animation: lp-hop 0.55s cubic-bezier(0.3, 0, 0.3, 1) both;
+  }
+  .lp-hop-win {
+    animation: lp-hop 0.55s cubic-bezier(0.3, 0, 0.3, 1) 2 both;
+  }
+  .lp-hop-shadow {
+    animation: lp-hop-shadow 0.55s cubic-bezier(0.3, 0, 0.3, 1) both;
+  }
+}
+@keyframes lp-hop {
+  0% { transform: translateY(0) scale(1, 1); }
+  14% { transform: translateY(0) scale(1.14, 0.84); }
+  50% { transform: translateY(-20px) scale(0.92, 1.1); }
+  84% { transform: translateY(0) scale(1.12, 0.88); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+@keyframes lp-hop-shadow {
+  0%, 100% { transform: scaleX(1); opacity: 1; }
+  50% { transform: scaleX(0.5); opacity: 0.4; }
+}
+.lp-chat-log {
+  scrollbar-width: thin;
+  scrollbar-color: #2a2a2a transparent;
+}
+.lp-chat-log::-webkit-scrollbar {
+  width: 6px;
+}
+.lp-chat-log::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 99px;
+}
+.lp-chat-log::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 /* WhatsApp-style light chat. */
 [dir="rtl"] .lp-back {
   transform: scaleX(-1);

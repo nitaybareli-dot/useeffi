@@ -34,6 +34,45 @@ function EffiBubble({ children, error = false }: { children: string; error?: boo
   );
 }
 
+/** Rail offset: half the side padding plus half a node, so Effi lands dead centre on each stop. */
+const RAIL = 29;
+
+/**
+ * Progress across the four questions, with Effi hopping from stop to stop
+ * like a little platformer, so the visitor sees how short this is.
+ */
+function Steps({ labels, pos }: { labels: string[]; pos: number }) {
+  const stops = labels.length; // the last stop is the finish
+  const frac = pos / stops;
+  return (
+    <div className="lp-steps" aria-hidden="true">
+      <div className="lp-steps-rail">
+        <span style={{ width: `${frac * 100}%` }} />
+      </div>
+      <ol>
+        {labels.map((label, i) => (
+          <li key={label} data-state={i < pos ? "done" : i === pos ? "now" : "next"}>
+            <i />
+            <b>{label}</b>
+          </li>
+        ))}
+        <li data-state={pos >= stops ? "done" : "next"} className="lp-steps-goal">
+          <i />
+        </li>
+      </ol>
+      <div
+        className="lp-steps-effi"
+        style={{ insetInlineStart: `calc(${RAIL}px + (100% - ${RAIL * 2}px) * ${frac} - 15px)` }}
+      >
+        <span key={pos} className={pos >= stops ? "lp-hop lp-hop-win" : "lp-hop"}>
+          <Avatar size={30} />
+        </span>
+        <span key={`s${pos}`} className="lp-hop-shadow" />
+      </div>
+    </div>
+  );
+}
+
 /**
  * The contact form as a short chat with Effi: one question at a time.
  * It posts to the same server action as before, so leads are stored, rate
@@ -54,6 +93,7 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
   const firstName = (answers[0] ?? "").trim().split(/\s+/)[0] ?? "";
   const ask = (i: number) => c.questions[i].replace("{name}", firstName);
   const labels: Record<Field, string> = { name: c.name, company: c.company, phone: c.phone, email: c.email };
+  const shortLabels: Record<Field, string> = { name: c.steps[0], company: c.steps[1], phone: c.steps[2], email: c.steps[3] };
 
   useEffect(() => {
     // Conversion event: fires only after the lead was saved.
@@ -184,7 +224,9 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
             </span>
           </div>
 
-          <div ref={logRef} aria-live="polite" style={{ display: "flex", flexDirection: "column", gap: 10, padding: 20, minHeight: 260, maxHeight: 420, overflowY: "auto" }}>
+          <Steps labels={FIELDS.map((f) => shortLabels[f])} pos={done ? FIELDS.length : answers.length} />
+
+          <div ref={logRef} aria-live="polite" className="lp-chat-log" style={{ display: "flex", flexDirection: "column", gap: 10, padding: 20, minHeight: 260, maxHeight: 420, overflowY: "auto" }}>
             {answers.map((value, i) => (
               <div key={`q${i}`} style={{ display: "contents" }}>
                 <EffiBubble>{ask(i)}</EffiBubble>
