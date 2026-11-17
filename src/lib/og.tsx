@@ -4,10 +4,9 @@ export const ogSize = { width: 1200, height: 630 };
 
 /**
  * Social share card. Kept in English for both languages because the image
- * renderer does not shape right-to-left text. The Hebrew card leaves out
- * the second line, since the Hebrew site has no "not just X" headings.
+ * renderer does not shape right-to-left text.
  */
-export function renderOgImage({ withTagline = true }: { withTagline?: boolean } = {}) {
+export function renderOgImage() {
   return new ImageResponse(
     (
       <div
@@ -18,11 +17,14 @@ export function renderOgImage({ withTagline = true }: { withTagline?: boolean } 
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 72,
-          background: "#0b0b0b",
+          background: "#000000",
           color: "#ffffff",
         }}
       >
-        <div style={{ display: "flex", fontSize: 56, fontWeight: 500, letterSpacing: -3 }}>effi</div>
+        <div style={{ display: "flex", alignItems: "center", fontSize: 56, fontWeight: 600, letterSpacing: -3 }}>
+          effi
+          <div style={{ display: "flex", width: 20, height: 20, marginLeft: 8, borderRadius: 5, background: "#5b8cff" }} />
+        </div>
 
         <div
           style={{
@@ -33,9 +35,8 @@ export function renderOgImage({ withTagline = true }: { withTagline?: boolean } 
             letterSpacing: -3,
           }}
         >
-          <div>AI that works inside</div>
-          <div>the organization.</div>
-          {withTagline ? <div>Not just in slide decks.</div> : null}
+          <div>What took days</div>
+          <div style={{ color: "#6b6b6b" }}>now takes minutes.</div>
         </div>
 
         <div style={{ display: "flex", fontSize: 28, color: "#b4b4b0" }}>

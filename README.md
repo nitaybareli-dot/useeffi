@@ -15,13 +15,13 @@ Open http://localhost:3000.
 
 ## Where things live
 
-- `src/content/he.ts`, `src/content/en.ts`: all copy. Hebrew follows `HeDict`, English follows `Dict` (both in `src/content/types.ts`).
-- `src/components/he/`: the Hebrew landing page. `he/landing.tsx` sets the section order.
-- `src/components/en/`: the English landing page (original layout).
-- `src/components/` (top level): header, footer, buttons and layout pieces shared by both.
+- `src/content/landing.ts`: all landing page copy, Hebrew (default) and English, in one file with one shape (`Landing`).
+- `src/components/landing/`: the landing page. `landing.tsx` sets the section order: hero, pains, Effi's morning message and log, cost calculator, why now, ideas by industry, how we work, contact.
+- `src/app/globals.css`: the landing styles are scoped under `.lp` at the end of the file (colors, type, animations). The accent color is `--acc`.
+- `src/content/he.ts`, `src/content/en.ts`: metadata, privacy page and other shared text (`Shell` in `src/content/types.ts`).
 - `src/app/(he)` and `src/app/(en)`: the two language trees, each with its own root layout (`lang` and `dir`).
 - `src/app/actions.ts`: contact form handler. `src/lib/leads.ts`: database and notification email.
-- `src/app/globals.css`: color tokens and type scale.
+- `src/components/he/`, `src/components/en/`: the previous landing layouts, no longer routed. Safe to delete in a follow-up.
 
 ## Contact form and leads
 
@@ -42,4 +42,4 @@ To see leads in Blob: Vercel dashboard → Storage → `effi-leads` → Browser 
 
 ## Analytics
 
-Vercel Web Analytics and Speed Insights are mounted in both root layouts. CTA clicks, industry tab changes and form submissions are sent as custom events.
+Vercel Web Analytics and Speed Insights are mounted in both root layouts. CTA clicks (`cta_click`), industry tab changes (`industry_tab`) and saved form submissions (`contact_submitted`) are sent as custom events.
