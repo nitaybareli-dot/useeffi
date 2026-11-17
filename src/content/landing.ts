@@ -78,23 +78,11 @@ export type Landing = {
     tabs: { id: string; name: string; ideas: string[] }[];
     close: string;
   };
-  together: {
-    label: string;
-    titleA: string;
-    titleB: string;
-    lead: string;
-    you: string;
-    youText: string;
-    us: string;
-    usText: string;
-    solution: string;
-    vennAlt: string;
-    steps: { when: string; title: string; text: string }[];
-    principles: { title: string; text: string }[];
-  };
   contact: {
     peek: string;
     meta: string;
+    /** What happens after the visitor leaves details, shown beside the chat. */
+    next: { title: string; steps: { title: string; body: string }[] };
     titleA: string;
     titleB: string;
     name: string;
@@ -261,32 +249,17 @@ export const landingHe: Landing = {
     ],
     close: "יש לכם רעיון משלכם? נשמח לשמוע.",
   },
-  together: {
-    label: "איך עובדים איתנו",
-    titleA: "מתחילים בהקשבה.",
-    titleB: "מאפיינים יחד, לעומק.",
-    lead: "אפי לא מחליף אף אחד. הוא עוזר לאנשים שלכם, ואנחנו מלווים אותם עד שהעבודה איתו מרגישה טבעית.",
-    you: "אתם",
-    youText: "מכירים את העסק",
-    us: "אנחנו",
-    usText: "מכירים את הטכנולוגיה",
-    solution: "הפתרון",
-    vennAlt: "שני עיגולים מתקרבים וחופפים: אתם מכירים את העסק, אנחנו מכירים את הטכנולוגיה, ובחפיפה נוצר הפתרון",
-    steps: [
-      { when: "01 · שבועות ⁦1–4⁩", title: "אפיון משותף", text: "יושבים עם ההנהלה ועם הצוותים בשטח, ומגדירים יחד מה בונים." },
-      { when: "02 · שבועות ⁦4–10⁩", title: "בנייה", text: "גרסה עובדת כל שבועיים, על המערכות שלכם." },
-      { when: "03 · לאורך הדרך", title: "הובלה", text: "מובילים את ההטמעה עד שהיא הופכת לשגרה." },
-    ],
-    principles: [
-      { title: "מהירים", text: "פיילוט עובד תוך ⁦6–10⁩ שבועות." },
-      { title: "זמינים", text: "קשר ישיר עם מי שבונה." },
-      { title: "מקצועיים", text: "עבודה מדויקת, ברמה של מערכות ליבה." },
-      { title: "אחראים", text: "מובילים עד שרואים תוצאה." },
-    ],
-  },
   contact: {
     peek: "אפי כבר מחכה להכיר.",
     meta: "שיחה של 30 דקות · בלי עלות · יוצאים עם כיוון ראשון",
+    next: {
+      title: "מה קורה אחר כך",
+      steps: [
+        { title: "שיחת היכרות", body: "חצי שעה. מספרים לנו איפה העבודה נתקעת." },
+        { title: "אפיון משותף", body: "יושבים עם הצוותים בשטח ומגדירים יחד מה בונים." },
+        { title: "אפי מתחיל לעבוד", body: "גרסה ראשונה על המערכות שלכם, ומשם משפרים יחד." },
+      ],
+    },
     titleA: "בואו נמצא יחד",
     titleB: "את צוואר הבקבוק הראשון.",
     name: "שם מלא",
@@ -454,32 +427,17 @@ export const landingEn: Landing = {
     ],
     close: "Have an idea of your own? We'd love to hear it.",
   },
-  together: {
-    label: "How we work",
-    titleA: "We start by listening.",
-    titleB: "Then we scope it together, in depth.",
-    lead: "Effi doesn't replace anyone. It helps your people, and we stay with them until working with it feels natural.",
-    you: "You",
-    youText: "know the business",
-    us: "We",
-    usText: "know the technology",
-    solution: "The solution",
-    vennAlt: "Two circles move together and overlap: you know the business, we know the technology, and the overlap is the solution",
-    steps: [
-      { when: "01 · Weeks 1–4", title: "Joint scoping", text: "We sit with management and with teams on the ground, and define together what to build." },
-      { when: "02 · Weeks 4–10", title: "Build", text: "A working version every two weeks, on your systems." },
-      { when: "03 · Throughout", title: "Lead", text: "We lead the rollout until it becomes routine." },
-    ],
-    principles: [
-      { title: "Fast", text: "A working pilot in 6–10 weeks." },
-      { title: "Available", text: "Direct line to the people building it." },
-      { title: "Professional", text: "Precise work, at core-system standard." },
-      { title: "Accountable", text: "We lead until you see results." },
-    ],
-  },
   contact: {
     peek: "Effi can't wait to meet you.",
     meta: "30-minute call · free · leave with a first direction",
+    next: {
+      title: "What happens next",
+      steps: [
+        { title: "Intro call", body: "Half an hour. Tell us where the work gets stuck." },
+        { title: "Joint scoping", body: "We sit with your teams on the floor and decide together what to build." },
+        { title: "Effi gets to work", body: "A first version on your systems, then we improve it together." },
+      ],
+    },
     titleA: "Let's find",
     titleB: "your first bottleneck.",
     name: "Full name",

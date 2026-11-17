@@ -653,6 +653,66 @@ body {
   font-weight: 600;
 }
 
+/* "What happens next" beside the contact chat. */
+.lp-next {
+  flex: 1 1 260px;
+  max-width: 380px;
+  padding-top: 8px;
+}
+.lp-next h3 {
+  margin: 0 0 24px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--lp-soft);
+}
+.lp-next ol {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lp-next ol::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  inset-inline-start: 15px;
+  width: 1px;
+  background: #262626;
+}
+.lp-next li {
+  position: relative;
+  display: flex;
+  gap: 16px;
+}
+.lp-next li > span {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 31px;
+  height: 31px;
+  border-radius: 8px;
+  border: 1px solid #2e2e2e;
+  background: #000;
+  color: var(--acc);
+  font-size: 12px;
+}
+.lp-next strong {
+  display: block;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.lp-next p {
+  margin: 6px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--lp-soft);
+}
+
 /* WhatsApp-style light chat. */
 [dir="rtl"] .lp-back {
   transform: scaleX(-1);
