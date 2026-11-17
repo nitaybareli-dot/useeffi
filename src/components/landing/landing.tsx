@@ -59,7 +59,7 @@ export function LandingHeader({
     <header style={{ position: "sticky", top: 0, zIndex: 30, background: "rgba(0,0,0,0.8)", backdropFilter: "blur(14px)", borderBottom: "1px solid #1c1c1c" }}>
       <div className="lp-wrap" style={{ paddingBlock: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24 }}>
         <a href={shell.home} aria-label="Effi" style={{ color: "#fff", textDecoration: "none" }}>
-          <Wordmark size="24px" loop slow />
+          <Wordmark size="24px" loop />
         </a>
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <a
