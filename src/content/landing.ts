@@ -67,21 +67,8 @@ export type Landing = {
     /** "{n}" is replaced with the number of full-time positions. */
     fte: string;
     close: string;
-  };
-  gap: {
-    label: string;
-    titleA: string;
-    titleB: string;
-    lead: string;
-    chartTitle: string;
-    illustration: string;
-    ticks: string[];
-    adopting: string;
-    waiting: string;
-    gapWord: string;
-    legendAdopting: string;
-    legendWaiting: string;
-    chartAlt: string;
+    /** Gentle "why now" line under the result. */
+    urgency: string;
   };
   ideas: {
     label: string;
@@ -213,22 +200,7 @@ export const landingHe: Landing = {
     yearLabel: "שעות עבודה ידנית בשנה",
     fte: "שהן {n} משרות מלאות.",
     close: "זה הזמן שהצוות שלכם יכול לקבל בחזרה.",
-  },
-  gap: {
-    label: "למה עכשיו",
-    titleA: "מי שמתחיל היום,",
-    titleB: "מוביל מחר.",
-    lead: "ארגונים שעובדים עם AI משתפרים כל חודש. הפער מכל השאר רק גדל.",
-    chartTitle: "תפוקה לעובד, לאורך זמן",
-    illustration: "המחשה",
-    ticks: ["היום", "6 חודשים", "12 חודשים", "18 חודשים", "24 חודשים"],
-    adopting: "מטמיעים AI",
-    waiting: "מחכים",
-    gapWord: "הפער",
-    legendAdopting: "ארגון שמטמיע AI",
-    legendWaiting: "ארגון שמחכה",
-    chartAlt:
-      "גרף להמחשה: שני ארגונים מתחילים באותה נקודה. התפוקה בארגון שמטמיע AI עולה בחדות לאורך 24 חודשים, ובארגון שמחכה היא כמעט לא משתנה. הפער ביניהם גדל.",
+    urgency: "וכל חודש שמחכים, הפער ממי שכבר התחיל רק גדל.",
   },
   ideas: {
     label: "רעיונות לארגון שלכם",
@@ -421,22 +393,7 @@ export const landingEn: Landing = {
     yearLabel: "Hours of manual work a year",
     fte: "That's {n} full-time positions.",
     close: "That's the time your team can get back.",
-  },
-  gap: {
-    label: "Why now",
-    titleA: "Start today,",
-    titleB: "lead tomorrow.",
-    lead: "Organizations working with AI get better every month. The gap with everyone else keeps growing.",
-    chartTitle: "Output per employee over time",
-    illustration: "Illustration",
-    ticks: ["Today", "6 months", "12 months", "18 months", "24 months"],
-    adopting: "Adopting AI",
-    waiting: "Waiting",
-    gapWord: "The gap",
-    legendAdopting: "Organization adopting AI",
-    legendWaiting: "Organization waiting",
-    chartAlt:
-      "Illustrative chart: two organizations start at the same point. Output at the one adopting AI rises sharply over 24 months; at the one waiting it barely moves. The gap keeps widening.",
+    urgency: "And every month you wait, the gap to those who already started grows.",
   },
   ideas: {
     label: "Ideas for your organization",

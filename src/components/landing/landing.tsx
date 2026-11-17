@@ -5,7 +5,6 @@ import { SkipLink } from "../skip-link";
 import { Chat } from "./chat";
 import { Contact } from "./contact";
 import { Cost } from "./cost";
-import { GapChart } from "./gap-chart";
 import { Hero } from "./hero";
 import { Ideas } from "./ideas";
 import { Pains } from "./pains";
@@ -48,7 +47,6 @@ export function Landing({ shell, t }: { shell: Shell; t: LandingCopy }) {
         <Pains t={t} />
         <Chat t={t} />
         <Cost t={t} />
-        <GapChart t={t} />
         <Ideas t={t} />
         <Together t={t} />
         <Contact t={t} privacyHref={shell.privacyHref} />

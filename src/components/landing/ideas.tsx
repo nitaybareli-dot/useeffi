@@ -15,7 +15,7 @@ export function Ideas({ t }: { t: Landing }) {
     <section className="lp-light">
       <div className="lp-wrap lp-section" style={{ display: "flex", flexDirection: "column", gap: "clamp(36px, 4vw, 56px)" }}>
         <div className="lp-rv" style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <Label n="05">{d.label}</Label>
+          <Label n="04">{d.label}</Label>
           <h2 className="lp-h2">
             {d.titleA}
             <span className="lp-dim">{d.titleB}</span>
