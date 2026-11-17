@@ -4,9 +4,7 @@ import { organizationJsonLd } from "@/lib/site";
 import { SkipLink } from "../skip-link";
 import { Chat } from "./chat";
 import { Contact } from "./contact";
-import { Cost } from "./cost";
 import { Hero } from "./hero";
-import { Ideas } from "./ideas";
 import { Pains } from "./pains";
 import { Avatar } from "./avatar";
 import { CtaButton } from "./parts";
@@ -14,7 +12,7 @@ import { Wordmark } from "./wordmark";
 
 /**
  * The landing page, one guided story in both languages:
- * hero → pains → what Effi does → cost → why now → ideas → how we work → contact.
+ * hero → pains → what Effi does → contact.
  */
 export function Landing({ shell, t }: { shell: Shell; t: LandingCopy }) {
   return (
@@ -26,8 +24,6 @@ export function Landing({ shell, t }: { shell: Shell; t: LandingCopy }) {
         <Hero t={t} />
         <Pains t={t} />
         <Chat t={t} />
-        <Cost t={t} />
-        <Ideas t={t} />
         <Contact t={t} privacyHref={shell.privacyHref} />
       </main>
 

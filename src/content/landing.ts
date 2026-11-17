@@ -35,7 +35,6 @@ export type Landing = {
     titleB: string;
     lead: string;
     phoneLabel: string;
-    logLabel: string;
     name: string;
     online: string;
     today: string;
@@ -51,32 +50,7 @@ export type Landing = {
     details: string;
     reply: string;
     ack: string;
-    logTitle: string;
-    logDemo: string;
-    logCount: string;
-    log: { time: string; text: string; status: string; waiting?: boolean }[];
     facts: { title: string; text: string }[];
-  };
-  cost: {
-    label: string;
-    title: string;
-    peopleLabel: string;
-    hoursLabel: string;
-    note: string;
-    yearLabel: string;
-    /** "{n}" is replaced with the number of full-time positions. */
-    fte: string;
-    close: string;
-    /** Gentle "why now" line under the result. */
-    urgency: string;
-  };
-  ideas: {
-    label: string;
-    titleA: string;
-    titleB: string;
-    whatIf: string;
-    tabs: { id: string; name: string; ideas: string[] }[];
-    close: string;
   };
   contact: {
     peek: string;
@@ -118,9 +92,9 @@ export const landingHe: Landing = {
   headerCta: "בואו נדבר",
   hero: {
     eyebrow: "הטמעת AI בארגונים",
-    titleA: "AI כבר מוכן לעבוד אצלכם.",
-    titleB: "אנחנו נבנה אותו יחד איתכם.",
-    sub: "לומדים איך העבודה אצלכם באמת מתנהלת, ובונים יחד איתכם בדיוק את מה שהכי יעזור. כל ארגון מקבל אפי משלו.",
+    titleA: "העבודה הידנית שלכם,",
+    titleB: "על אוטומט.",
+    sub: "בונים יחד איתכם מערכת AI שעושה את העבודה החוזרת, בדיוק לפי מה שאתם צריכים. כל ארגון מקבל אפי משלו.",
     cta: "בואו נדבר",
     before: { label: "היום", text: "ידני · מפוזר · איטי" },
     after: { label: "עם אפי", text: "אוטומטי · מחובר · מהיר" },
@@ -132,9 +106,7 @@ export const landingHe: Landing = {
     afterPrefix: "עם אפי",
     items: [
       { pain: "מקלידים את אותו נתון לשלוש מערכות.", after: "מזינים פעם אחת, ואפי מעדכן את כל השאר." },
-      { pain: "בודקים כל חשבונית ידנית מול ההזמנה.", after: "אפי בודק. אתם מאשרים רק את החריגות." },
       { pain: "מחפשים נוהל, תוכנית או חוזה, ולא מוצאים.", after: "שואלים את אפי במילים פשוטות, ומקבלים תשובה עם המקור." },
-      { pain: "רק עובד אחד יודע איך פותרים את התקלה.", after: "הידע של הוותיקים זמין לכל עובד." },
       { pain: "מכינים את אותו דוח מאפס, כל שבוע.", after: "הדוח מחכה לכם מוכן כל בוקר." },
     ],
     closeA: "ואלה רק דוגמאות.",
@@ -146,7 +118,6 @@ export const landingHe: Landing = {
     titleB: "ההחלטות נשארות אצלכם.",
     lead: "ככה יכול להיראות הבוקר של מנהל: הודעה אחת בוואטסאפ, עם מה שכבר טופל ומה מחכה להחלטה שלו. אצלכם מגדירים יחד מה אפי עושה.",
     phoneLabel: "מה המנהל מקבל בבוקר",
-    logLabel: "מה קרה מאחורי הקלעים",
     name: "אפי",
     online: "מחובר",
     today: "היום",
@@ -154,7 +125,7 @@ export const landingHe: Landing = {
     messagePlaceholder: "הודעה",
     greeting: "בוקר טוב יוסי. הכול בשליטה, הנה מה שקרה מאז אתמול.",
     doneTitle: "מה כבר טופל:",
-    done: ["46 חשבוניות ספקים נבדקו, 43 תקינות.", "7 פניות של לקוחות מאתמול בערב כבר נענו.", "12 הזמנות מוואטסאפ הוזנו למערכת."],
+    done: ["46 חשבוניות ספקים נבדקו, 43 תקינות.", "7 פניות של לקוחות מאתמול בערב כבר נענו.", "לפי קצב המכירות, 4 פריטים ייגמרו תוך שבוע. הזמנת רכש מוכנה."],
     approvalTitle: "3 חשבוניות חורגות מחכות לאישור שלך. הראשונה:",
     approvalItem: "חשבונית ספק",
     approvalDetail: "גבוהה ב-8% מהמחיר שסוכם בהזמנה.",
@@ -162,92 +133,11 @@ export const landingHe: Landing = {
     details: "לפרטים",
     reply: "תעביר לרונית מהרכש שתבדוק.",
     ack: "העברתי לרונית. אעדכן אותך כשהיא תסיים.",
-    logTitle: "המשימות שהוגדרו יחד באפיון",
-    logDemo: "דוגמה",
-    logCount: "פעולות מתחילת היום",
-    log: [
-      { time: "08:02", text: "46 חשבוניות ספקים נקלטו מהמייל ונבדקו מול ההזמנות.", status: "3 חריגות מחכות לאישורכם", waiting: true },
-      { time: "08:05", text: "7 פניות של לקוחות שהגיעו אתמול בערב נענו, עם הסטטוס העדכני מתוך מערכת ההזמנות.", status: "בוצע" },
-      { time: "08:11", text: "עובד חדש שאל בוואטסאפ איך מטפלים בהחזרת סחורה. קיבל תשובה מתוך הנוהל, עם הטופס הנכון.", status: "בוצע" },
-      { time: "08:14", text: "12 הזמנות שהגיעו בוואטסאפ הוזנו למערכת ההזמנות.", status: "בוצע" },
-      { time: "08:20", text: "לפי קצב המכירות, 4 פריטים צפויים להיגמר תוך שבוע. הזמנת רכש הוכנה.", status: "מחכה לאישורכם", waiting: true },
-      { time: "08:31", text: "דוח ההנהלה היומי מוכן, עם נתונים משלוש מערכות.", status: "בוצע" },
-    ],
     facts: [
       { title: "רואים כל מה שאפי עושה", text: "כל פעולה מתועדת: מה, מתי ולמה." },
       { title: "שום דבר רגיש בלי אישור", text: "חריגות, תשלומים ושינויים מחכים לאישור שלכם." },
       { title: "אתם קובעים למה אפי ניגש", text: "לאיזה מידע ולאילו מערכות, ובאילו הרשאות." },
     ],
-  },
-  cost: {
-    label: "תעשו את החשבון",
-    title: "כמה זמן זה לוקח לכם?",
-    peopleLabel: "כמה עובדים עושים עבודה ידנית שחוזרת על עצמה?",
-    hoursLabel: "כמה שעות בשבוע, לכל אחד?",
-    note: "החישוב: עובדים × שעות × 48 שבועות. משרה מלאה = 182 שעות בחודש.",
-    yearLabel: "שעות עבודה ידנית בשנה",
-    fte: "שהן {n} משרות מלאות.",
-    close: "חלק גדול מהזמן הזה אפשר להחזיר לצוות, לעבודה שבאמת צריכה אותו.",
-    urgency: "וכל חודש שמחכים, הפער ממי שכבר התחיל רק גדל.",
-  },
-  ideas: {
-    label: "רעיונות לארגון שלכם",
-    titleA: "איפה זה יעזור",
-    titleB: "אצלכם?",
-    whatIf: "מה אם",
-    tabs: [
-      {
-        id: "manufacturing",
-        name: "תעשייה וייצור",
-        ideas: [
-          "תקלות היו מתגלות לפני שקו הייצור נעצר?",
-          "עובד חדש היה יכול לשאול את מה שהוותיקים יודעים?",
-          "הזמנות הרכש היו יוצאות בזמן, בלי מעקב ידני?",
-          "דוח האיכות היה מוכן בסוף כל משמרת?",
-        ],
-      },
-      {
-        id: "real-estate",
-        name: "נדל״ן ובנייה",
-        ideas: [
-          "חשבונות קבלנים היו נבדקים מול החוזה באופן אוטומטי?",
-          "רוכשים ודיירים היו מקבלים תשובה גם אחרי שעות העבודה?",
-          "סעיפים חריגים בחוזה היו מסומנים תוך דקה?",
-          "הידע מכל הפרויקטים היה נגיש בשאלה אחת?",
-        ],
-      },
-      {
-        id: "agriculture",
-        name: "חקלאות ומזון",
-        ideas: [
-          "הודעה קולית מהשטח הייתה הופכת לנתון מסודר?",
-          "המלצות ההשקיה היו מגיעות מעצמן כל שבוע?",
-          "מסמכי היצוא היו מוכנים בלחיצה אחת?",
-          "שיבוץ העובדים העונתיים היה לוקח דקות?",
-        ],
-      },
-      {
-        id: "logistics",
-        name: "לוגיסטיקה",
-        ideas: [
-          "הזמנות היו נכנסות ישר למערכת, בלי הקלדה?",
-          "מסמכי המכס היו נבדקים באופן אוטומטי?",
-          "הלקוח היה יודע איפה המשלוח בלי להתקשר?",
-          "חוסר במלאי היה מתגלה לפני שהוא מעכב משלוח?",
-        ],
-      },
-      {
-        id: "enterprise",
-        name: "מטות וארגונים גדולים",
-        ideas: [
-          "עובדים היו מקבלים מיד תשובה מתוך הנהלים?",
-          "פניות למחשוב ולמשאבי אנוש היו מגיעות ישר לגורם הנכון?",
-          "דוח ההנהלה היה מוכן כל בוקר?",
-          "השוואת הצעות מחיר הייתה לוקחת דקות?",
-        ],
-      },
-    ],
-    close: "יש לכם רעיון משלכם? נשמח לשמוע.",
   },
   contact: {
     peek: "אפי כבר מחכה להכיר.",
@@ -297,9 +187,9 @@ export const landingEn: Landing = {
   headerCta: "Let's talk",
   hero: {
     eyebrow: "AI implementation for organizations",
-    titleA: "AI is ready to work for you.",
-    titleB: "We'll build it with you.",
-    sub: "We learn how work really runs at your place, and build with you exactly what will help most. Every organization gets its own Effi.",
+    titleA: "Your manual work,",
+    titleB: "on autopilot.",
+    sub: "Together with you, we build an AI system that does the repetitive work, exactly the way you need it. Every organization gets its own Effi.",
     cta: "Let's talk",
     before: { label: "Today", text: "Manual · scattered · slow" },
     after: { label: "With Effi", text: "Automated · connected · fast" },
@@ -311,9 +201,7 @@ export const landingEn: Landing = {
     afterPrefix: "With Effi",
     items: [
       { pain: "Typing the same data into three systems.", after: "Enter it once. Effi updates the rest." },
-      { pain: "Checking every invoice against the order by hand.", after: "Effi checks. You approve only the exceptions." },
       { pain: "Searching for a procedure, plan or contract, and not finding it.", after: "Ask Effi in plain words and get an answer with its source." },
-      { pain: "Only one person knows how to fix the fault.", after: "What your most experienced people know, available to everyone." },
       { pain: "Building the same report from scratch every week.", after: "The report is ready for you every morning." },
     ],
     closeA: "These are just examples.",
@@ -325,7 +213,6 @@ export const landingEn: Landing = {
     titleB: "The decisions stay with you.",
     lead: "A manager's morning could look like this: one WhatsApp message with what's already handled and what's waiting for their call. With you, we decide together what Effi does.",
     phoneLabel: "What the manager gets in the morning",
-    logLabel: "What happened behind the scenes",
     name: "Effi",
     online: "online",
     today: "Today",
@@ -333,7 +220,7 @@ export const landingEn: Landing = {
     messagePlaceholder: "Message",
     greeting: "Good morning, Yossi. Everything is under control. Here's what happened since yesterday.",
     doneTitle: "Already handled:",
-    done: ["46 supplier invoices checked, 43 clean.", "7 customer inquiries from last night already answered.", "12 WhatsApp orders entered into the system."],
+    done: ["46 supplier invoices checked, 43 clean.", "7 customer inquiries from last night already answered.", "At the current sales pace, 4 items run out within a week. A purchase order is ready."],
     approvalTitle: "3 invoices over the agreed price need your approval. The first:",
     approvalItem: "Supplier invoice",
     approvalDetail: "8% above the price agreed in the order.",
@@ -341,92 +228,11 @@ export const landingEn: Landing = {
     details: "Details",
     reply: "Send it to Ronit in purchasing to review.",
     ack: "Sent to Ronit. I'll update you when she's done.",
-    logTitle: "Tasks defined together in scoping",
-    logDemo: "example",
-    logCount: "actions today",
-    log: [
-      { time: "08:02", text: "46 supplier invoices pulled from email and checked against the orders.", status: "3 exceptions await you", waiting: true },
-      { time: "08:05", text: "7 customer inquiries from last night answered, with up-to-date status from the order system.", status: "Done" },
-      { time: "08:11", text: "A new employee asked on WhatsApp how to handle a return. Got the answer from the procedure, with the right form.", status: "Done" },
-      { time: "08:14", text: "12 orders received on WhatsApp entered into the ERP.", status: "Done" },
-      { time: "08:20", text: "At the current sales pace, 4 items will run out within a week. A purchase order is ready.", status: "Awaiting you", waiting: true },
-      { time: "08:31", text: "Daily management report ready, with data from three systems.", status: "Done" },
-    ],
     facts: [
       { title: "See everything Effi does", text: "Every action is logged: what, when and why." },
       { title: "Nothing sensitive without approval", text: "Exceptions, payments and changes wait for your sign-off." },
       { title: "You decide what Effi can access", text: "Which information and systems, and with what permissions." },
     ],
-  },
-  cost: {
-    label: "Do the math",
-    title: "How much time does it take?",
-    peopleLabel: "How many people do repetitive manual work?",
-    hoursLabel: "How many hours a week, each?",
-    note: "Calculation: people × hours × 48 weeks. Full-time position = 182 hours a month.",
-    yearLabel: "Hours of manual work a year",
-    fte: "That's {n} full-time positions.",
-    close: "Much of that time can go back to your team, for the work that really needs them.",
-    urgency: "And every month you wait, the gap to those who already started grows.",
-  },
-  ideas: {
-    label: "Ideas for your organization",
-    titleA: "Where would it help",
-    titleB: "you?",
-    whatIf: "What if",
-    tabs: [
-      {
-        id: "manufacturing",
-        name: "Manufacturing",
-        ideas: [
-          "faults were caught before the line stopped?",
-          "a new hire could ask what your most experienced people know?",
-          "purchase orders went out on time, with no manual chasing?",
-          "the quality report was ready at the end of every shift?",
-        ],
-      },
-      {
-        id: "real-estate",
-        name: "Real estate & construction",
-        ideas: [
-          "contractor invoices were checked against the contract automatically?",
-          "buyers and tenants got an answer after hours too?",
-          "unusual contract clauses were flagged within a minute?",
-          "knowledge from every project was one question away?",
-        ],
-      },
-      {
-        id: "agriculture",
-        name: "Agriculture & food",
-        ideas: [
-          "a voice note from the field became structured data?",
-          "irrigation recommendations arrived on their own every week?",
-          "export documents were ready in one click?",
-          "scheduling seasonal workers took minutes?",
-        ],
-      },
-      {
-        id: "logistics",
-        name: "Logistics",
-        ideas: [
-          "orders went straight into the system, with no retyping?",
-          "customs documents were checked automatically?",
-          "customers knew where their shipment was without calling?",
-          "a stock shortage showed up before it delayed a shipment?",
-        ],
-      },
-      {
-        id: "enterprise",
-        name: "Large organizations",
-        ideas: [
-          "employees got an instant answer from your procedures?",
-          "IT and HR requests reached the right person directly?",
-          "the management report was ready every morning?",
-          "comparing quotes took minutes?",
-        ],
-      },
-    ],
-    close: "Have an idea of your own? We'd love to hear it.",
   },
   contact: {
     peek: "Effi can't wait to meet you.",

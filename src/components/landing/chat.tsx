@@ -1,24 +1,8 @@
 import type { Landing } from "@/content/landing";
 import { Avatar } from "./avatar";
-import { OpsCounter } from "./ops-counter";
 import { Label } from "./parts";
 
-function Status({ text, waiting }: { text: string; waiting?: boolean }) {
-  const dot = { width: 6, height: 6, borderRadius: 99 } as const;
-  return waiting ? (
-    <span style={{ flex: "0 0 auto", fontSize: 12, padding: "5px 10px", borderRadius: 4, background: "var(--acc)", color: "#000", display: "inline-flex", alignItems: "center", gap: 6 }}>
-      <span className="lp-pulse" style={{ ...dot, background: "#000" }} />
-      {text}
-    </span>
-  ) : (
-    <span style={{ flex: "0 0 auto", fontSize: 12, padding: "5px 10px", borderRadius: 4, border: "1px solid #2a2a2a", color: "#c7c7c7", display: "inline-flex", alignItems: "center", gap: 6 }}>
-      <span style={{ ...dot, background: "var(--acc)" }} />
-      {text}
-    </span>
-  );
-}
-
-/** What the manager receives from Effi, next to what Effi does in the background. */
+/** What a manager receives from Effi in the morning, next to the ways you stay in control. */
 export function Chat({ t }: { t: Landing }) {
   const c = t.chat;
   return (
@@ -35,7 +19,7 @@ export function Chat({ t }: { t: Landing }) {
           <p className="lp-lead">{c.lead}</p>
         </div>
 
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(24px, 3vw, 40px)", alignItems: "flex-start" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(32px, 6vw, 96px)", alignItems: "flex-start" }}>
           {/* Phone: a light, WhatsApp-style conversation with Effi */}
           <div style={{ flex: "0 1 400px", minWidth: 0, display: "flex", flexDirection: "column", gap: 14 }}>
             <span style={{ fontSize: 13, color: "var(--lp-mute)" }}>{c.phoneLabel}</span>
@@ -121,49 +105,15 @@ export function Chat({ t }: { t: Landing }) {
             </div>
           </div>
 
-          {/* Background log */}
-          <div style={{ flex: "1 1 520px", minWidth: 0, display: "flex", flexDirection: "column", gap: 14 }}>
-            <span style={{ fontSize: 13, color: "var(--lp-mute)" }}>{c.logLabel}</span>
-            <div style={{ border: "1px solid #262626", borderRadius: 10, overflow: "hidden", background: "#070707" }}>
-              <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 12, padding: "16px 24px", borderBottom: "1px solid var(--lp-line)", background: "#0b0b0b" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 14, color: "#c7c7c7" }}>
-                  <span className="lp-pulse" style={{ width: 8, height: 8, borderRadius: 99, background: "var(--acc)" }} />
-                  {c.logTitle}
-                  <span className="lp-mono" style={{ fontSize: 12, color: "var(--lp-mute)" }}>
-                    · {c.logDemo}
-                  </span>
-                </div>
-                <div style={{ display: "flex", alignItems: "baseline", gap: 10, fontSize: 13, color: "var(--lp-mute)" }}>
-                  {c.logCount}
-                  <OpsCounter />
-                </div>
-              </div>
-              {c.log.map((row) => (
-                <div key={row.time} className="lp-rv" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "10px 20px", padding: "18px 24px", borderTop: "1px solid #1a1a1a" }}>
-                  <span className="lp-mono" dir="ltr" style={{ flex: "0 0 48px", fontSize: 13, color: "var(--lp-mute)" }}>
-                    {row.time}
-                  </span>
-                  <span style={{ flex: "1 1 320px", fontSize: 16, lineHeight: 1.5, color: "#e6e6e6" }}>{row.text}</span>
-                  <Status text={row.status} waiting={row.waiting} />
-                </div>
-              ))}
-              <div style={{ padding: "16px 24px", borderTop: "1px solid #1a1a1a", display: "flex", alignItems: "center", gap: 10 }} aria-hidden="true">
-                <span className="lp-mono" dir="ltr" style={{ fontSize: 13, color: "var(--lp-mute)" }}>
-                  08:32
-                </span>
-                <span className="lp-caret" style={{ width: 9, height: 18, background: "var(--acc)" }} />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="lp-rv" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", borderTop: "1px solid var(--lp-line)" }}>
-          {c.facts.map((fact) => (
-            <div key={fact.title} style={{ padding: "24px 0", paddingInlineEnd: 24, display: "flex", flexDirection: "column", gap: 6 }}>
-              <span style={{ fontSize: 17, fontWeight: 500 }}>{fact.title}</span>
-              <span style={{ fontSize: 15, color: "var(--lp-soft)" }}>{fact.text}</span>
-            </div>
-          ))}
+          {/* You stay in control */}
+          <ul className="lp-rv" style={{ flex: "1 1 320px", minWidth: 0, margin: 0, padding: 0, listStyle: "none", alignSelf: "center", display: "flex", flexDirection: "column" }}>
+            {c.facts.map((fact, i) => (
+              <li key={fact.title} style={{ padding: "24px 0", borderTop: i ? "1px solid var(--lp-line)" : undefined, display: "flex", flexDirection: "column", gap: 8 }}>
+                <span style={{ fontSize: "clamp(20px, 2vw, 26px)", fontWeight: 500 }}>{fact.title}</span>
+                <span style={{ fontSize: 16, color: "var(--lp-soft)" }}>{fact.text}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
