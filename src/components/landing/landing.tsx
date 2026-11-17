@@ -9,7 +9,6 @@ import { Hero } from "./hero";
 import { Ideas } from "./ideas";
 import { Pains } from "./pains";
 import { CtaButton } from "./parts";
-import { Together } from "./together";
 import { Wordmark } from "./wordmark";
 
 /**
@@ -48,7 +47,6 @@ export function Landing({ shell, t }: { shell: Shell; t: LandingCopy }) {
         <Chat t={t} />
         <Cost t={t} />
         <Ideas t={t} />
-        <Together t={t} />
         <Contact t={t} privacyHref={shell.privacyHref} />
       </main>
 

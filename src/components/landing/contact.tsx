@@ -151,35 +151,6 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
 
   return (
     <section id="contact" className="lp-grid" style={{ position: "relative", overflow: "hidden", borderTop: "1px solid #1c1c1c" }}>
-      <svg
-        className="lp-orbit"
-        aria-hidden="true"
-        viewBox="0 0 600 600"
-        width="640"
-        height="640"
-        style={{ position: "absolute", top: "50%", insetInlineEnd: -140, transform: "translateY(-50%)", pointerEvents: "none" }}
-      >
-        <circle cx="300" cy="300" r="100" fill="none" stroke="#1f1f1f" />
-        <circle cx="300" cy="300" r="180" fill="none" stroke="#1f1f1f" />
-        <circle cx="300" cy="300" r="260" fill="none" stroke="#171717" strokeDasharray="2 6" />
-        <g className="lp-spin lp-spin-fast">
-          <circle cx="300" cy="300" r="100" fill="none" stroke="none" />
-          <circle cx="300" cy="200" r="5" fill="#fff" />
-        </g>
-        <g className="lp-spin">
-          <circle cx="300" cy="300" r="180" fill="none" stroke="none" />
-          <circle cx="480" cy="300" r="7" style={{ fill: "var(--acc)" }} />
-          <circle cx="120" cy="300" r="4" fill="#5a5a5a" />
-        </g>
-        <g className="lp-spin lp-spin-rev">
-          <circle cx="300" cy="300" r="260" fill="none" stroke="none" />
-          <circle cx="40" cy="300" r="4" fill="#8c8c8c" />
-          <circle cx="300" cy="40" r="4" fill="#5a5a5a" />
-          <circle cx="484" cy="484" r="3" fill="#8c8c8c" />
-        </g>
-        <rect x="278" y="278" width="44" height="44" rx="6" fill="#000" stroke="#fff" strokeWidth="1.5" />
-        <rect className="lp-pulse" x="293" y="293" width="14" height="14" rx="2" style={{ fill: "var(--acc)" }} />
-      </svg>
 
       <div className="lp-wrap lp-section" style={{ position: "relative", display: "flex", flexDirection: "column", gap: "clamp(40px, 5vw, 56px)" }}>
         <div className="lp-rv" style={{ display: "flex", flexDirection: "column", gap: 24 }}>
@@ -193,13 +164,14 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
           </h2>
         </div>
 
+        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", gap: "clamp(32px, 5vw, 72px)" }}>
         <form
           id="contact-chat"
           action={formAction}
           onSubmit={onSubmit}
           noValidate
           className="lp-rv"
-          style={{ position: "relative", maxWidth: 720, border: "1px solid #262626", borderRadius: 16, background: "#070707", overflow: "hidden" }}
+          style={{ position: "relative", flex: "1 1 520px", minWidth: 0, maxWidth: 720, border: "1px solid #262626", borderRadius: 16, background: "#070707", overflow: "hidden" }}
         >
           <input type="hidden" name="lang" value={t.lang} />
           <TrackingFields />
@@ -293,6 +265,24 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
             </>
           )}
         </form>
+
+        <aside className="lp-rv lp-next" aria-labelledby="contact-next">
+          <h3 id="contact-next">{c.next.title}</h3>
+          <ol>
+            {c.next.steps.map((item, i) => (
+              <li key={item.title}>
+                <span className="lp-mono" aria-hidden="true">
+                  0{i + 1}
+                </span>
+                <div>
+                  <strong>{item.title}</strong>
+                  <p>{item.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </aside>
+        </div>
 
         <p className="lp-rv" style={{ margin: 0, fontSize: 13, color: "var(--lp-mute)" }}>
           {c.note}{" "}
