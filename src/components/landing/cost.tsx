@@ -84,6 +84,10 @@ export function Cost({ t }: { t: Landing }) {
                 {fteAfter}
               </span>
               <span style={{ fontSize: 16, color: "var(--lp-soft)" }}>{c.close}</span>
+              <span style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 16, color: "#fff", marginTop: 8 }}>
+                <span className="lp-pulse" aria-hidden="true" style={{ width: 8, height: 8, borderRadius: 2, background: "var(--acc)", flexShrink: 0 }} />
+                {c.urgency}
+              </span>
             </div>
           </div>
         </div>

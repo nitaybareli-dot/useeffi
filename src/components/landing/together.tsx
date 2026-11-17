@@ -12,7 +12,7 @@ export function Together({ t }: { t: Landing }) {
       <div className="lp-wrap lp-section" style={{ display: "flex", flexDirection: "column", gap: "clamp(48px, 6vw, 80px)" }}>
         <div className="lp-head lp-rv">
           <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-            <Label n="06">{g.label}</Label>
+            <Label n="05">{g.label}</Label>
             <h2 className="lp-h2">
               {g.titleA}
               <span className="lp-dim">{g.titleB}</span>
