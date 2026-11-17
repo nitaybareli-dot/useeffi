@@ -130,6 +130,8 @@ export type Landing = {
     send: string;
     /** Shown after the lead is saved. "{name}" is the visitor's first name. */
     done: string;
+    /** Badge on the closed chat after a successful send. */
+    sent: string;
   };
   footer: { tagline: string; privacy: string };
 };
@@ -337,6 +339,7 @@ export const landingHe: Landing = {
     online: "מחובר",
     send: "שליחה",
     done: "תודה, {name}. קיבלתי הכול. מישהו מהצוות יחזור אליך בהקדם לתיאום השיחה.",
+    sent: "הפרטים נשלחו",
   },
   footer: { tagline: "הטמעת AI בארגונים", privacy: "מדיניות פרטיות" },
 };
@@ -544,6 +547,7 @@ export const landingEn: Landing = {
     online: "online",
     send: "Send",
     done: "Thanks, {name}. Got everything. Someone from the team will be in touch soon to set up the call.",
+    sent: "Sent",
   },
   footer: { tagline: "AI adoption for organizations", privacy: "Privacy policy" },
 };
