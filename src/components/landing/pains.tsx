@@ -36,7 +36,7 @@ export function Pains({ t }: { t: Landing }) {
                   style={{
                     position: "relative",
                     display: "inline-block",
-                    fontSize: "clamp(22px, 2.7vw, 40px)",
+                    fontSize: "clamp(20px, 2.2vw, 32px)",
                     fontWeight: 500,
                     lineHeight: 1.25,
                     letterSpacing: "-0.01em",

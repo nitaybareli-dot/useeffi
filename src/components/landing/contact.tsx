@@ -187,7 +187,7 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
             <span className="lp-pulse" style={{ width: 8, height: 8, borderRadius: 999, background: "var(--acc)" }} />
             {c.meta}
           </span>
-          <h2 className="lp-h2" style={{ fontSize: "clamp(48px, 7vw, 112px)", maxWidth: 1050 }}>
+          <h2 className="lp-h2" style={{ fontSize: "clamp(40px, 5.6vw, 88px)", maxWidth: 1050 }}>
             {c.titleA}
             <span className="lp-dim">{c.titleB}</span>
           </h2>

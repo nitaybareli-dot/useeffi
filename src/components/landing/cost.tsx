@@ -72,7 +72,7 @@ export function Cost({ t }: { t: Landing }) {
               <span
                 className="lp-mono"
                 dir="ltr"
-                style={{ textAlign: "end", fontSize: "clamp(56px, 7vw, 104px)", lineHeight: 1, letterSpacing: "-0.03em" }}
+                style={{ textAlign: "end", fontSize: "clamp(48px, 5.6vw, 84px)", lineHeight: 1, letterSpacing: "-0.03em" }}
               >
                 {format.format(yearly)}
               </span>
