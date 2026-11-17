@@ -1,4 +1,4 @@
-import { Geist, Heebo } from "next/font/google";
+import { Geist, Heebo, IBM_Plex_Mono } from "next/font/google";
 
 export const geist = Geist({
   subsets: ["latin"],
@@ -12,4 +12,12 @@ export const heebo = Heebo({
   display: "swap",
 });
 
-export const fontVariables = `${geist.variable} ${heebo.variable}`;
+/** Small technical labels and numbers on the landing page. */
+export const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-plex-mono",
+  display: "swap",
+});
+
+export const fontVariables = `${geist.variable} ${heebo.variable} ${plexMono.variable}`;

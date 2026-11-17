@@ -7,9 +7,9 @@ export const en: Dict = {
   home: "/en",
   privacyHref: "/en/privacy",
   meta: {
-    title: "Effi | AI adoption for large organizations",
+    title: "Effi | AI adoption for organizations",
     description:
-      "Effi puts AI to work in large, established Israeli companies: advisory, delivery and adoption of AI solutions that make the organization more efficient.",
+      "Effi brings AI into large organizations: we find where work gets stuck and build Effi with you, a simple AI system that works alongside your team. A working pilot in 6–10 weeks.",
   },
   a11y: {
     skip: "Skip to main content",
