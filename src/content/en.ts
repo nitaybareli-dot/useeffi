@@ -392,7 +392,7 @@ export const en: Dict = {
       {
         title: "What we collect",
         body: [
-          "Details you provide in the contact form: name, company, role, email address, phone number and the content of your message.",
+          "Details you provide in the contact form: name, company, phone number and email address.",
           "Aggregate, anonymous usage data, such as pages viewed, device type and country. This data is collected with Vercel Web Analytics, without cookies and without personally identifying visitors.",
         ],
       },
@@ -406,7 +406,7 @@ export const en: Dict = {
       {
         title: "Who we share it with",
         body: [
-          "The information is processed by service providers that operate the site and message delivery for us, including Vercel and Resend.",
+          "The information is processed by service providers that operate the site and message delivery for us, including Vercel, Neon and Resend.",
           "We do not sell personal information or pass it to third parties for marketing purposes.",
         ],
       },

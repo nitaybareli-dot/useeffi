@@ -741,6 +741,15 @@ body {
   color: var(--lp-soft);
 }
 
+.lp-next-team {
+  margin: 32px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid #1c1c1c;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--lp-mute);
+}
+
 /* WhatsApp-style light chat. */
 [dir="rtl"] .lp-back {
   transform: scaleX(-1);

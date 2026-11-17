@@ -28,7 +28,7 @@ export function Chat({ t }: { t: Landing }) {
           <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
             <Label n="02">{c.label}</Label>
             <h2 className="lp-h2">
-              {c.titleA}
+              {c.titleA}{" "}
               <span className="lp-dim">{c.titleB}</span>
             </h2>
           </div>

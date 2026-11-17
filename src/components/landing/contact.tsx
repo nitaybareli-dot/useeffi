@@ -159,7 +159,7 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
             {c.meta}
           </span>
           <h2 className="lp-h2" style={{ fontSize: "clamp(32px, 4vw, 60px)", maxWidth: 900 }}>
-            {c.titleA}
+            {c.titleA}{" "}
             <span className="lp-dim">{c.titleB}</span>
           </h2>
         </div>
@@ -281,6 +281,7 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
               </li>
             ))}
           </ol>
+          <p className="lp-next-team">{c.next.team}</p>
         </aside>
         </div>
 
