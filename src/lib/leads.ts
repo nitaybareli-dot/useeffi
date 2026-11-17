@@ -160,34 +160,104 @@ const escapeHtml = (value: string) =>
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;");
 
+/** Context about the visit, read from request headers. Emailed, not stored. */
+export type LeadContext = {
+  country?: string;
+  city?: string;
+  device?: string;
+};
+
+/** Israeli local numbers (05x...) become international for tel: and WhatsApp links. */
+function intlDigits(phone: string) {
+  const digits = phone.replace(/\D/g, "");
+  if (phone.trim().startsWith("+")) return digits;
+  if (digits.startsWith("972")) return digits;
+  if (digits.startsWith("0")) return `972${digits.slice(1)}`;
+  return digits;
+}
+
+function sourceOf(lead: Lead) {
+  const utm = [lead.utm_source, lead.utm_medium, lead.utm_campaign].filter(Boolean).join(" / ");
+  if (utm) return utm;
+  if (!lead.referrer) return "כניסה ישירה";
+  try {
+    return new URL(lead.referrer).hostname.replace(/^www\./, "");
+  } catch {
+    return lead.referrer;
+  }
+}
+
+function button(href: string, label: string, primary = false) {
+  const style = primary
+    ? "background:#5b8cff;color:#000;border:1px solid #5b8cff"
+    : "background:#fff;color:#111;border:1px solid #d6d6d6";
+  return `<a href="${escapeHtml(href)}" style="${style};display:inline-block;padding:10px 16px;margin:0 0 8px 8px;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none">${label}</a>`;
+}
+
 /**
- * Emails the lead to LEAD_NOTIFY_EMAIL through Resend. Skips quietly when
+ * Emails the lead to LEAD_NOTIFY_EMAIL through Resend: a short Hebrew card with
+ * one-tap call, WhatsApp and reply buttons. Skips quietly when
  * LEAD_NOTIFY_EMAIL is not set. Never throws: the lead is already saved.
  */
-export async function notifyLead(lead: Lead, id: string) {
+export async function notifyLead(lead: Lead, id: string, context: LeadContext = {}) {
   const to = process.env.LEAD_NOTIFY_EMAIL;
   if (!to) return;
-
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     console.error("[leads] LEAD_NOTIFY_EMAIL is set but RESEND_API_KEY is not; notification skipped");
     return;
   }
 
+  const when = new Intl.DateTimeFormat("he-IL", {
+    timeZone: "Asia/Jerusalem",
+    dateStyle: "full",
+    timeStyle: "short",
+  }).format(new Date());
+  const place = [context.city, context.country].filter(Boolean).join(", ");
+  const phone = intlDigits(lead.phone);
+
   const rows: [string, string][] = [
-    ["Lead ID", id],
-    ["Name", lead.name],
-    ["Company", lead.company],
-    ["Phone", lead.phone || "-"],
-    ["Email", lead.email],
-    ["Role", lead.role || "-"],
-    ["Message", lead.message || "-"],
-    ["Language", lead.lang],
-    ["UTM source", lead.utm_source || "-"],
-    ["UTM medium", lead.utm_medium || "-"],
-    ["UTM campaign", lead.utm_campaign || "-"],
-    ["Referrer", lead.referrer || "-"],
+    ["טלפון", lead.phone || "-"],
+    ["אימייל", lead.email],
+    ...(lead.role ? ([["תפקיד", lead.role]] as [string, string][]) : []),
+    ...(lead.message ? ([["הודעה", lead.message]] as [string, string][]) : []),
+    ["מתי", when],
+    ["מאיפה הגיע", sourceOf(lead)],
+    ["שפת האתר", lead.lang === "en" ? "אנגלית" : "עברית"],
+    ...(place ? ([["מיקום משוער", place]] as [string, string][]) : []),
+    ...(context.device ? ([["מכשיר", context.device]] as [string, string][]) : []),
+    ["מספר ליד", `#${id}`],
   ];
+
+  const buttons = [
+    phone ? button(`https://wa.me/${phone}`, "וואטסאפ", true) : "",
+    phone ? button(`tel:+${phone}`, "חיוג") : "",
+    button(`mailto:${lead.email}`, "מענה במייל"),
+  ].join("");
+
+  const html = `<!doctype html><html dir="rtl" lang="he"><body style="margin:0;padding:24px;background:#f4f4f2;font-family:Arial,Helvetica,sans-serif;color:#111">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
+<table role="presentation" width="560" cellpadding="0" cellspacing="0" dir="rtl" style="max-width:560px;width:100%;background:#fff;border:1px solid #e4e4e0;border-radius:14px;overflow:hidden;text-align:right">
+<tr><td style="background:#000;padding:18px 24px;color:#fff;font-size:14px"><span style="display:inline-block;width:10px;height:10px;background:#5b8cff;border-radius:2px;margin-left:8px"></span>ליד חדש מהאתר · useeffi.com</td></tr>
+<tr><td style="padding:24px 24px 8px">
+<div style="font-size:24px;font-weight:700;line-height:1.3">${escapeHtml(lead.name)}</div>
+<div style="font-size:16px;color:#5f5f5b;margin-top:4px">${escapeHtml(lead.company)}</div>
+</td></tr>
+<tr><td style="padding:12px 24px 8px">${buttons}</td></tr>
+<tr><td style="padding:8px 24px 24px">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size:15px;border-top:1px solid #eee">
+${rows
+  .map(
+    ([label, value]) =>
+      `<tr><td style="padding:10px 0;border-bottom:1px solid #eee;color:#7a7a75;width:120px;vertical-align:top">${label}</td><td dir="auto" style="padding:10px 0;border-bottom:1px solid #eee;white-space:pre-wrap">${escapeHtml(value)}</td></tr>`,
+  )
+  .join("")}
+</table>
+</td></tr>
+</table>
+<div style="font-size:12px;color:#9a9a95;margin-top:12px">לחיצה על "השב" במייל הזה תענה ישירות לפונה</div>
+</td></tr></table>
+</body></html>`;
 
   try {
     const response = await fetch("https://api.resend.com/emails", {
@@ -197,14 +267,9 @@ export async function notifyLead(lead: Lead, id: string) {
         from: process.env.CONTACT_FROM_EMAIL || "Effi Website <onboarding@resend.dev>",
         to: to.split(",").map((address) => address.trim()),
         reply_to: lead.email,
-        subject: `New lead from useeffi.com: ${lead.name} (${lead.company})`,
-        text: rows.map(([label, value]) => `${label}: ${value}`).join("\n"),
-        html: `<table cellpadding="6" style="font-family:sans-serif;font-size:15px">${rows
-          .map(
-            ([label, value]) =>
-              `<tr><td style="color:#5f5f5b;vertical-align:top">${label}</td><td dir="auto" style="white-space:pre-wrap">${escapeHtml(value)}</td></tr>`,
-          )
-          .join("")}</table>`,
+        subject: `ליד חדש: ${lead.name} · ${lead.company}`,
+        text: [`ליד חדש מ-useeffi.com`, `${lead.name} · ${lead.company}`, ...rows.map(([label, value]) => `${label}: ${value}`)].join("\n"),
+        html,
       }),
     });
     if (!response.ok) {
