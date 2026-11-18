@@ -52,35 +52,36 @@ export type Landing = {
     ack: string;
     facts: { title: string; text: string }[];
   };
-  contact: {
-    peek: string;
-    meta: string;
-    /** What happens after the visitor leaves details, shown beside the chat. */
-    next: { title: string; steps: { title: string; body: string }[]; team: string };
+  process: {
+    label: string;
     titleA: string;
     titleB: string;
+    lead: string;
+    steps: { title: string; body: string }[];
+  };
+  contact: {
+    meta: string;
+    titleA: string;
+    titleB: string;
+    /** Effi's one-line hello above the form. */
+    greeting: string;
     name: string;
-    company: string;
     phone: string;
-    email: string;
+    company: string;
+    /** Appended to the company label: the field is optional. */
+    optional: string;
     submit: string;
     note: string;
     privacy: string;
-    success: string;
     errorSend: string;
     errorRequired: string;
-    errorEmail: string;
     errorPhone: string;
-    /** Effi's questions, one per field: name, company, phone, email. "{name}" is the visitor's first name. */
-    questions: [string, string, string, string];
-    /** Short labels for the progress bar above the chat. */
-    steps: [string, string, string, string];
-    online: string;
-    send: string;
     /** Shown after the lead is saved. "{name}" is the visitor's first name. */
     done: string;
-    /** Badge on the closed chat after a successful send. */
+    /** Badge on the closed form after a successful send. */
     sent: string;
+    /** Who is behind Effi, under the form. */
+    team: string;
   };
   footer: { tagline: string; privacy: string };
 };
@@ -92,9 +93,9 @@ export const landingHe: Landing = {
   headerCta: "בואו נדבר",
   hero: {
     eyebrow: "הטמעת AI בארגונים",
-    titleA: "מה שלקח ימים,",
-    titleB: "לוקח דקות.",
-    sub: "אנחנו לומדים איך אתם עובדים, ובונים יחד איתכם פתרונות שמבוססים על AI ותפורים בדיוק לצרכים שלכם. הכול משתלב במערכות שכבר יש לכם, ומוריד מהצוות את המשימות החוזרות.",
+    titleA: "העבודה השחורה? עלינו.",
+    titleB: "אתם מתמקדים במה שחשוב.",
+    sub: "חשבוניות, דוחות, פניות, נהלים וכל מה שחוזר על עצמו. אנחנו לומדים איך אתם עובדים, ובונים יחד איתכם פתרונות AI שתפורים בדיוק לצרכים שלכם, על המערכות שכבר יש לכם.",
     cta: "בואו נדבר",
     before: { label: "היום", text: "ידני · מפוזר · איטי" },
     after: { label: "עם אפי", text: "אוטומטי · מחובר · מהיר" },
@@ -139,43 +140,36 @@ export const landingHe: Landing = {
       { title: "אתם קובעים למה אפי ניגש", text: "לאיזה מידע ולאילו מערכות, ובאילו הרשאות." },
     ],
   },
+  process: {
+    label: "איך זה עובד",
+    titleA: "כמה זה ידרוש מכם?",
+    titleB: "מעט מאוד.",
+    lead: "את רוב העבודה אנחנו עושים. מכם צריך בעיקר לספר איך דברים עובדים היום, ומה הכי מעיק.",
+    steps: [
+      { title: "שיחת היכרות", body: "חצי שעה, בלי הכנות. מספרים לנו מה מעיק." },
+      { title: "אנחנו באים ולומדים", body: "יושבים עם הצוותים ורואים איך העבודה באמת נעשית. לא צריך לכתוב מסמכים או אפיונים." },
+      { title: "אנחנו בונים ומחברים", body: "בונים את הפתרון על המערכות שכבר יש לכם. שום דבר טכני לא נופל עליכם." },
+      { title: "נשארים איתכם", body: "בודקים יחד עם הצוות, משפרים לפי מה שעולה, ומוסיפים עוד כשתרצו." },
+    ],
+  },
   contact: {
-    peek: "אפי כבר מחכה להכיר.",
     meta: "שיחה של 30 דקות · בלי עלות · יוצאים עם כיוון ראשון",
-    next: {
-      title: "מה קורה אחר כך",
-      steps: [
-        { title: "שיחת היכרות", body: "חצי שעה. מספרים לנו איפה העבודה נתקעת." },
-        { title: "אפיון משותף", body: "יושבים עם הצוותים בשטח ומגדירים יחד מה בונים." },
-        { title: "אפי מתחיל לעבוד", body: "גרסה ראשונה על המערכות שלכם, נבדקת יחד עם הצוות, ומשם משפרים." },
-      ],
-      team: "אנחנו לא מוכרים תוכנה. אנחנו פותרים בעיות. מאחורי Effi עומדים שלושה שותפים עם שנים של ניסיון בפיתוח תוכנה, מוצר וניהול טכנולוגי.",
-    },
     titleA: "בואו נמצא יחד",
     titleB: "את צוואר הבקבוק הראשון.",
-    name: "שם מלא",
-    company: "חברה",
+    greeting: "היי, אני אפי. השאירו שם וטלפון, ונחזור אליכם לתיאום שיחה.",
+    name: "שם",
     phone: "טלפון",
-    email: "אימייל",
+    company: "חברה",
+    optional: "(לא חובה)",
     submit: "שליחה",
     note: "פרטי הפנייה נשמרים לפי",
     privacy: "מדיניות הפרטיות",
-    success: "קיבלנו, תודה. נחזור אליכם בהקדם לתיאום השיחה.",
     errorSend: "משהו השתבש והפנייה לא נשלחה. נסו שוב בעוד רגע.",
     errorRequired: "שדה חובה",
-    errorEmail: "כתובת האימייל לא תקינה",
     errorPhone: "מספר הטלפון לא תקין",
-    steps: ["שם", "חברה", "טלפון", "מייל"],
-    questions: [
-      "היי, אני אפי. נתחיל בהיכרות קצרה: איך קוראים לך?",
-      "נעים מאוד, {name}. מאיזו חברה?",
-      "לאיזה מספר כדאי לחזור אליך?",
-      "ואחרון: מה כתובת המייל שלך?",
-    ],
-    online: "מחובר",
-    send: "שליחה",
-    done: "תודה, {name}. קיבלתי הכול. מישהו מהצוות יחזור אליך בהקדם לתיאום השיחה.",
+    done: "תודה, {name}. קיבלתי. מישהו מהצוות יחזור אליך בהקדם לתיאום השיחה.",
     sent: "הפרטים נשלחו",
+    team: "אנחנו לא מוכרים תוכנה. אנחנו פותרים בעיות. מאחורי Effi עומדים שלושה שותפים עם שנים של ניסיון בפיתוח תוכנה, מוצר וניהול טכנולוגי.",
   },
   footer: { tagline: "הטמעת AI בארגונים", privacy: "מדיניות פרטיות" },
 };
@@ -187,9 +181,9 @@ export const landingEn: Landing = {
   headerCta: "Let's talk",
   hero: {
     eyebrow: "AI implementation for organizations",
-    titleA: "What took days",
-    titleB: "now takes minutes.",
-    sub: "We learn how you work and build, together with you, AI-powered solutions tailored to exactly what you need. Everything fits into the systems you already have and takes repetitive tasks off your team's plate.",
+    titleA: "The grunt work? On us.",
+    titleB: "You focus on what matters.",
+    sub: "Invoices, reports, inquiries, procedures and everything else that repeats. We learn how you work and build, together with you, AI solutions tailored to exactly what you need, on the systems you already have.",
     cta: "Let's talk",
     before: { label: "Today", text: "Manual · scattered · slow" },
     after: { label: "With Effi", text: "Automated · connected · fast" },
@@ -234,43 +228,36 @@ export const landingEn: Landing = {
       { title: "You decide what Effi can access", text: "Which information and systems, and with what permissions." },
     ],
   },
+  process: {
+    label: "How it works",
+    titleA: "How much will this take from you?",
+    titleB: "Very little.",
+    lead: "We do most of the work. From you we mainly need to hear how things work today, and what bothers you most.",
+    steps: [
+      { title: "Intro call", body: "Half an hour, no preparation. Tell us what's bothering you." },
+      { title: "We come and learn", body: "We sit with your teams and see how the work is really done. No documents or specs to write." },
+      { title: "We build and connect", body: "We build the solution on the systems you already have. Nothing technical lands on you." },
+      { title: "We stay with you", body: "We test it with your team, improve it as things come up, and add more when you want." },
+    ],
+  },
   contact: {
-    peek: "Effi can't wait to meet you.",
     meta: "30-minute call · free · leave with a first direction",
-    next: {
-      title: "What happens next",
-      steps: [
-        { title: "Intro call", body: "Half an hour. Tell us where the work gets stuck." },
-        { title: "Defining it together", body: "We work alongside your teams and decide together what to build." },
-        { title: "Effi gets to work", body: "A first version on your systems, tested with your team, then improved." },
-      ],
-      team: "We don't sell software. We solve problems. Effi is run by three partners with years of experience in software, product and technology leadership.",
-    },
     titleA: "Let's find",
     titleB: "your first bottleneck.",
-    name: "Full name",
-    company: "Company",
+    greeting: "Hi, I'm Effi. Leave your name and phone and we'll get back to you to set up a call.",
+    name: "Name",
     phone: "Phone",
-    email: "Email",
+    company: "Company",
+    optional: "(optional)",
     submit: "Send",
     note: "Your details are kept according to our",
     privacy: "privacy policy",
-    success: "Got it, thank you. We'll be in touch soon to set up the call.",
     errorSend: "Something went wrong and your message wasn't sent. Please try again in a moment.",
     errorRequired: "Required",
-    errorEmail: "Please enter a valid email",
     errorPhone: "Please enter a valid phone number",
-    steps: ["Name", "Company", "Phone", "Email"],
-    questions: [
-      "Hi, I'm Effi. Let's start with a quick intro: what's your name?",
-      "Nice to meet you, {name}. Which company are you with?",
-      "What's the best number to reach you on?",
-      "Last one: what's your email?",
-    ],
-    online: "online",
-    send: "Send",
-    done: "Thanks, {name}. Got everything. Someone from the team will be in touch soon to set up the call.",
+    done: "Thanks, {name}. Got it. Someone from the team will be in touch soon to set up the call.",
     sent: "Sent",
+    team: "We don't sell software. We solve problems. Effi is run by three partners with years of experience in software, product and technology leadership.",
   },
   footer: { tagline: "AI adoption for organizations", privacy: "Privacy policy" },
 };

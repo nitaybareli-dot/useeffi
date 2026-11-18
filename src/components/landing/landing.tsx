@@ -6,13 +6,14 @@ import { Chat } from "./chat";
 import { Contact } from "./contact";
 import { Hero } from "./hero";
 import { Pains } from "./pains";
+import { Process } from "./process";
 import { Avatar } from "./avatar";
 import { CtaButton } from "./parts";
 import { Wordmark } from "./wordmark";
 
 /**
  * The landing page, one guided story in both languages:
- * hero → pains → what Effi does → contact.
+ * hero → pains → what Effi does → how it works → contact.
  */
 export function Landing({ shell, t }: { shell: Shell; t: LandingCopy }) {
   return (
@@ -24,6 +25,7 @@ export function Landing({ shell, t }: { shell: Shell; t: LandingCopy }) {
         <Hero t={t} />
         <Pains t={t} />
         <Chat t={t} />
+        <Process t={t} />
         <Contact t={t} privacyHref={shell.privacyHref} />
       </main>
 

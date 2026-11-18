@@ -1035,3 +1035,87 @@ body {
     }
   }
 }
+
+/* How it works: four steps in a row, stacked on phones. */
+.lp-process {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--lp-line);
+}
+.lp-process li {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px 0;
+  padding-inline-end: 28px;
+}
+@media (max-width: 720px) {
+  .lp-process li {
+    padding: 18px 0;
+  }
+}
+.lp-process li > span {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 6px;
+  border-radius: 9px;
+  border: 1px solid var(--lp-border2);
+  background: var(--lp-card);
+  color: var(--acc);
+  font-size: 12px;
+}
+.lp-process strong {
+  font-size: clamp(20px, 1.8vw, 24px);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.lp-process p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--lp-soft);
+}
+
+/* Contact: one short form, introduced by Effi. */
+.lp-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+.lp-form label > span,
+.lp-form label {
+  line-height: 21px;
+}
+/* Line the button up with the inputs, under the labels' height. */
+.lp-form > button {
+  margin-top: 29px;
+  height: 50px;
+}
+.lp-form .lp-chat-input {
+  height: 50px;
+  min-height: 0;
+  padding-block: 0;
+  line-height: normal;
+}
+.lp-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--lp-soft);
+}
+.lp-form label small {
+  font-size: 13px;
+  color: var(--lp-mute);
+}
+.lp-form-err {
+  font-size: 13px;
+  color: var(--lp-err);
+}

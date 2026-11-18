@@ -77,14 +77,10 @@ export async function sendContact(_previous: ContactState, formData: FormData): 
 
   const fields: ContactState["fields"] = {};
   if (!values.name) fields.name = "required";
-  if (!values.company) fields.company = "required";
-  if (!values.email) fields.email = "required";
-  else if (!EMAIL_PATTERN.test(values.email)) fields.email = "email";
-  // Phone is required on the Hebrew form. The English form keeps it optional.
-  if (lang === "he") {
-    if (!values.phone) fields.phone = "required";
-    else if (!isPhone(values.phone)) fields.phone = "phone";
-  }
+  // The form asks for name and phone; company and email are optional.
+  if (values.email && !EMAIL_PATTERN.test(values.email)) fields.email = "email";
+  if (!values.phone) fields.phone = "required";
+  else if (!isPhone(values.phone)) fields.phone = "phone";
   if (Object.keys(fields).length > 0) {
     return { status: "error", error: "validation", fields, values };
   }

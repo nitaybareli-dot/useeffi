@@ -218,7 +218,7 @@ export async function notifyLead(lead: Lead, id: string, context: LeadContext = 
 
   const rows: [string, string][] = [
     ["טלפון", lead.phone || "-"],
-    ["אימייל", lead.email],
+    ...(lead.email ? ([["אימייל", lead.email]] as [string, string][]) : []),
     ...(lead.role ? ([["תפקיד", lead.role]] as [string, string][]) : []),
     ...(lead.message ? ([["הודעה", lead.message]] as [string, string][]) : []),
     ["מתי", when],
@@ -232,7 +232,7 @@ export async function notifyLead(lead: Lead, id: string, context: LeadContext = 
   const buttons = [
     phone ? button(`https://wa.me/${phone}`, "וואטסאפ", true) : "",
     phone ? button(`tel:+${phone}`, "חיוג") : "",
-    button(`mailto:${lead.email}`, "מענה במייל"),
+    lead.email ? button(`mailto:${lead.email}`, "מענה במייל") : "",
   ].join("");
 
   const html = `<!doctype html><html dir="rtl" lang="he"><body style="margin:0;padding:24px;background:#f4f4f2;font-family:Arial,Helvetica,sans-serif;color:#111">
@@ -255,7 +255,7 @@ ${rows
 </table>
 </td></tr>
 </table>
-<div style="font-size:12px;color:#9a9a95;margin-top:12px">לחיצה על "השב" במייל הזה תענה ישירות לפונה</div>
+${lead.email ? `<div style="font-size:12px;color:#9a9a95;margin-top:12px">לחיצה על "השב" במייל הזה תענה ישירות לפונה</div>` : ""}
 </td></tr></table>
 </body></html>`;
 
@@ -266,9 +266,9 @@ ${rows
       body: JSON.stringify({
         from: process.env.CONTACT_FROM_EMAIL || "Effi Website <onboarding@resend.dev>",
         to: to.split(",").map((address) => address.trim()),
-        reply_to: lead.email,
-        subject: `ליד חדש: ${lead.name} · ${lead.company}`,
-        text: [`ליד חדש מ-useeffi.com`, `${lead.name} · ${lead.company}`, ...rows.map(([label, value]) => `${label}: ${value}`)].join("\n"),
+        ...(lead.email ? { reply_to: lead.email } : {}),
+        subject: `ליד חדש: ${[lead.name, lead.company].filter(Boolean).join(" · ")}`,
+        text: [`ליד חדש מ-useeffi.com`, [lead.name, lead.company].filter(Boolean).join(" · "), ...rows.map(([label, value]) => `${label}: ${value}`)].join("\n"),
         html,
       }),
     });
