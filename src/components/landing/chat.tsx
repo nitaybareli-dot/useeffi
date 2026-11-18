@@ -1,6 +1,32 @@
 import type { Landing } from "@/content/landing";
 import { Avatar } from "./avatar";
 import { Label } from "./parts";
+import { WaPlayer } from "./wa-player";
+
+/** Line icons for the control facts: an eye, a check in a circle, a shield. */
+function FactIcon({ name }: { name: "eye" | "approve" | "shield" }) {
+  const common = { width: 22, height: 22, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round" } as const;
+  if (name === "eye")
+    return (
+      <svg {...common}>
+        <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+    );
+  if (name === "approve")
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="12" r="9" />
+        <path d="m8 12.5 2.7 2.7L16 9.8" />
+      </svg>
+    );
+  return (
+    <svg {...common}>
+      <path d="M12 3 4.5 6v5.5c0 4.6 3.2 8.3 7.5 9.5 4.3-1.2 7.5-4.9 7.5-9.5V6z" />
+      <path d="m9 12 2.2 2.2L15.5 10" />
+    </svg>
+  );
+}
 
 /** What a manager receives from Effi in the morning, next to the ways you stay in control. */
 export function Chat({ t }: { t: Landing }) {
@@ -27,15 +53,16 @@ export function Chat({ t }: { t: Landing }) {
                     <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" />
                   </svg>
                 </div>
-                <div style={{ padding: "14px 10px 16px", display: "flex", flexDirection: "column", gap: 6, minHeight: 500 }}>
+                <div data-wa-body style={{ padding: "14px 10px 16px", display: "flex", flexDirection: "column", justifyContent: "flex-end", gap: 6, height: 600, overflow: "hidden" }}>
+                  <WaPlayer />
                   <span style={{ alignSelf: "center", fontSize: 12, color: "#54656f", background: "#fff", padding: "4px 12px", borderRadius: 8, boxShadow: "0 1px 0.5px rgba(11,20,26,0.13)", marginBottom: 4 }}>
                     {c.today}
                   </span>
-                  <div className="lp-wa-in lp-rv">
+                  <div className="lp-wa-in" data-wa="in">
                     {c.greeting}
                     <span className="lp-wa-meta">07:58</span>
                   </div>
-                  <div className="lp-wa-in lp-rv">
+                  <div className="lp-wa-in" data-wa="in">
                     <strong style={{ fontWeight: 600 }}>{c.doneTitle}</strong>
                     {c.done.map((line) => (
                       <span key={line} style={{ display: "block" }}>
@@ -44,7 +71,7 @@ export function Chat({ t }: { t: Landing }) {
                     ))}
                     <span className="lp-wa-meta">08:00</span>
                   </div>
-                  <div className="lp-rv" style={{ alignSelf: "flex-start", maxWidth: "85%", display: "flex", flexDirection: "column", gap: 2 }}>
+                  <div data-wa="in" style={{ alignSelf: "flex-start", maxWidth: "85%", display: "flex", flexDirection: "column", gap: 2 }}>
                     <div className="lp-wa-in" style={{ maxWidth: "none" }}>
                       <strong style={{ fontWeight: 600, display: "block" }}>{c.approvalTitle}</strong>
                       {c.approvalItem}
@@ -62,7 +89,7 @@ export function Chat({ t }: { t: Landing }) {
                       </span>
                     ))}
                   </div>
-                  <div className="lp-wa-out lp-rv">
+                  <div className="lp-wa-out" data-wa="out">
                     {c.reply}
                     <span className="lp-wa-meta">
                       08:14
@@ -71,11 +98,11 @@ export function Chat({ t }: { t: Landing }) {
                       </svg>
                     </span>
                   </div>
-                  <div className="lp-wa-in lp-rv">
+                  <div className="lp-wa-in" data-wa="in">
                     {c.ack}
                     <span className="lp-wa-meta">08:14</span>
                   </div>
-                  <div className="lp-wa-in" style={{ display: "flex", gap: 4, padding: "11px 14px" }} role="img" aria-label={c.typing}>
+                  <div data-wa-typing className="lp-wa-in" style={{ display: "flex", gap: 4, padding: "11px 14px" }} role="img" aria-label={c.typing}>
                     {[0, 1, 2].map((i) => (
                       <span key={i} className="lp-dot" style={{ width: 7, height: 7, borderRadius: 99, background: "#8696a0" }} />
                     ))}
@@ -106,9 +133,14 @@ export function Chat({ t }: { t: Landing }) {
             </p>
             <ul style={{ margin: "8px 0 0", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", borderTop: "1px solid var(--lp-line)" }}>
               {c.facts.map((fact) => (
-                <li key={fact.title} style={{ padding: "18px 0", borderBottom: "1px solid var(--lp-line)", display: "flex", flexDirection: "column", gap: 4 }}>
-                  <span style={{ fontSize: 18, fontWeight: 500 }}>{fact.title}</span>
-                  <span style={{ fontSize: 15, color: "var(--lp-soft)" }}>{fact.text}</span>
+                <li key={fact.title} style={{ padding: "18px 0", borderBottom: "1px solid var(--lp-line)", display: "flex", gap: 16, alignItems: "flex-start" }}>
+                  <span className="lp-fact-icon" aria-hidden="true">
+                    <FactIcon name={fact.icon} />
+                  </span>
+                  <span style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                    <span style={{ fontSize: 18, fontWeight: 500 }}>{fact.title}</span>
+                    <span style={{ fontSize: 15, color: "var(--lp-soft)" }}>{fact.text}</span>
+                  </span>
                 </li>
               ))}
             </ul>

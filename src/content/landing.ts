@@ -50,7 +50,8 @@ export type Landing = {
     details: string;
     reply: string;
     ack: string;
-    facts: { title: string; text: string }[];
+    /** Ways you stay in control, each with an icon. */
+    facts: { icon: "eye" | "approve" | "shield"; title: string; text: string }[];
   };
   process: {
     label: string;
@@ -135,9 +136,9 @@ export const landingHe: Landing = {
     reply: "תעביר לרונית מהרכש שתבדוק.",
     ack: "העברתי לרונית. אעדכן אותך כשהיא תסיים.",
     facts: [
-      { title: "רואים כל מה שאפי עושה", text: "כל פעולה מתועדת: מה, מתי ולמה." },
-      { title: "שום דבר רגיש בלי אישור", text: "חריגות, תשלומים ושינויים מחכים לאישור שלכם." },
-      { title: "אתם קובעים למה אפי ניגש", text: "לאיזה מידע ולאילו מערכות, ובאילו הרשאות." },
+      { icon: "eye", title: "בקרה מלאה על כל מה שקורה", text: "כל פעולה של אפי מתועדת: מה, מתי ולמה. רואים הכול, בכל רגע." },
+      { icon: "approve", title: "שום דבר רגיש בלי אישור", text: "חריגות, תשלומים ושינויים מחכים לאישור שלכם." },
+      { icon: "shield", title: "מאובטח, ובהרשאות שלכם", text: "אתם קובעים לאיזה מידע ולאילו מערכות אפי ניגש. שום דבר מעבר." },
     ],
   },
   process: {
@@ -223,9 +224,9 @@ export const landingEn: Landing = {
     reply: "Send it to Ronit in purchasing to review.",
     ack: "Sent to Ronit. I'll update you when she's done.",
     facts: [
-      { title: "See everything Effi does", text: "Every action is logged: what, when and why." },
-      { title: "Nothing sensitive without approval", text: "Exceptions, payments and changes wait for your sign-off." },
-      { title: "You decide what Effi can access", text: "Which information and systems, and with what permissions." },
+      { icon: "eye", title: "Full visibility into everything", text: "Every action Effi takes is logged: what, when and why. You see it all, any time." },
+      { icon: "approve", title: "Nothing sensitive without approval", text: "Exceptions, payments and changes wait for your sign-off." },
+      { icon: "shield", title: "Secure, on your permissions", text: "You decide which information and systems Effi can access. Nothing beyond that." },
     ],
   },
   process: {

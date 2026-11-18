@@ -1045,7 +1045,21 @@ body {
   margin: 0;
   padding: 0;
   list-style: none;
-  border-top: 1px solid var(--lp-line);
+  position: relative;
+}
+/* On wide screens a line runs through the step numbers, like a path. */
+@media (min-width: 960px) {
+  .lp-process::before {
+    content: "";
+    position: absolute;
+    top: 45px;
+    inset-inline: 0;
+    height: 1px;
+    background: var(--lp-border2);
+  }
+  .lp-process li > span {
+    position: relative;
+  }
 }
 .lp-process li {
   display: flex;
@@ -1126,4 +1140,20 @@ body {
   .lp-chat-copy {
     order: -1;
   }
+}
+
+/* Icon tiles beside the control facts. */
+.lp-fact-icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  background: rgba(91, 140, 255, 0.12);
+  color: var(--acc);
+}
+/* A message arriving in the WhatsApp demo. */
+[data-wa-new] {
+  animation: lp-msg 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
