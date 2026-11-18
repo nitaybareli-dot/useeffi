@@ -8,18 +8,7 @@ export function Chat({ t }: { t: Landing }) {
   return (
     <section className="lp-dark" style={{ borderTop: "1px solid #1c1c1c" }}>
       <div className="lp-wrap lp-section" style={{ display: "flex", flexDirection: "column", gap: "clamp(40px, 5vw, 64px)" }}>
-        <div className="lp-head lp-rv">
-          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-            <Label n="02">{c.label}</Label>
-            <h2 className="lp-h2">
-              {c.titleA}{" "}
-              <span className="lp-dim">{c.titleB}</span>
-            </h2>
-          </div>
-          <p className="lp-lead">{c.lead}</p>
-        </div>
-
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(32px, 6vw, 96px)", alignItems: "flex-start" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(40px, 6vw, 96px)", alignItems: "center" }}>
           {/* Phone: a light, WhatsApp-style conversation with Effi */}
           <div style={{ flex: "0 1 400px", minWidth: 0, display: "flex", flexDirection: "column", gap: 14 }}>
             <span style={{ fontSize: 13, color: "var(--lp-mute)" }}>{c.phoneLabel}</span>
@@ -105,15 +94,25 @@ export function Chat({ t }: { t: Landing }) {
             </div>
           </div>
 
-          {/* You stay in control */}
-          <ul className="lp-rv" style={{ flex: "1 1 320px", minWidth: 0, margin: 0, padding: 0, listStyle: "none", alignSelf: "center", display: "flex", flexDirection: "column" }}>
-            {c.facts.map((fact, i) => (
-              <li key={fact.title} style={{ padding: "24px 0", borderTop: i ? "1px solid var(--lp-line)" : undefined, display: "flex", flexDirection: "column", gap: 8 }}>
-                <span style={{ fontSize: "clamp(20px, 2vw, 26px)", fontWeight: 500 }}>{fact.title}</span>
-                <span style={{ fontSize: 16, color: "var(--lp-soft)" }}>{fact.text}</span>
-              </li>
-            ))}
-          </ul>
+          {/* The story, and the ways you stay in control */}
+          <div className="lp-rv lp-chat-copy" style={{ flex: "1 1 380px", minWidth: 0, display: "flex", flexDirection: "column", gap: 24 }}>
+            <Label n="02">{c.label}</Label>
+            <h2 className="lp-h2" style={{ fontSize: "clamp(32px, 3.4vw, 52px)" }}>
+              {c.titleA}{" "}
+              <span className="lp-dim">{c.titleB}</span>
+            </h2>
+            <p className="lp-lead" style={{ margin: 0, maxWidth: 520 }}>
+              {c.lead}
+            </p>
+            <ul style={{ margin: "8px 0 0", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", borderTop: "1px solid var(--lp-line)" }}>
+              {c.facts.map((fact) => (
+                <li key={fact.title} style={{ padding: "18px 0", borderBottom: "1px solid var(--lp-line)", display: "flex", flexDirection: "column", gap: 4 }}>
+                  <span style={{ fontSize: 18, fontWeight: 500 }}>{fact.title}</span>
+                  <span style={{ fontSize: 15, color: "var(--lp-soft)" }}>{fact.text}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>

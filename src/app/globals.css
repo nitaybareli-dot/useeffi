@@ -408,20 +408,21 @@ body {
 .lp-wm-slow .lp-wm-block {
   animation-duration: 12s;
 }
+/* The tail narrows while its letters fold, so there is never an empty gap. */
 @keyframes lp-wm-tail {
-  0%, 30% { max-width: 6em; }
-  38%, 80% { max-width: 0; }
+  0%, 15% { max-width: 6em; }
+  27%, 80% { max-width: 0; }
   88%, 100% { max-width: 6em; }
 }
 @keyframes lp-wm-letter {
   0%, 14% { transform: none; opacity: 1; }
-  25%, 83% { transform: translateX(0.55em) scale(0); opacity: 0; }
-  93%, 100% { transform: none; opacity: 1; }
+  25%, 81% { transform: translateX(0.55em) scale(0); opacity: 0; }
+  90%, 100% { transform: none; opacity: 1; }
 }
 @keyframes lp-wm-block {
   0%, 14% { transform: scale(0.62) rotate(0deg); }
-  30% { transform: scale(1.28) rotate(90deg); }
-  38%, 80% { transform: scale(1) rotate(90deg); }
+  26% { transform: scale(1.28) rotate(90deg); }
+  32%, 80% { transform: scale(1) rotate(90deg); }
   88% { transform: scale(1.18) rotate(180deg); }
   100% { transform: scale(0.62) rotate(180deg); }
 }
@@ -1118,4 +1119,11 @@ body {
 .lp-form-err {
   font-size: 13px;
   color: var(--lp-err);
+}
+
+/* On narrow screens the story comes before the phone. */
+@media (max-width: 900px) {
+  .lp-chat-copy {
+    order: -1;
+  }
 }
