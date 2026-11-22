@@ -65,21 +65,13 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
     <section id="contact" className="lp-grid" style={{ position: "relative", overflow: "hidden", borderTop: "1px solid var(--lp-border)" }}>
       <div className="lp-wrap lp-section" style={{ position: "relative", display: "flex", flexDirection: "column", gap: "clamp(32px, 4vw, 48px)" }}>
         <div className="lp-rv" style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <span style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 14, color: "var(--lp-soft)" }}>
-            <span className="lp-pulse" style={{ width: 8, height: 8, borderRadius: 999, background: "var(--acc)" }} />
-            {c.meta}
-          </span>
           <h2 className="lp-h2" style={{ fontSize: "clamp(32px, 4vw, 60px)", maxWidth: 900 }}>
             {c.titleA}{" "}
             <span className="lp-dim">{c.titleB}</span>
           </h2>
         </div>
 
-        <div
-          id="contact-chat"
-          className="lp-rv"
-          style={{ maxWidth: 880, border: "1px solid var(--lp-border2)", borderRadius: 16, background: "var(--lp-card)", padding: "clamp(20px, 3vw, 32px)", display: "flex", flexDirection: "column", gap: 24 }}
-        >
+        <div id="contact-chat" className="lp-rv lp-contact-card">
           {done ? (
             <div className="lp-chat-done" role="status">
               <span className="lp-done-badge">
@@ -95,15 +87,27 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
             </div>
           ) : (
             <>
-              <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
-                <span className="lp-hop" style={{ flexShrink: 0 }}>
-                  <Avatar size={40} />
-                </span>
-                <div className="lp-chat-in" style={{ fontSize: 17 }}>
-                  {c.greeting}
+              <div className="lp-contact-side">
+                <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+                  <span className="lp-hop" style={{ flexShrink: 0 }}>
+                    <Avatar size={48} />
+                  </span>
+                  <div className="lp-chat-in" style={{ fontSize: 17 }}>
+                    {c.greeting}
+                  </div>
                 </div>
+                <ul className="lp-contact-checks">
+                  {c.meta.split(" · ").map((item) => (
+                    <li key={item}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d="m5 12.5 4.5 4.5L19 7.5" />
+                      </svg>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
-
+              <div className="lp-contact-main">
               <form action={formAction} onSubmit={onSubmit} noValidate className="lp-form">
                 <input type="hidden" name="lang" value={t.lang} />
                 <TrackingFields />
@@ -160,11 +164,12 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
                   {c.errorSend}
                 </p>
               ) : null}
+              </div>
             </>
           )}
         </div>
 
-        <div className="lp-rv" style={{ display: "flex", flexDirection: "column", gap: 12, maxWidth: 880 }}>
+        <div className="lp-rv" style={{ display: "flex", flexDirection: "column", gap: 12, maxWidth: 1000 }}>
           <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "var(--lp-soft)" }}>{c.team}</p>
           <p style={{ margin: 0, fontSize: 13, color: "var(--lp-mute)" }}>
             {c.note}{" "}

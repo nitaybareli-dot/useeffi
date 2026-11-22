@@ -1098,22 +1098,76 @@ body {
 }
 
 /* Contact: one short form, introduced by Effi. */
+.lp-contact-card {
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border: 1px solid var(--lp-border2);
+  border-radius: 20px;
+  background: var(--lp-card);
+  overflow: hidden;
+  box-shadow: 0 30px 60px -40px rgba(20, 20, 10, 0.25);
+}
+@media (min-width: 860px) {
+  .lp-contact-card {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  }
+}
+.lp-contact-card > .lp-chat-done {
+  grid-column: 1 / -1;
+}
+.lp-contact-side {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+  padding: clamp(24px, 3vw, 40px);
+  background: var(--lp-card2);
+  border-bottom: 1px solid var(--lp-line);
+}
+@media (min-width: 860px) {
+  .lp-contact-side {
+    border-bottom: 0;
+    border-inline-end: 1px solid var(--lp-line);
+  }
+}
+.lp-contact-checks {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 16px;
+}
+.lp-contact-checks li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.lp-contact-checks svg {
+  flex-shrink: 0;
+  color: var(--acc);
+}
+.lp-contact-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: clamp(24px, 3vw, 40px);
+}
 .lp-form {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 12px;
-  align-items: start;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
 }
-.lp-form label > span,
-.lp-form label {
-  line-height: 21px;
-}
-/* Line the button up with the inputs, under the labels' height. */
 .lp-form > button {
-  margin-top: 29px;
-  height: 50px;
+  margin-top: 6px;
+  height: 52px;
 }
 .lp-form .lp-chat-input {
+  flex: none;
+  box-sizing: border-box;
+  width: 100%;
   height: 50px;
   min-height: 0;
   padding-block: 0;
