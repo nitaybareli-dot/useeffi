@@ -53,6 +53,14 @@ export type Landing = {
     /** Ways you stay in control, each with an icon. */
     facts: { icon: "eye" | "approve" | "shield"; title: string; text: string }[];
   };
+  ideas: {
+    label: string;
+    titleA: string;
+    titleB: string;
+    whatIf: string;
+    tabs: { id: string; name: string; ideas: string[] }[];
+    close: string;
+  };
   process: {
     label: string;
     titleA: string;
@@ -141,6 +149,51 @@ export const landingHe: Landing = {
       { icon: "shield", title: "מאובטח, ובהרשאות שלכם", text: "אתם קובעים לאיזה מידע ולאילו מערכות אפי ניגש. שום דבר מעבר." },
     ],
   },
+  ideas: {
+    label: "רעיונות לארגון שלכם",
+    titleA: "מה אפי יכול לעשות",
+    titleB: "אצלכם?",
+    whatIf: "מה אם",
+    tabs: [
+      {
+        id: "manufacturing",
+        name: "תעשייה וייצור",
+        ideas: [
+          "הזמנות הרכש היו יוצאות בזמן, בלי מעקב ידני?",
+          "דוח האיכות היה מוכן בסוף המשמרת?",
+          "עובד חדש היה מקבל תשובה מתוך הנהלים, בלי לחפש את הוותיק?",
+        ],
+      },
+      {
+        id: "real-estate",
+        name: "נדל״ן ובנייה",
+        ideas: [
+          "חשבונות קבלנים היו נבדקים מול החוזה, בלי לשבת עליהם שעות?",
+          "רוכשים ודיירים היו מקבלים תשובה גם אחרי שעות העבודה?",
+          "סעיפים חריגים בחוזה היו מסומנים לפני החתימה?",
+        ],
+      },
+      {
+        id: "logistics",
+        name: "לוגיסטיקה",
+        ideas: [
+          "הזמנות היו נכנסות ישר למערכת, בלי הקלדה?",
+          "מסמכי המכס היו נבדקים לפני שהם יוצאים?",
+          "הלקוח היה יודע איפה המשלוח, בלי להתקשר?",
+        ],
+      },
+      {
+        id: "offices",
+        name: "משרדים ומטות",
+        ideas: [
+          "פניות למשאבי אנוש היו מקבלות תשובה מיד, מתוך הנהלים?",
+          "דוח ההנהלה היה מחכה מוכן בבוקר?",
+          "השוואת הצעות מחיר הייתה מוכנה לפני הישיבה?",
+        ],
+      },
+    ],
+    close: "אצלכם זה יכול להיות משהו אחר לגמרי. ספרו לנו מה מעיק, ונמצא יחד את הפתרון.",
+  },
   process: {
     label: "איך זה עובד",
     titleA: "כמה זה ידרוש מכם?",
@@ -228,6 +281,51 @@ export const landingEn: Landing = {
       { icon: "approve", title: "Nothing sensitive without approval", text: "Exceptions, payments and changes wait for your sign-off." },
       { icon: "shield", title: "Secure, on your permissions", text: "You decide which information and systems Effi can access. Nothing beyond that." },
     ],
+  },
+  ideas: {
+    label: "Ideas for your organization",
+    titleA: "What could Effi do",
+    titleB: "for you?",
+    whatIf: "What if",
+    tabs: [
+      {
+        id: "manufacturing",
+        name: "Manufacturing",
+        ideas: [
+          "purchase orders went out on time, with no manual follow-up?",
+          "the quality report was ready at the end of the shift?",
+          "a new employee got answers from the procedures, without hunting down a veteran?",
+        ],
+      },
+      {
+        id: "real-estate",
+        name: "Real estate & construction",
+        ideas: [
+          "contractor invoices were checked against the contract, without hours of work?",
+          "buyers and tenants got answers after business hours too?",
+          "unusual contract clauses were flagged before signing?",
+        ],
+      },
+      {
+        id: "logistics",
+        name: "Logistics",
+        ideas: [
+          "orders went straight into the system, with no typing?",
+          "customs documents were checked before they went out?",
+          "customers knew where their shipment was, without calling?",
+        ],
+      },
+      {
+        id: "offices",
+        name: "Offices & HQ",
+        ideas: [
+          "HR questions got an instant answer from the procedures?",
+          "the management report was waiting, ready, every morning?",
+          "price quotes were compared before the meeting?",
+        ],
+      },
+    ],
+    close: "For you it might be something else entirely. Tell us what's bothering you, and we'll find the solution together.",
   },
   process: {
     label: "How it works",
