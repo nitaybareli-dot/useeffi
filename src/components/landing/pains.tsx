@@ -1,14 +1,16 @@
 import type { Landing } from "@/content/landing";
+import { Avatar } from "./avatar";
 import { Label } from "./parts";
 import { PainsTrigger } from "./pains-trigger";
 
 /**
  * Pain points. When each line reaches the middle of the screen, Effi's block
  * runs along it and strikes it out at a readable pace (the text stays
- * readable), then the answer appears beside it.
+ * readable), then the team member who takes it on appears beside it.
  */
 export function Pains({ t }: { t: Landing }) {
   const p = t.pains;
+  const team = Object.fromEntries(t.team.map((a) => [a.id, a]));
   return (
     <section>
       <PainsTrigger />
@@ -57,13 +59,12 @@ export function Pains({ t }: { t: Landing }) {
                 </span>
               </span>
               <span className="lp-answer" style={{ flex: "0 1 380px", minWidth: 0 }}>
-                <span style={{ fontSize: 13, color: "var(--lp-mute)" }}>
-                  {p.afterPrefix}
+                <span className="lp-who">
+                  <Avatar size={24} tone={team[item.who].tone} />
+                  <b>{team[item.who].name}</b>
+                  <span>· {team[item.who].role}</span>
                 </span>
-                <span style={{ display: "flex", alignItems: "baseline", gap: 12, fontSize: "clamp(17px, 1.4vw, 20px)", fontWeight: 500, lineHeight: 1.4 }}>
-                  <span aria-hidden="true" style={{ flex: "0 0 10px", width: 10, height: 10, borderRadius: 3, background: "var(--acc)", transform: "translateY(-2px)" }} />
-                  {item.after}
-                </span>
+                <span style={{ fontSize: "clamp(17px, 1.4vw, 20px)", fontWeight: 500, lineHeight: 1.4 }}>{item.after}</span>
               </span>
             </li>
           ))}

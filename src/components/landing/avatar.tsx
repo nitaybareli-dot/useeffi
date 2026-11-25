@@ -1,10 +1,12 @@
+import type { Tone } from "@/content/landing";
+
 /**
- * Effi's face: the green block from the logo, with eyes that blink and glance.
+ * Effi's face: the block from the logo, with eyes that blink and glance.
  * `round` gives the circular crop used for chat profile pictures; `invert` is the
- * dark face used inside blue buttons.
+ * dark face used inside blue buttons; `tone` colours a digital team member.
  */
-export function Avatar({ size, round = false, invert = false }: { size: number; round?: boolean; invert?: boolean }) {
-  const skin = invert ? "#0a0a0a" : "var(--acc)";
+export function Avatar({ size, round = false, invert = false, tone }: { size: number; round?: boolean; invert?: boolean; tone?: Tone }) {
+  const skin = invert ? "#0a0a0a" : tone ? `var(--tone-${tone})` : "var(--acc)";
   const ink = invert ? "var(--acc)" : "#0a0a0a";
   return (
     <svg width={size} height={size} viewBox="0 0 40 40" aria-hidden="true" style={{ flex: `0 0 ${size}px`, display: "block" }}>

@@ -8,7 +8,7 @@ import { buildMetadata } from "@/lib/site";
 import "../globals.css";
 
 export const metadata: Metadata = buildMetadata(he);
-export const viewport: Viewport = { themeColor: "#000000" };
+export const viewport: Viewport = { themeColor: "#fcfbf8" };
 
 /** Root layout for the Hebrew (default, RTL) tree. */
 export default function HebrewLayout({ children }: { children: ReactNode }) {

@@ -1,4 +1,4 @@
-import type { Landing } from "@/content/landing";
+import type { Agent, Landing } from "@/content/landing";
 import { Avatar } from "./avatar";
 import { Label } from "./parts";
 import { WaPlayer } from "./wa-player";
@@ -29,8 +29,20 @@ function FactIcon({ name }: { name: "eye" | "approve" | "shield" }) {
 }
 
 /** What a manager receives from Effi in the morning, next to the ways you stay in control. */
+/** Sender line inside a group-chat bubble, coloured per team member. */
+function From({ agent }: { agent: Agent }) {
+  return (
+    <span className="lp-wa-from" data-tone={agent.tone}>
+      {agent.name} · {agent.role}
+    </span>
+  );
+}
+
 export function Chat({ t }: { t: Landing }) {
   const c = t.chat;
+  const byId = Object.fromEntries(t.team.map((a) => [a.id, a]));
+  const typing = c.typing.replace("{name}", byId[c.typingWho].name);
+
   return (
     <section className="lp-dark" style={{ borderTop: "1px solid #1c1c1c" }}>
       <div className="lp-wrap lp-section" style={{ display: "flex", flexDirection: "column", gap: "clamp(40px, 5vw, 64px)" }}>
@@ -44,10 +56,14 @@ export function Chat({ t }: { t: Landing }) {
                   <svg className="lp-back" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#027eb5" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
                     <path d="m11 18-6-6 6-6" />
                   </svg>
-                  <Avatar size={38} round />
-                  <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 1 }}>
-                    <span style={{ fontSize: 16, fontWeight: 600 }}>{c.name}</span>
-                    <span style={{ fontSize: 12, color: "#667781" }}>{c.online}</span>
+                  <span className="lp-wa-group" aria-hidden="true">
+                    {t.team.map((agent) => (
+                      <Avatar key={agent.id} size={19} tone={agent.tone} round />
+                    ))}
+                  </span>
+                  <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 1 }}>
+                    <span style={{ fontSize: 16, fontWeight: 600 }}>{c.group}</span>
+                    <span style={{ fontSize: 12, color: "#667781", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{c.members}</span>
                   </div>
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#54656f" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z" />
@@ -59,23 +75,21 @@ export function Chat({ t }: { t: Landing }) {
                     {c.today}
                   </span>
                   <div className="lp-wa-in" data-wa="in">
-                    {c.greeting}
+                    <From agent={byId[c.morning.from]} />
+                    {c.morning.text}
                     <span className="lp-wa-meta">07:58</span>
                   </div>
                   <div className="lp-wa-in" data-wa="in">
-                    <strong style={{ fontWeight: 600 }}>{c.doneTitle}</strong>
-                    {c.done.map((line) => (
-                      <span key={line} style={{ display: "block" }}>
-                        ✓ {line}
-                      </span>
-                    ))}
+                    <From agent={byId[c.inquiries.from]} />
+                    {c.inquiries.text}
                     <span className="lp-wa-meta">08:00</span>
                   </div>
                   <div data-wa="in" style={{ alignSelf: "flex-start", maxWidth: "85%", display: "flex", flexDirection: "column", gap: 2 }}>
                     <div className="lp-wa-in" style={{ maxWidth: "none" }}>
-                      <strong style={{ fontWeight: 600, display: "block" }}>{c.approvalTitle}</strong>
-                      {c.approvalItem}
-                      <span style={{ display: "block", color: "#54656f" }}>{c.approvalDetail}</span>
+                      <From agent={byId[c.invoices.from]} />
+                      {c.invoices.text}
+                      <strong style={{ fontWeight: 600, display: "block", marginTop: 4 }}>{c.invoices.item}</strong>
+                      <span style={{ display: "block", color: "#54656f" }}>{c.invoices.detail}</span>
                       <span className="lp-wa-meta">08:01</span>
                     </div>
                     {/* Reply buttons, as they appear in the app. Illustration only. */}
@@ -99,12 +113,14 @@ export function Chat({ t }: { t: Landing }) {
                     </span>
                   </div>
                   <div className="lp-wa-in" data-wa="in">
-                    {c.ack}
+                    <From agent={byId[c.ack.from]} />
+                    {c.ack.text}
                     <span className="lp-wa-meta">08:14</span>
                   </div>
-                  <div data-wa-typing className="lp-wa-in" style={{ display: "flex", gap: 4, padding: "11px 14px" }} role="img" aria-label={c.typing}>
+                  <div data-wa-typing className="lp-wa-in" style={{ display: "flex", alignItems: "center", gap: 4, padding: "9px 12px" }} role="img" aria-label={typing}>
+                    <span style={{ fontSize: 12.5, color: "#667781", marginInlineEnd: 6 }}>{typing}</span>
                     {[0, 1, 2].map((i) => (
-                      <span key={i} className="lp-dot" style={{ width: 7, height: 7, borderRadius: 99, background: "#8696a0" }} />
+                      <span key={i} className="lp-dot" style={{ width: 6, height: 6, borderRadius: 99, background: "#8696a0" }} />
                     ))}
                   </div>
                 </div>

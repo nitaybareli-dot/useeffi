@@ -3,29 +3,58 @@ import type { Lang } from "./types";
 /**
  * Copy for the landing page (both languages share one layout).
  * Hebrew is the default; English mirrors it.
- * "Effi" / "אפי" is the name of the system the customer works with.
+ *
+ * The story: Effi builds digital team members for a business. Each one has a
+ * name, a role and an area of responsibility, and joins the existing team so
+ * the business can grow without hiring and people are freed for what matters.
+ * The names below are examples; each client picks their own.
  */
+export type AgentId = "dana" | "yoav" | "shoshana" | "ron";
+export type Tone = "blue" | "green" | "amber" | "coral";
+
+export type Agent = {
+  id: AgentId;
+  name: string;
+  role: string;
+  /** One line: what this team member takes off the team's plate. */
+  duty: string;
+  /** The human team they work in. */
+  team: string;
+  tone: Tone;
+  /** Badge number, decorative. */
+  code: string;
+};
+
 export type Landing = {
   lang: Lang;
   /** Path of the same page in the other language, and its label. */
   switchHref: string;
   switchLabel: string;
   headerCta: string;
+  /** The example digital team, used by the hero badges, the pains and the chat. */
+  team: Agent[];
+  badge: {
+    /** Top line of every badge. */
+    head: string;
+    dutyLabel: string;
+    teamLabel: string;
+    hoursLabel: string;
+    hours: string;
+    status: string;
+  };
   hero: {
     eyebrow: string;
     titleA: string;
     titleB: string;
     sub: string;
     cta: string;
-    before: { label: string; text: string };
-    after: { label: string; text: string };
-    flowAlt: string;
+    /** Small line under the badges. */
+    note: string;
   };
   pains: {
     label: string;
     title: string;
-    afterPrefix: string;
-    items: { pain: string; after: string }[];
+    items: { pain: string; who: AgentId; after: string }[];
     closeA: string;
     closeB: string;
   };
@@ -35,30 +64,30 @@ export type Landing = {
     titleB: string;
     lead: string;
     phoneLabel: string;
-    name: string;
-    online: string;
+    group: string;
+    members: string;
     today: string;
+    /** "{name} is typing", shown at the end of the chat. */
     typing: string;
+    typingWho: AgentId;
     messagePlaceholder: string;
-    greeting: string;
-    doneTitle: string;
-    done: string[];
-    approvalTitle: string;
-    approvalItem: string;
-    approvalDetail: string;
+    morning: { from: AgentId; text: string };
+    inquiries: { from: AgentId; text: string };
+    invoices: { from: AgentId; text: string; item: string; detail: string };
     approve: string;
     details: string;
     reply: string;
-    ack: string;
+    ack: { from: AgentId; text: string };
     /** Ways you stay in control, each with an icon. */
     facts: { icon: "eye" | "approve" | "shield"; title: string; text: string }[];
   };
-  ideas: {
+  roles: {
     label: string;
     titleA: string;
     titleB: string;
-    whatIf: string;
-    tabs: { id: string; name: string; ideas: string[] }[];
+    /** Tag on each role card, like a job ad. */
+    wanted: string;
+    tabs: { id: string; name: string; roles: { title: string; does: string }[] }[];
     close: string;
   };
   process: {
@@ -100,116 +129,130 @@ export const landingHe: Landing = {
   switchHref: "/en",
   switchLabel: "EN",
   headerCta: "בואו נדבר",
+  team: [
+    { id: "dana", name: "דנה", role: "חשבונות ספקים", duty: "בודקת חשבוניות מול ההזמנות, ומעבירה אליכם רק את החריגות.", team: "הנהלת חשבונות", tone: "blue", code: "EF-0114" },
+    { id: "yoav", name: "יואב", role: "שירות לקוחות", duty: "עונה לפניות גם בערב, עם הסטטוס מתוך מערכת ההזמנות.", team: "מוקד לקוחות", tone: "green", code: "EF-0127" },
+    { id: "shoshana", name: "שושנה", role: "נהלים והדרכה", duty: "עונה לעובדים מתוך הנהלים, בשפה שלהם.", team: "משאבי אנוש", tone: "amber", code: "EF-0132" },
+    { id: "ron", name: "רון", role: "דוחות הנהלה", duty: "מכין את דוח הבוקר מכמה מערכות, לפני שמגיעים למשרד.", team: "הנהלה", tone: "coral", code: "EF-0145" },
+  ],
+  badge: {
+    head: "Effi · צוות דיגיטלי",
+    dutyLabel: "תחום אחריות",
+    teamLabel: "בצוות של",
+    hoursLabel: "זמינות",
+    hours: "בכל שעה",
+    status: "בתפקיד",
+  },
   hero: {
-    eyebrow: "הטמעת AI בארגונים",
-    titleA: "העבודה השחורה? עלינו.",
-    titleB: "אתם מתמקדים במה שחשוב.",
-    sub: "חשבוניות, דוחות, פניות, נהלים וכל מה שחוזר על עצמו. אנחנו לומדים איך אתם עובדים, ובונים יחד איתכם פתרונות AI שתפורים בדיוק לצרכים שלכם, על המערכות שכבר יש לכם.",
+    eyebrow: "עובדים דיגיטליים מבוססי AI",
+    titleA: "הצוות שלכם גדל.",
+    titleB: "בלי לגייס.",
+    sub: "אנחנו בונים לכם עובדים דיגיטליים, כל אחד עם תפקיד ותחום אחריות משלו. הם לוקחים את העבודה החוזרת, העסק יכול לגדול, והצוות שלכם מתפנה למה שחשוב.",
     cta: "בואו נדבר",
-    before: { label: "היום", text: "ידני · מפוזר · איטי" },
-    after: { label: "עם אפי", text: "אוטומטי · מחובר · מהיר" },
-    flowAlt: "קווים סבוכים ואיטיים נכנסים לצומת אחד, ויוצאים ממנו כקווים ישרים ומהירים",
+    note: "השמות כאן לדוגמה. אצלכם כל אחד נבנה במיוחד, על המערכות שכבר יש לכם.",
   },
   pains: {
     label: "איפה העבודה נתקעת",
     title: "מכירים את זה?",
-    afterPrefix: "עם אפי",
     items: [
-      { pain: "מקלידים את אותו נתון לשלוש מערכות.", after: "מזינים פעם אחת, ואפי מעדכן את כל השאר." },
-      { pain: "מחפשים נוהל, תוכנית או חוזה, ולא מוצאים.", after: "שואלים את אפי במילים פשוטות, ומקבלים תשובה עם המקור." },
-      { pain: "מכינים את אותו דוח מאפס, כל שבוע.", after: "הדוח מחכה לכם מוכן כל בוקר." },
+      { pain: "מקלידים את אותו נתון לשלוש מערכות.", who: "dana", after: "מזינה פעם אחת, ומעדכנת את כל השאר." },
+      { pain: "מחפשים נוהל, תוכנית או חוזה, ולא מוצאים.", who: "shoshana", after: "עונה במילים פשוטות, ומראה מאיפה התשובה." },
+      { pain: "מכינים את אותו דוח מאפס, כל שבוע.", who: "ron", after: "הדוח מחכה לכם מוכן כל בוקר." },
     ],
     closeA: "ואלה רק דוגמאות.",
     closeB: "אצלכם מתחילים ממה שהכי מעיק, בלי להחליף אף מערכת שכבר עובדת.",
   },
   chat: {
-    label: "דוגמה אחת מתוך הרבה",
-    titleA: "אפי עושה את השגרה.",
+    label: "בוקר אחד",
+    titleA: "הם עושים את השגרה.",
     titleB: "ההחלטות נשארות אצלכם.",
-    lead: "ככה יכול להיראות הבוקר של מנהל: הודעה אחת בוואטסאפ, עם מה שכבר טופל ומה מחכה להחלטה שלו. אצלכם מגדירים יחד מה אפי עושה.",
-    phoneLabel: "מה המנהל מקבל בבוקר",
-    name: "אפי",
-    online: "מחובר",
+    lead: "ככה נראה בוקר עם צוות דיגיטלי: עדכון בוואטסאפ על מה שכבר טופל, ומה מחכה להחלטה שלכם. אצלכם מגדירים יחד מי עושה מה.",
+    phoneLabel: "קבוצת הוואטסאפ של המנהל",
+    group: "צוות התפעול",
+    members: "דנה, יואב, רון, שושנה, את/ה",
     today: "היום",
-    typing: "אפי מקליד",
+    typing: "{name} מקלידה…",
+    typingWho: "shoshana",
     messagePlaceholder: "הודעה",
-    greeting: "בוקר טוב יוסי. הכול בשליטה, הנה מה שקרה מאז אתמול.",
-    doneTitle: "מה כבר טופל:",
-    done: ["46 חשבוניות ספקים נבדקו, 43 תקינות.", "7 פניות של לקוחות מאתמול בערב כבר נענו.", "לפי קצב המכירות, 4 פריטים ייגמרו תוך שבוע. הזמנת רכש מוכנה."],
-    approvalTitle: "3 חשבוניות חורגות מחכות לאישור שלך. הראשונה:",
-    approvalItem: "חשבונית ספק",
-    approvalDetail: "גבוהה ב-8% מהמחיר שסוכם בהזמנה.",
+    morning: { from: "ron", text: "בוקר טוב יוסי. דוח הבוקר מחכה לך במייל, והכול בשליטה." },
+    inquiries: { from: "yoav", text: "7 פניות של לקוחות מאתמול בערב כבר נענו, עם הסטטוס מתוך מערכת ההזמנות." },
+    invoices: {
+      from: "dana",
+      text: "בדקתי 46 חשבוניות ספקים, 43 תקינות. 3 חורגות מחכות לאישור שלך. הראשונה:",
+      item: "חשבונית ספק",
+      detail: "גבוהה ב-8% מהמחיר שסוכם בהזמנה.",
+    },
     approve: "לאישור",
     details: "לפרטים",
-    reply: "תעביר לרונית מהרכש שתבדוק.",
-    ack: "העברתי לרונית. אעדכן אותך כשהיא תסיים.",
+    reply: "תעבירי לרונית מהרכש שתבדוק.",
+    ack: { from: "dana", text: "העברתי לרונית. אעדכן אותך כשהיא תסיים." },
     facts: [
-      { icon: "eye", title: "בקרה מלאה על כל מה שקורה", text: "כל פעולה של אפי מתועדת: מה, מתי ולמה. רואים הכול, בכל רגע." },
+      { icon: "eye", title: "רואים כל מה שהם עושים", text: "כל פעולה מתועדת: מה, מתי ולמה. בכל רגע אפשר לבדוק." },
       { icon: "approve", title: "שום דבר רגיש בלי אישור", text: "חריגות, תשלומים ושינויים מחכים לאישור שלכם." },
-      { icon: "shield", title: "מאובטח, ובהרשאות שלכם", text: "אתם קובעים לאיזה מידע ולאילו מערכות אפי ניגש. שום דבר מעבר." },
+      { icon: "shield", title: "מאובטח, ובהרשאות שלכם", text: "אתם קובעים לאיזה מידע ולאילו מערכות כל אחד ניגש. שום דבר מעבר." },
     ],
   },
-  ideas: {
-    label: "רעיונות לארגון שלכם",
-    titleA: "מה אפי יכול לעשות",
-    titleB: "אצלכם?",
-    whatIf: "מה אם",
+  roles: {
+    label: "תפקידים לדוגמה",
+    titleA: "את מי הייתם",
+    titleB: "מצרפים לצוות?",
+    wanted: "דרוש",
     tabs: [
       {
         id: "manufacturing",
         name: "תעשייה וייצור",
-        ideas: [
-          "הזמנות הרכש היו יוצאות בזמן, בלי מעקב ידני?",
-          "דוח האיכות היה מוכן בסוף המשמרת?",
-          "עובד חדש היה מקבל תשובה מתוך הנהלים, בלי לחפש את הוותיק?",
+        roles: [
+          { title: "רכש ומלאי", does: "מעקב אחרי המלאי, והכנת הזמנות רכש לאישור." },
+          { title: "בקרת איכות", does: "ריכוז בדיקות המשמרת לדוח אחד, והתראה על פספוסים." },
+          { title: "הדרכת עובדים", does: "תשובות לעובדים חדשים מתוך הנהלים, בלי לחפש את הוותיק." },
         ],
       },
       {
         id: "real-estate",
         name: "נדל״ן ובנייה",
-        ideas: [
-          "חשבונות קבלנים היו נבדקים מול החוזה, בלי לשבת עליהם שעות?",
-          "רוכשים ודיירים היו מקבלים תשובה גם אחרי שעות העבודה?",
-          "סעיפים חריגים בחוזה היו מסומנים לפני החתימה?",
+        roles: [
+          { title: "חשבונות קבלנים", does: "בדיקת חשבונות מול החוזה, וסימון של מה שלא מתאים." },
+          { title: "מוקד רוכשים ודיירים", does: "מענה לפניות, גם אחרי שעות העבודה." },
+          { title: "חוזים ומסמכים", does: "סימון סעיפים חריגים לפני החתימה." },
         ],
       },
       {
         id: "logistics",
         name: "לוגיסטיקה",
-        ideas: [
-          "הזמנות היו נכנסות ישר למערכת, בלי הקלדה?",
-          "מסמכי המכס היו נבדקים לפני שהם יוצאים?",
-          "הלקוח היה יודע איפה המשלוח, בלי להתקשר?",
+        roles: [
+          { title: "קליטת הזמנות", does: "הזמנות מהמייל ומהוואטסאפ נכנסות ישר למערכת." },
+          { title: "מסמכי יצוא ומכס", does: "הכנה ובדיקה של המסמכים לפני שהם יוצאים." },
+          { title: "עדכוני משלוחים", does: "הלקוח יודע איפה המשלוח, בלי להתקשר." },
         ],
       },
       {
         id: "offices",
         name: "משרדים ומטות",
-        ideas: [
-          "פניות למשאבי אנוש היו מקבלות תשובה מיד, מתוך הנהלים?",
-          "דוח ההנהלה היה מחכה מוכן בבוקר?",
-          "השוואת הצעות מחיר הייתה מוכנה לפני הישיבה?",
+        roles: [
+          { title: "משאבי אנוש", does: "מענה מיידי לעובדים, מתוך הנהלים." },
+          { title: "דוחות הנהלה", does: "הדוח מחכה מוכן בבוקר, מכל המערכות." },
+          { title: "רכש והצעות מחיר", does: "השוואת הצעות, מוכנה לפני הישיבה." },
         ],
       },
     ],
-    close: "אצלכם זה יכול להיות משהו אחר לגמרי. ספרו לנו מה מעיק, ונמצא יחד את הפתרון.",
+    close: "לא מצאתם את התפקיד? אצלכם זה יכול להיות משהו אחר לגמרי. ספרו לנו מה מעיק, ונבנה את מי שצריך.",
   },
   process: {
     label: "איך זה עובד",
     titleA: "כמה זה ידרוש מכם?",
     titleB: "מעט מאוד.",
-    lead: "את רוב העבודה אנחנו עושים. מכם צריך בעיקר לספר איך דברים עובדים היום, ומה הכי מעיק.",
+    lead: "כמו עובד חדש, רק בלי כאב הראש. את רוב העבודה אנחנו עושים. מכם צריך בעיקר לספר איך דברים עובדים היום, ומה הכי מעיק.",
     steps: [
       { title: "שיחת היכרות", body: "חצי שעה, בלי הכנות. מספרים לנו מה מעיק." },
-      { title: "אנחנו באים ולומדים", body: "יושבים עם הצוותים ורואים איך העבודה באמת נעשית. לא צריך לכתוב מסמכים או אפיונים." },
-      { title: "אנחנו בונים ומחברים", body: "בונים את הפתרון על המערכות שכבר יש לכם. שום דבר טכני לא נופל עליכם." },
-      { title: "נשארים איתכם", body: "בודקים יחד עם הצוות, משפרים לפי מה שעולה, ומוסיפים עוד כשתרצו." },
+      { title: "חפיפה", body: "אנחנו יושבים עם הצוותים ולומדים איך העבודה באמת נעשית. לא צריך לכתוב מסמכים או אפיונים." },
+      { title: "תקופת ניסיון", body: "בונים את התפקיד הראשון על המערכות שכבר יש לכם, ומודדים יחד כמה הוא חוסך." },
+      { title: "מצטרפים לצוות", body: "ממשיכים ללוות ולשפר, ומוסיפים עוד תפקידים כשתרצו." },
     ],
   },
   contact: {
     meta: "שיחה של 30 דקות · בלי עלות · יוצאים עם כיוון ראשון",
     titleA: "בואו נמצא יחד",
-    titleB: "את צוואר הבקבוק הראשון.",
+    titleB: "את התפקיד הראשון.",
     greeting: "היי, אני אפי. השאירו שם וטלפון, ונחזור אליכם לתיאום שיחה.",
     name: "שם",
     phone: "טלפון",
@@ -223,9 +266,9 @@ export const landingHe: Landing = {
     errorPhone: "מספר הטלפון לא תקין",
     done: "תודה, {name}. קיבלתי. מישהו מהצוות יחזור אליך בהקדם לתיאום השיחה.",
     sent: "הפרטים נשלחו",
-    team: "אנחנו לא מוכרים תוכנה. אנחנו פותרים בעיות. מאחורי Effi עומדים שלושה שותפים עם שנים של ניסיון בפיתוח תוכנה, מוצר וניהול טכנולוגי.",
+    team: "אנחנו לא מוכרים תוכנה. אנחנו פותרים בעיות. מאחורי Effi עומדים שותפים עם שנים של ניסיון בפיתוח תוכנה, מוצר וניהול טכנולוגי.",
   },
-  footer: { tagline: "הטמעת AI בארגונים", privacy: "מדיניות פרטיות" },
+  footer: { tagline: "עובדים דיגיטליים לארגונים", privacy: "מדיניות פרטיות" },
 };
 
 export const landingEn: Landing = {
@@ -233,116 +276,130 @@ export const landingEn: Landing = {
   switchHref: "/",
   switchLabel: "עב",
   headerCta: "Let's talk",
+  team: [
+    { id: "dana", name: "Dana", role: "Supplier invoices", duty: "Checks invoices against orders and sends you only the exceptions.", team: "Accounting", tone: "blue", code: "EF-0114" },
+    { id: "yoav", name: "Yoav", role: "Customer service", duty: "Answers inquiries in the evening too, with the status from the order system.", team: "Customer desk", tone: "green", code: "EF-0127" },
+    { id: "shoshana", name: "Shoshana", role: "Procedures & training", duty: "Answers employees from the procedures, in their own language.", team: "HR", tone: "amber", code: "EF-0132" },
+    { id: "ron", name: "Ron", role: "Management reports", duty: "Builds the morning report from several systems before anyone gets in.", team: "Management", tone: "coral", code: "EF-0145" },
+  ],
+  badge: {
+    head: "Effi · digital team",
+    dutyLabel: "Responsible for",
+    teamLabel: "Works in",
+    hoursLabel: "Available",
+    hours: "Any hour",
+    status: "On duty",
+  },
   hero: {
-    eyebrow: "AI implementation for organizations",
-    titleA: "The grunt work? On us.",
-    titleB: "You focus on what matters.",
-    sub: "Invoices, reports, inquiries, procedures and everything else that repeats. We learn how you work and build, together with you, AI solutions tailored to exactly what you need, on the systems you already have.",
+    eyebrow: "AI-powered digital employees",
+    titleA: "Your team grows.",
+    titleB: "Without hiring.",
+    sub: "We build digital employees for you, each with its own role and area of responsibility. They take on the repetitive work, your business can grow, and your people are freed for what matters.",
     cta: "Let's talk",
-    before: { label: "Today", text: "Manual · scattered · slow" },
-    after: { label: "With Effi", text: "Automated · connected · fast" },
-    flowAlt: "Tangled, slow lines enter a single node and leave it as straight, fast lines",
+    note: "These names are examples. Yours are built specifically for you, on the systems you already have.",
   },
   pains: {
     label: "Where work gets stuck",
     title: "Sound familiar?",
-    afterPrefix: "With Effi",
     items: [
-      { pain: "Typing the same data into three systems.", after: "Enter it once. Effi updates the rest." },
-      { pain: "Searching for a procedure, plan or contract, and not finding it.", after: "Ask Effi in plain words and get an answer with its source." },
-      { pain: "Building the same report from scratch every week.", after: "The report is ready for you every morning." },
+      { pain: "Typing the same data into three systems.", who: "dana", after: "Enters it once and updates the rest." },
+      { pain: "Searching for a procedure, plan or contract, and not finding it.", who: "shoshana", after: "Answers in plain words and shows where the answer came from." },
+      { pain: "Building the same report from scratch every week.", who: "ron", after: "The report is ready for you every morning." },
     ],
     closeA: "These are just examples.",
     closeB: "With you, we start where it hurts most, without replacing a single system that already works.",
   },
   chat: {
-    label: "One example of many",
-    titleA: "Effi handles the routine.",
+    label: "One morning",
+    titleA: "They handle the routine.",
     titleB: "The decisions stay with you.",
-    lead: "A manager's morning could look like this: one WhatsApp message with what's already handled and what's waiting for their call. With you, we decide together what Effi does.",
-    phoneLabel: "What the manager gets in the morning",
-    name: "Effi",
-    online: "online",
+    lead: "A morning with a digital team: a WhatsApp update on what's already handled and what's waiting for your call. With you, we decide together who does what.",
+    phoneLabel: "The manager's WhatsApp group",
+    group: "Operations team",
+    members: "Dana, Yoav, Ron, Shoshana, you",
     today: "Today",
-    typing: "Effi is typing",
+    typing: "{name} is typing…",
+    typingWho: "shoshana",
     messagePlaceholder: "Message",
-    greeting: "Good morning, Yossi. Everything is under control. Here's what happened since yesterday.",
-    doneTitle: "Already handled:",
-    done: ["46 supplier invoices checked, 43 clean.", "7 customer inquiries from last night already answered.", "At the current sales pace, 4 items run out within a week. A purchase order is ready."],
-    approvalTitle: "3 invoices over the agreed price need your approval. The first:",
-    approvalItem: "Supplier invoice",
-    approvalDetail: "8% above the price agreed in the order.",
+    morning: { from: "ron", text: "Good morning, Yossi. The morning report is in your inbox, and everything is under control." },
+    inquiries: { from: "yoav", text: "7 customer inquiries from last night are already answered, with the status from the order system." },
+    invoices: {
+      from: "dana",
+      text: "I checked 46 supplier invoices, 43 are clean. 3 exceptions are waiting for your approval. The first:",
+      item: "Supplier invoice",
+      detail: "8% above the price agreed in the order.",
+    },
     approve: "Approve",
     details: "Details",
-    reply: "Send it to Ronit in purchasing to review.",
-    ack: "Sent to Ronit. I'll update you when she's done.",
+    reply: "Pass it to Ronit in purchasing to check.",
+    ack: { from: "dana", text: "Passed it to Ronit. I'll update you when she's done." },
     facts: [
-      { icon: "eye", title: "Full visibility into everything", text: "Every action Effi takes is logged: what, when and why. You see it all, any time." },
+      { icon: "eye", title: "See everything they do", text: "Every action is logged: what, when and why. You can check any time." },
       { icon: "approve", title: "Nothing sensitive without approval", text: "Exceptions, payments and changes wait for your sign-off." },
-      { icon: "shield", title: "Secure, on your permissions", text: "You decide which information and systems Effi can access. Nothing beyond that." },
+      { icon: "shield", title: "Secure, on your permissions", text: "You decide which information and systems each one can access. Nothing beyond that." },
     ],
   },
-  ideas: {
-    label: "Ideas for your organization",
-    titleA: "What could Effi do",
-    titleB: "for you?",
-    whatIf: "What if",
+  roles: {
+    label: "Example roles",
+    titleA: "Who would you add",
+    titleB: "to your team?",
+    wanted: "Wanted",
     tabs: [
       {
         id: "manufacturing",
         name: "Manufacturing",
-        ideas: [
-          "purchase orders went out on time, with no manual follow-up?",
-          "the quality report was ready at the end of the shift?",
-          "a new employee got answers from the procedures, without hunting down a veteran?",
+        roles: [
+          { title: "Purchasing & stock", does: "Tracking stock and preparing purchase orders for approval." },
+          { title: "Quality control", does: "One report of the shift's checks, with alerts on anything missed." },
+          { title: "Employee training", does: "Answers for new employees from the procedures, without hunting down a veteran." },
         ],
       },
       {
         id: "real-estate",
         name: "Real estate & construction",
-        ideas: [
-          "contractor invoices were checked against the contract, without hours of work?",
-          "buyers and tenants got answers after business hours too?",
-          "unusual contract clauses were flagged before signing?",
+        roles: [
+          { title: "Contractor invoices", does: "Checking invoices against the contract and flagging what doesn't match." },
+          { title: "Buyer & tenant desk", does: "Answering inquiries, after business hours too." },
+          { title: "Contracts & documents", does: "Flagging unusual clauses before signing." },
         ],
       },
       {
         id: "logistics",
         name: "Logistics",
-        ideas: [
-          "orders went straight into the system, with no typing?",
-          "customs documents were checked before they went out?",
-          "customers knew where their shipment was, without calling?",
+        roles: [
+          { title: "Order intake", does: "Orders from email and WhatsApp go straight into the system." },
+          { title: "Export & customs papers", does: "Preparing and checking documents before they go out." },
+          { title: "Shipment updates", does: "Customers know where their shipment is, without calling." },
         ],
       },
       {
         id: "offices",
         name: "Offices & HQ",
-        ideas: [
-          "HR questions got an instant answer from the procedures?",
-          "the management report was waiting, ready, every morning?",
-          "price quotes were compared before the meeting?",
+        roles: [
+          { title: "HR", does: "Instant answers for employees, from the procedures." },
+          { title: "Management reports", does: "The report is ready in the morning, from every system." },
+          { title: "Purchasing & quotes", does: "Quotes compared and ready before the meeting." },
         ],
       },
     ],
-    close: "For you it might be something else entirely. Tell us what's bothering you, and we'll find the solution together.",
+    close: "Don't see the role? For you it might be something else entirely. Tell us what's bothering you, and we'll build who you need.",
   },
   process: {
     label: "How it works",
     titleA: "How much will this take from you?",
     titleB: "Very little.",
-    lead: "We do most of the work. From you we mainly need to hear how things work today, and what bothers you most.",
+    lead: "Like a new hire, minus the headache. We do most of the work. From you we mainly need to hear how things work today, and what bothers you most.",
     steps: [
       { title: "Intro call", body: "Half an hour, no preparation. Tell us what's bothering you." },
-      { title: "We come and learn", body: "We sit with your teams and see how the work is really done. No documents or specs to write." },
-      { title: "We build and connect", body: "We build the solution on the systems you already have. Nothing technical lands on you." },
-      { title: "We stay with you", body: "We test it with your team, improve it as things come up, and add more when you want." },
+      { title: "Handover", body: "We sit with your teams and learn how the work is really done. No documents or specs to write." },
+      { title: "Trial period", body: "We build the first role on the systems you already have, and measure together how much it saves." },
+      { title: "Joining the team", body: "We keep supporting and improving it, and add more roles when you want." },
     ],
   },
   contact: {
     meta: "30-minute call · free · leave with a first direction",
     titleA: "Let's find",
-    titleB: "your first bottleneck.",
+    titleB: "your first role together.",
     greeting: "Hi, I'm Effi. Leave your name and phone and we'll get back to you to set up a call.",
     name: "Name",
     phone: "Phone",
@@ -356,7 +413,7 @@ export const landingEn: Landing = {
     errorPhone: "Please enter a valid phone number",
     done: "Thanks, {name}. Got it. Someone from the team will be in touch soon to set up the call.",
     sent: "Sent",
-    team: "We don't sell software. We solve problems. Effi is run by three partners with years of experience in software, product and technology leadership.",
+    team: "We don't sell software. We solve problems. Effi is run by partners with years of experience in software, product and technology leadership.",
   },
-  footer: { tagline: "AI adoption for organizations", privacy: "Privacy policy" },
+  footer: { tagline: "Digital employees for organizations", privacy: "Privacy policy" },
 };
