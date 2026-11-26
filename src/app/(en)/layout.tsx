@@ -8,7 +8,7 @@ import { buildMetadata } from "@/lib/site";
 import "../globals.css";
 
 export const metadata: Metadata = buildMetadata(en);
-export const viewport: Viewport = { themeColor: "#fcfbf8" };
+export const viewport: Viewport = { themeColor: "#fcfbf8", colorScheme: "only light" };
 
 /** Root layout for the English (LTR) tree, served under /en. */
 export default function EnglishLayout({ children }: { children: ReactNode }) {
