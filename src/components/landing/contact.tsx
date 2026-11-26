@@ -6,7 +6,7 @@ import { sendContact, type ContactState } from "@/app/actions";
 import type { Landing } from "@/content/landing";
 import { TrackingFields } from "../tracking-fields";
 import { Avatar } from "./avatar";
-import { Arrow } from "./parts";
+import { Arrow, Label } from "./parts";
 
 const initialState: ContactState = { status: "idle" };
 
@@ -64,12 +64,16 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
   return (
     <section id="contact" className="lp-grid" style={{ position: "relative", overflow: "hidden", borderTop: "1px solid var(--lp-border)" }}>
       <div className="lp-wrap lp-section" style={{ position: "relative", display: "flex", flexDirection: "column", gap: "clamp(32px, 4vw, 48px)" }}>
-        <div className="lp-rv" style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <h2 className="lp-h2" style={{ fontSize: "clamp(32px, 4vw, 60px)", maxWidth: 900 }}>
-            {c.titleA}{" "}
-            <span className="lp-dim">{c.titleB}</span>
-          </h2>
+        <div className="lp-rv lp-about">
+          <Label n="05">{c.aboutLabel}</Label>
+          <h2 className="lp-h2">{c.aboutTitle}</h2>
+          <p className="lp-lead">{c.team}</p>
         </div>
+
+        <h3 className="lp-rv lp-contact-title">
+          {c.titleA}{" "}
+          <span className="lp-dim">{c.titleB}</span>
+        </h3>
 
         <div id="contact-chat" className="lp-rv lp-contact-card">
           {done ? (
@@ -170,7 +174,6 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
         </div>
 
         <div className="lp-rv" style={{ display: "flex", flexDirection: "column", gap: 12, maxWidth: 1000 }}>
-          <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "var(--lp-soft)" }}>{c.team}</p>
           <p style={{ margin: 0, fontSize: 13, color: "var(--lp-mute)" }}>
             {c.note}{" "}
             <a href={privacyHref} style={{ color: "var(--lp-soft)", textDecoration: "underline", textUnderlineOffset: 4 }}>

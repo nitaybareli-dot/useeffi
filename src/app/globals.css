@@ -259,7 +259,7 @@ body {
   padding-inline: clamp(20px, 4vw, 48px);
 }
 .lp-section {
-  padding-block: clamp(96px, 12vw, 168px);
+  padding-block: clamp(80px, 9vw, 136px);
 }
 .lp-light {
   background: var(--lp-paper);
@@ -1210,4 +1210,204 @@ body {
 /* A message arriving in the WhatsApp demo. */
 [data-wa-new] {
   animation: lp-msg 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+
+/* ───────────────── Company profile: calm, editorial, serious ───────────────── */
+
+/* Editorial serif for headlines and names; the sans stays for reading. */
+.lp-h1,
+.lp-h2,
+.lp-ad-title,
+.lp-contact-title {
+  font-family: var(--font-serif), var(--font-sans);
+}
+.lp-h1 {
+  font-size: clamp(50px, 6.4vw, 104px);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+}
+.lp-h2 {
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+
+/* Fine paper grain over the light page, so it reads as print, not a template. */
+.lp[data-theme="light"]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Industry tabs and the job-ad role cards. */
+.lp-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.lp-tab {
+  min-height: 46px;
+  padding: 10px 18px;
+  border: 1px solid var(--lp-border2);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--lp-fg);
+  font: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.lp-tab:hover {
+  border-color: var(--lp-fg);
+}
+.lp-tab[aria-selected="true"] {
+  border-color: var(--lp-fg);
+  background: var(--lp-fg);
+  color: var(--lp-bg);
+}
+.lp-ads {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+}
+.lp-ad {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 26px 24px 28px;
+  border: 1px solid var(--lp-border2);
+  border-radius: 3px;
+  background: var(--lp-card);
+  box-shadow: inset 0 0 0 5px var(--lp-card), inset 0 0 0 6px var(--lp-border);
+  animation: lp-msg 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.lp-ad-tag {
+  align-self: flex-start;
+  padding: 3px 9px;
+  border: 1px solid var(--lp-fg);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+.lp-ad-title {
+  margin: 0;
+  font-size: clamp(26px, 2.4vw, 32px);
+  font-weight: 500;
+  line-height: 1.1;
+}
+.lp-ad-does {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--lp-soft);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lp-ad {
+    animation: none;
+  }
+}
+
+/* Hebrew is never letter-spaced. */
+[dir="rtl"] .lp-badge-head,
+[dir="rtl"] .lp-badge-rows dt,
+[dir="rtl"] .lp-ad-tag {
+  letter-spacing: 0;
+}
+[dir="rtl"] .lp-badge-head span:first-child,
+[dir="rtl"] .lp-badge-rows dt,
+[dir="rtl"] .lp-ad-tag {
+  font-family: var(--font-sans);
+}
+.lp-badge-rows dt {
+  font-size: 12px;
+}
+
+/* Hebrew is never letter-spaced. */
+[dir="rtl"] .lp-ad-num {
+  letter-spacing: 0;
+}
+.lp-ad-num {
+  font-size: 12px;
+  color: var(--acc);
+}
+
+/* Principles: a numbered list with fine rules, like a report's contents page. */
+.lp-principles {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(32px, 4vw, 56px);
+}
+@media (min-width: 960px) {
+  .lp-principles {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    align-items: start;
+  }
+}
+.lp-rules {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--lp-fg);
+}
+.lp-rules li {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  column-gap: 16px;
+  row-gap: 6px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--lp-border2);
+}
+.lp-rules li > span {
+  grid-row: span 2;
+  padding-top: 5px;
+  font-size: 13px;
+  color: var(--acc);
+}
+.lp-rules strong {
+  font-size: clamp(19px, 1.6vw, 22px);
+  font-weight: 600;
+  line-height: 1.35;
+}
+.lp-rules p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--lp-soft);
+}
+
+/* About and contact. */
+.lp-about {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 820px;
+}
+.lp-about .lp-lead {
+  margin: 0;
+  font-size: clamp(18px, 1.5vw, 21px);
+  line-height: 1.65;
+  color: var(--lp-fg2);
+}
+.lp-contact-title {
+  margin: clamp(16px, 3vw, 40px) 0 0;
+  padding-top: clamp(32px, 4vw, 48px);
+  border-top: 1px solid var(--lp-border2);
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 500;
+  line-height: 1.1;
+}
+.lp-contact-title .lp-dim {
+  display: inline;
+}
+.lp-about .lp-lead {
+  max-width: 720px;
+}
+.lp-contact-side {
+  justify-content: flex-start;
 }
