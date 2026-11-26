@@ -5,7 +5,10 @@ import { useState } from "react";
 import type { Landing } from "@/content/landing";
 import { Label } from "./parts";
 
-/** Pick an industry and see three kinds of work we help with there. */
+/**
+ * Pick an industry and see three kinds of work we help with there. Each card
+ * shows, in a small flow, where the work comes from and what Effi turns it into.
+ */
 export function Domains({ t }: { t: Landing }) {
   const r = t.domains;
   const [active, setActive] = useState(0);
@@ -43,6 +46,13 @@ export function Domains({ t }: { t: Landing }) {
         <div id="domain-panel" role="tabpanel" aria-labelledby={`domain-tab-${tab.id}`} className="lp-ads" key={tab.id}>
           {tab.items.map((item, i) => (
             <article key={item.title} className="lp-ad" style={{ animationDelay: `${i * 70}ms` }}>
+              <div className="lp-mini" aria-hidden="true">
+                <span className="lp-mini-chip">{item.from}</span>
+                <span className="lp-mini-line" />
+                <span className="lp-mini-effi" />
+                <span className="lp-mini-line" />
+                <span className="lp-mini-chip lp-mini-out">{item.to}</span>
+              </div>
               <h3 className="lp-ad-title">{item.title}</h3>
               <p className="lp-ad-does">{item.does}</p>
             </article>

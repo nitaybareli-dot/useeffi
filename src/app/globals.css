@@ -1102,12 +1102,7 @@ body {
 .lp-ad {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.lp-ad::before {
-  content: "";
-  width: 22px;
-  height: 2px;
-  background: var(--acc);
-}
+
 @media (hover: hover) {
   .lp-ad:hover {
     transform: translateY(-3px);
@@ -1154,4 +1149,87 @@ body {
     clip: rect(0 0 0 0);
     white-space: nowrap;
   }
+}
+
+/* Area cards: a small flow from where the work comes from, through Effi, to what it becomes. */
+.lp-mini {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding-bottom: 18px;
+  border-bottom: 1px dashed var(--lp-border2);
+}
+.lp-mini-chip {
+  flex-shrink: 1;
+  min-width: 0;
+  padding: 5px 10px;
+  border: 1px solid var(--lp-border2);
+  border-radius: 999px;
+  background: var(--lp-bg);
+  font-size: 12.5px;
+  line-height: 1.3;
+  color: var(--lp-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lp-mini-out {
+  border-color: color-mix(in srgb, var(--acc) 45%, transparent);
+  background: color-mix(in srgb, var(--acc) 8%, var(--lp-card));
+  color: var(--acc);
+  font-weight: 500;
+}
+.lp-mini-line {
+  position: relative;
+  flex: 1 1 16px;
+  min-width: 14px;
+  height: 1px;
+  background: var(--lp-border2);
+  overflow: hidden;
+}
+.lp-mini-line::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  inset-inline-start: 0;
+  width: 10px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--acc);
+  opacity: 0;
+}
+.lp-mini-effi {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: var(--acc);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--acc) 14%, transparent);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .lp-mini-line::after {
+    animation: lp-mini-flow 2.4s ease-in-out infinite;
+  }
+  .lp-mini-line:nth-of-type(4)::after {
+    animation-delay: 1.2s;
+  }
+  .lp-ad:nth-child(2) .lp-mini-line::after {
+    animation-delay: 0.4s;
+  }
+  .lp-ad:nth-child(2) .lp-mini-line:nth-of-type(4)::after {
+    animation-delay: 1.6s;
+  }
+  .lp-ad:nth-child(3) .lp-mini-line::after {
+    animation-delay: 0.8s;
+  }
+  .lp-ad:nth-child(3) .lp-mini-line:nth-of-type(4)::after {
+    animation-delay: 2s;
+  }
+}
+@keyframes lp-mini-flow {
+  0% { inset-inline-start: 0; opacity: 0; }
+  10% { opacity: 1; }
+  45% { inset-inline-start: calc(100% - 10px); opacity: 1; }
+  55%, 100% { inset-inline-start: calc(100% - 10px); opacity: 0; }
 }

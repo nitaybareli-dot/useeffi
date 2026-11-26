@@ -50,7 +50,8 @@ export type Landing = {
     label: string;
     titleA: string;
     titleB: string;
-    tabs: { id: string; name: string; items: { title: string; does: string }[] }[];
+    /** Each item also shows where the work comes from and what it turns into. */
+    tabs: { id: string; name: string; items: { title: string; does: string; from: string; to: string }[] }[];
     close: string;
   };
   principles: {
@@ -147,45 +148,45 @@ export const landingHe: Landing = {
         id: "manufacturing",
         name: "תעשייה וייצור",
         items: [
-          { title: "רכש ומלאי", does: "מעקב אחרי המלאי, והכנת הזמנות רכש לאישור." },
-          { title: "בקרת איכות", does: "ריכוז בדיקות המשמרת לדוח אחד, עם התראה על פספוסים." },
-          { title: "ידע והדרכה", does: "תשובות לעובדים מתוך הנהלים, בשפה שלהם." },
+          { title: "רכש ומלאי", does: "מעקב אחרי המלאי, והכנת הזמנות רכש לאישור.", from: "נתוני מלאי", to: "הזמנת רכש" },
+          { title: "בקרת איכות", does: "ריכוז בדיקות המשמרת לדוח אחד, עם התראה על פספוסים.", from: "בדיקות המשמרת", to: "דוח והתראות" },
+          { title: "ידע והדרכה", does: "תשובות לעובדים מתוך הנהלים, בשפה שלהם.", from: "נהלים", to: "תשובה לעובד" },
         ],
       },
       {
         id: "agriculture",
         name: "חקלאות ומזון",
         items: [
-          { title: "חדרי קירור ומלאי", does: "מעקב רציף אחרי טמפרטורות ומלאי, והתראה כשמשהו חורג." },
-          { title: "דיווחים ותעודות", does: "ריכוז הדיווחים לרשויות וללקוחות, בלי לרדוף אחרי ניירת." },
-          { title: "הזמנות ולקוחות", does: "הזמנות נקלטות מהוואטסאפ ומהמייל, והלקוח מקבל עדכון." },
+          { title: "חדרי קירור ומלאי", does: "מעקב רציף אחרי טמפרטורות ומלאי, והתראה כשמשהו חורג.", from: "חיישני טמפרטורה", to: "התראה למנהל" },
+          { title: "דיווחים ותעודות", does: "ריכוז הדיווחים לרשויות וללקוחות, בלי לרדוף אחרי ניירת.", from: "נתוני משלוחים", to: "דיווח מוכן" },
+          { title: "הזמנות ולקוחות", does: "הזמנות נקלטות מהוואטסאפ ומהמייל, והלקוח מקבל עדכון.", from: "וואטסאפ ומייל", to: "מערכת ההזמנות" },
         ],
       },
       {
         id: "real-estate",
         name: "נדל״ן ובנייה",
         items: [
-          { title: "חשבונות קבלנים", does: "בדיקת חשבונות מול החוזה, וסימון של מה שלא מתאים." },
-          { title: "פניות רוכשים ודיירים", does: "מענה מסודר לפניות, גם אחרי שעות העבודה." },
-          { title: "חוזים ומסמכים", does: "סימון סעיפים חריגים לפני החתימה." },
+          { title: "חשבונות קבלנים", does: "בדיקת חשבונות מול החוזה, וסימון של מה שלא מתאים.", from: "חשבון וחוזה", to: "סימון חריגות" },
+          { title: "פניות רוכשים ודיירים", does: "מענה מסודר לפניות, גם אחרי שעות העבודה.", from: "פניות", to: "מענה ותיעוד" },
+          { title: "חוזים ומסמכים", does: "סימון סעיפים חריגים לפני החתימה.", from: "טיוטת חוזה", to: "סעיפים לבדיקה" },
         ],
       },
       {
         id: "logistics",
         name: "לוגיסטיקה",
         items: [
-          { title: "קליטת הזמנות", does: "הזמנות מהמייל ומהוואטסאפ נכנסות ישר למערכת." },
-          { title: "מסמכי יצוא ומכס", does: "הכנה ובדיקה של המסמכים לפני שהם יוצאים." },
-          { title: "עדכוני משלוחים", does: "הלקוח יודע איפה המשלוח, בלי להתקשר." },
+          { title: "קליטת הזמנות", does: "הזמנות מהמייל ומהוואטסאפ נכנסות ישר למערכת.", from: "מייל ווואטסאפ", to: "מערכת ההזמנות" },
+          { title: "מסמכי יצוא ומכס", does: "הכנה ובדיקה של המסמכים לפני שהם יוצאים.", from: "נתוני משלוח", to: "מסמכים בדוקים" },
+          { title: "עדכוני משלוחים", does: "הלקוח יודע איפה המשלוח, בלי להתקשר.", from: "מערכת המשלוחים", to: "עדכון ללקוח" },
         ],
       },
       {
         id: "offices",
         name: "משרדים ומטות",
         items: [
-          { title: "משאבי אנוש", does: "מענה לעובדים מתוך הנהלים, בכל שעה." },
-          { title: "דוחות הנהלה", does: "דוח מוכן בבוקר, מנתונים של כמה מערכות." },
-          { title: "רכש והצעות מחיר", does: "השוואת הצעות מחיר, מוכנה לפני הישיבה." },
+          { title: "משאבי אנוש", does: "מענה לעובדים מתוך הנהלים, בכל שעה.", from: "נהלים", to: "תשובה לעובד" },
+          { title: "דוחות הנהלה", does: "דוח מוכן בבוקר, מנתונים של כמה מערכות.", from: "כמה מערכות", to: "דוח בוקר" },
+          { title: "רכש והצעות מחיר", does: "השוואת הצעות מחיר, מוכנה לפני הישיבה.", from: "הצעות מספקים", to: "טבלת השוואה" },
         ],
       },
     ],
@@ -290,45 +291,45 @@ export const landingEn: Landing = {
         id: "manufacturing",
         name: "Manufacturing",
         items: [
-          { title: "Purchasing & stock", does: "Tracking stock and preparing purchase orders for approval." },
-          { title: "Quality control", does: "One report of the shift's checks, with alerts on anything missed." },
-          { title: "Knowledge & training", does: "Answers for employees from the procedures, in their own language." },
+          { title: "Purchasing & stock", does: "Tracking stock and preparing purchase orders for approval.", from: "Stock data", to: "Purchase order" },
+          { title: "Quality control", does: "One report of the shift's checks, with alerts on anything missed.", from: "Shift checks", to: "Report & alerts" },
+          { title: "Knowledge & training", does: "Answers for employees from the procedures, in their own language.", from: "Procedures", to: "Answer to employee" },
         ],
       },
       {
         id: "agriculture",
         name: "Agriculture & food",
         items: [
-          { title: "Cold rooms & stock", does: "Continuous tracking of temperatures and stock, with an alert when something is off." },
-          { title: "Reports & certificates", does: "Reports for authorities and customers in one place, without chasing paperwork." },
-          { title: "Orders & customers", does: "Orders come in from WhatsApp and email, and the customer gets an update." },
+          { title: "Cold rooms & stock", does: "Continuous tracking of temperatures and stock, with an alert when something is off.", from: "Temperature sensors", to: "Alert to manager" },
+          { title: "Reports & certificates", does: "Reports for authorities and customers in one place, without chasing paperwork.", from: "Shipment data", to: "Ready report" },
+          { title: "Orders & customers", does: "Orders come in from WhatsApp and email, and the customer gets an update.", from: "WhatsApp & email", to: "Order system" },
         ],
       },
       {
         id: "real-estate",
         name: "Real estate & construction",
         items: [
-          { title: "Contractor invoices", does: "Checking invoices against the contract and flagging what doesn't match." },
-          { title: "Buyer & tenant inquiries", does: "Orderly answers to inquiries, after business hours too." },
-          { title: "Contracts & documents", does: "Flagging unusual clauses before signing." },
+          { title: "Contractor invoices", does: "Checking invoices against the contract and flagging what doesn't match.", from: "Invoice & contract", to: "Flagged exceptions" },
+          { title: "Buyer & tenant inquiries", does: "Orderly answers to inquiries, after business hours too.", from: "Inquiries", to: "Answer & record" },
+          { title: "Contracts & documents", does: "Flagging unusual clauses before signing.", from: "Draft contract", to: "Clauses to review" },
         ],
       },
       {
         id: "logistics",
         name: "Logistics",
         items: [
-          { title: "Order intake", does: "Orders from email and WhatsApp go straight into the system." },
-          { title: "Export & customs papers", does: "Preparing and checking documents before they go out." },
-          { title: "Shipment updates", does: "Customers know where their shipment is, without calling." },
+          { title: "Order intake", does: "Orders from email and WhatsApp go straight into the system.", from: "Email & WhatsApp", to: "Order system" },
+          { title: "Export & customs papers", does: "Preparing and checking documents before they go out.", from: "Shipment data", to: "Checked documents" },
+          { title: "Shipment updates", does: "Customers know where their shipment is, without calling.", from: "Shipping system", to: "Customer update" },
         ],
       },
       {
         id: "offices",
         name: "Offices & HQ",
         items: [
-          { title: "HR", does: "Answers for employees from the procedures, at any hour." },
-          { title: "Management reports", does: "A report ready in the morning, from several systems." },
-          { title: "Purchasing & quotes", does: "Quotes compared and ready before the meeting." },
+          { title: "HR", does: "Answers for employees from the procedures, at any hour.", from: "Procedures", to: "Answer to employee" },
+          { title: "Management reports", does: "A report ready in the morning, from several systems.", from: "Several systems", to: "Morning report" },
+          { title: "Purchasing & quotes", does: "Quotes compared and ready before the meeting.", from: "Supplier quotes", to: "Comparison table" },
         ],
       },
     ],
