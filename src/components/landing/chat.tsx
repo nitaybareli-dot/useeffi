@@ -32,7 +32,7 @@ function FactIcon({ name }: { name: "eye" | "approve" | "shield" }) {
 export function Chat({ t }: { t: Landing }) {
   const c = t.chat;
   return (
-    <section className="lp-dark" style={{ borderTop: "1px solid #1c1c1c" }}>
+    <section style={{ borderTop: "1px solid var(--lp-border)" }}>
       <div className="lp-wrap lp-section" style={{ display: "flex", flexDirection: "column", gap: "clamp(40px, 5vw, 64px)" }}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "clamp(40px, 6vw, 96px)", alignItems: "center" }}>
           {/* Phone: a light, WhatsApp-style conversation with Effi */}

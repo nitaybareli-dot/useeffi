@@ -24,7 +24,11 @@ export function Stepper({ p }: { p: Landing["process"] }) {
       const rect = node.getBoundingClientRect();
       const vh = window.innerHeight;
       // 0 when the path enters the lower part of the screen, 1 when it nears the top.
-      const progress = Math.min(1, Math.max(0, (vh * 0.85 - rect.top) / (vh * 0.65)));
+      // Phones see the whole section at once, so spread the steps over a longer scroll.
+      const phone = window.innerWidth < 720;
+      const start = vh * (phone ? 0.92 : 0.85);
+      const span = vh * (phone ? 0.9 : 0.65);
+      const progress = Math.min(1, Math.max(0, (start - rect.top) / span));
       setActive(Math.min(steps.length - 1, Math.floor(progress * steps.length)));
     };
     const onScroll = () => {

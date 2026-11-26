@@ -57,74 +57,6 @@ body {
 }
 
 /* Type scale. */
-@layer components {
-  .type-h1 {
-    font-size: clamp(40px, 5.5vw, 68px);
-    font-weight: 500;
-    line-height: 1.08;
-    letter-spacing: -0.01em;
-    color: var(--ink);
-  }
-  .type-h2 {
-    font-size: clamp(30px, 3.4vw, 42px);
-    font-weight: 500;
-    line-height: 1.15;
-    color: var(--ink);
-    text-wrap: balance;
-  }
-  .type-h3 {
-    font-size: 22px;
-    font-weight: 600;
-    line-height: 1.3;
-    color: var(--ink);
-  }
-  .type-lead {
-    font-size: 20px;
-    line-height: 1.6;
-    color: var(--text);
-  }
-  .type-card {
-    font-size: 17px;
-    line-height: 1.65;
-    color: var(--text-muted);
-  }
-  .type-item {
-    font-size: 16px;
-    color: var(--text);
-  }
-  .type-eyebrow {
-    font-size: 14px;
-    color: var(--text-muted);
-  }
-  .type-num {
-    color: var(--accent);
-  }
-
-  .on-dark .type-h1,
-  .on-dark .type-h2,
-  .on-dark .type-h3,
-  .on-dark .type-lead,
-  .on-dark .type-item {
-    color: #ffffff;
-  }
-  .on-dark .type-card,
-  .on-dark .type-eyebrow {
-    color: var(--dark-muted);
-  }
-  .on-dark .type-num {
-    color: var(--accent-on-dark);
-  }
-
-  /* Vertical rhythm for sections in the Hebrew layout. */
-  .section-y {
-    padding-block: 64px;
-  }
-  @media (min-width: 768px) {
-    .section-y {
-      padding-block: 96px;
-    }
-  }
-}
 
 ::selection {
   background: var(--accent);
@@ -136,17 +68,7 @@ body {
   outline-offset: 2px;
 }
 
-.on-dark :focus-visible {
-  outline-color: var(--accent-on-dark);
-}
-
 /* Keep browser autofill from painting a light box over the dark contact form. */
-.on-dark input:-webkit-autofill,
-.on-dark textarea:-webkit-autofill {
-  -webkit-text-fill-color: #ffffff;
-  caret-color: #ffffff;
-  box-shadow: 0 0 0 1000px #161616 inset;
-}
 
 @keyframes reveal {
   from {
@@ -160,15 +82,6 @@ body {
 }
 
 /* Scroll reveal with no JavaScript; browsers without support just show the content. */
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .reveal {
-      animation: reveal linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 35%;
-    }
-  }
-}
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -234,10 +147,7 @@ body {
   --lp-wm-tail: #b4b1aa;
   --lp-err: #c2410c;
 }
-.lp-dark {
-  background: var(--lp-bg);
-  color: var(--lp-fg);
-}
+
 .lp {
   font-family: var(--font-sans);
   min-width: 0;
@@ -319,13 +229,7 @@ body {
 .lp-light .lp-label i {
   background: #c9c5bb;
 }
-.lp-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-}
+
 .lp-btn {
   display: inline-flex;
   align-items: center;
@@ -341,13 +245,6 @@ body {
   cursor: pointer;
   transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
-.lp-btn:hover {
-  transform: translateY(-2px);
-}
-.lp-btn:disabled {
-  opacity: 0.7;
-  transform: none;
-}
 .lp-btn-md {
   min-height: 44px;
   padding: 11px 20px;
@@ -358,6 +255,14 @@ body {
   padding: 18px 28px;
   font-size: 17px;
 }
+.lp-btn:hover {
+  transform: translateY(-2px);
+}
+.lp-btn:disabled {
+  opacity: 0.7;
+  transform: none;
+}
+
 /* Points toward the reading end: left in Hebrew, right in English. */
 .lp-arrow {
   width: 18px;
@@ -484,100 +389,14 @@ body {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.25; }
 }
-.lp-caret {
-  animation: lp-caret 1s steps(1) infinite;
-}
-@keyframes lp-caret {
-  50% { opacity: 0; }
-}
 
 /* Pains: Effi runs along each line and strikes it out, then answers in a bubble. */
-.lp-pain-words {
-  color: var(--lp-mute);
-}
-.lp-strike {
-  position: absolute;
-  inset-inline-start: 0;
-  top: 52%;
-  width: 100%;
-  height: 3px;
-  margin-top: -1.5px;
-  border-radius: 2px;
-  background: var(--acc);
-}
-.lp-runner {
-  position: absolute;
-  top: 52%;
-  inset-inline-start: calc(100% - 10px);
-  width: 20px;
-  height: 20px;
-  margin-top: -10px;
-  border-radius: 6px;
-  background: var(--acc);
-  box-shadow: 0 0 0 4px var(--lp-bg);
-  opacity: 0;
-}
-.lp-runner svg {
-  display: block;
-}
-.lp-answer {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
 
 /* Pains: rows waiting below the middle of the screen start un-struck, then
    play once (data-play) at a pace people can follow. */
-.lp-pain[data-wait] .lp-strike { width: 0; }
-.lp-pain[data-wait] .lp-pain-words { color: var(--lp-fg); }
-.lp-pain[data-wait] .lp-answer { opacity: 0; transform: translateY(8px); }
-.lp-pain[data-play] .lp-strike { animation: lp-strike-t 1.3s linear 0.35s both; }
-.lp-pain[data-play] .lp-pain-words { animation: lp-dim-t 1.3s linear 0.35s both; }
-.lp-pain[data-play] .lp-runner { animation: lp-runner-t 1.9s linear 0.1s both; }
-.lp-pain[data-play] .lp-answer { animation: lp-answer-t 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) 1.7s both; }
+
 /* Scrolling back up rewinds a line slowly: the answer leaves, Effi runs back
    and the strike-out shrinks, so the line can play again on the way down. */
-.lp-pain[data-undo] .lp-answer { animation: lp-answer-back 0.4s ease both; }
-.lp-pain[data-undo] .lp-strike { animation: lp-strike-back 1.4s linear 0.35s both; }
-.lp-pain[data-undo] .lp-pain-words { animation: lp-dim-back 1.4s linear 0.35s both; }
-.lp-pain[data-undo] .lp-runner { animation: lp-runner-back 2s linear 0.1s both; }
-@keyframes lp-strike-back {
-  from { width: 100%; }
-  to { width: 0; }
-}
-@keyframes lp-dim-back {
-  from { color: var(--lp-mute); }
-  to { color: var(--lp-fg); }
-}
-@keyframes lp-answer-back {
-  from { opacity: 1; transform: none; }
-  to { opacity: 0; transform: translateY(8px); }
-}
-@keyframes lp-runner-back {
-  0% { inset-inline-start: calc(100% - 10px); opacity: 0; transform: scale(0.6); }
-  12% { inset-inline-start: calc(100% - 10px); opacity: 1; transform: scale(1); }
-  82% { inset-inline-start: -10px; opacity: 1; transform: scale(1); }
-  100% { inset-inline-start: -10px; opacity: 0; transform: scale(0.6); }
-}
-@keyframes lp-strike-t {
-  from { width: 0; }
-  to { width: 100%; }
-}
-@keyframes lp-dim-t {
-  from { color: var(--lp-fg); }
-  to { color: var(--lp-mute); }
-}
-@keyframes lp-runner-t {
-  0% { inset-inline-start: -10px; opacity: 0; transform: scale(0.6); }
-  13% { inset-inline-start: -10px; opacity: 1; transform: scale(1); }
-  81% { inset-inline-start: calc(100% - 10px); opacity: 1; transform: scale(1); }
-  100% { inset-inline-start: calc(100% - 10px); opacity: 0; transform: scale(0.6); }
-}
-
-@keyframes lp-answer-t {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: none; }
-}
 
 /* Contact form as a chat with Effi. */
 .lp-chat-in,
@@ -595,13 +414,7 @@ body {
   border: 1px solid var(--lp-border);
   border-start-start-radius: 4px;
 }
-.lp-chat-out {
-  align-self: flex-end;
-  background: var(--acc);
-  color: #000;
-  font-weight: 500;
-  border-start-end-radius: 4px;
-}
+
 @keyframes lp-msg {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: none; }
@@ -626,94 +439,14 @@ body {
 }
 
 /* Progress bar above the contact chat, with Effi hopping between stops. */
-.lp-steps {
-  position: relative;
-  padding: 44px 22px 34px;
-  border-bottom: 1px solid var(--lp-line);
-  background: var(--lp-card2);
-}
-.lp-steps ol {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.lp-steps li {
-  position: relative;
-  width: 14px;
-  height: 14px;
-}
-.lp-steps li i {
-  position: absolute;
-  inset: 0;
-  border-radius: 99px;
-  background: var(--lp-card);
-  border: 2px solid var(--lp-border2);
-  transition: background 0.3s, border-color 0.3s;
-}
-.lp-steps li[data-state="now"] i {
-  border-color: var(--acc);
-}
-.lp-steps li[data-state="done"] i {
-  background: var(--acc);
-  border-color: var(--acc);
-}
-.lp-steps .lp-steps-goal i {
-  border-radius: 3px;
-  transform: rotate(45deg);
-}
-.lp-steps li b {
-  position: absolute;
-  top: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 12px;
-  font-weight: 500;
-  white-space: nowrap;
-  color: var(--lp-mute);
-  transition: color 0.3s;
-}
-.lp-steps li[data-state="now"] b {
-  color: var(--lp-fg);
-}
-.lp-steps-rail {
-  position: absolute;
-  top: 50px;
-  inset-inline: 29px;
-  height: 2px;
-  background: var(--lp-border2);
-}
-.lp-steps-rail span {
-  display: block;
-  height: 100%;
-  background: var(--acc);
-  transition: width 0.55s cubic-bezier(0.45, 0, 0.25, 1);
-}
-.lp-steps-effi {
-  position: absolute;
-  top: 11px;
-  width: 30px;
-  height: 30px;
-  transition: inset-inline-start 0.55s cubic-bezier(0.45, 0, 0.25, 1);
-}
+
 .lp-hop {
   position: relative;
   z-index: 1;
   display: block;
   transform-origin: 50% 100%;
 }
-.lp-hop-shadow {
-  position: absolute;
-  left: 3px;
-  right: 3px;
-  bottom: -5px;
-  height: 4px;
-  border-radius: 99px;
-  background: rgba(91, 140, 255, 0.35);
-  filter: blur(1px);
-}
+
 @media (prefers-reduced-motion: no-preference) {
   .lp-hop {
     animation: lp-hop 0.55s cubic-bezier(0.3, 0, 0.3, 1) both;
@@ -721,9 +454,7 @@ body {
   .lp-hop-win {
     animation: lp-hop 0.55s cubic-bezier(0.3, 0, 0.3, 1) 2 both;
   }
-  .lp-hop-shadow {
-    animation: lp-hop-shadow 0.55s cubic-bezier(0.3, 0, 0.3, 1) both;
-  }
+  
 }
 @keyframes lp-hop {
   0% { transform: translateY(0) scale(1, 1); }
@@ -732,26 +463,9 @@ body {
   84% { transform: translateY(0) scale(1.12, 0.88); }
   100% { transform: translateY(0) scale(1, 1); }
 }
-@keyframes lp-hop-shadow {
-  0%, 100% { transform: scaleX(1); opacity: 1; }
-  50% { transform: scaleX(0.5); opacity: 0.4; }
-}
+
 #contact-chat {
   scroll-margin-top: 88px;
-}
-.lp-chat-log {
-  scrollbar-width: thin;
-  scrollbar-color: var(--lp-border2) transparent;
-}
-.lp-chat-log::-webkit-scrollbar {
-  width: 6px;
-}
-.lp-chat-log::-webkit-scrollbar-thumb {
-  background: var(--lp-border2);
-  border-radius: 99px;
-}
-.lp-chat-log::-webkit-scrollbar-track {
-  background: transparent;
 }
 
 /* Closed chat after a successful send. */
@@ -783,73 +497,6 @@ body {
 }
 
 /* "What happens next" beside the contact chat. */
-.lp-next {
-  flex: 1 1 260px;
-  max-width: 380px;
-  padding-top: 8px;
-}
-.lp-next h3 {
-  margin: 0 0 24px;
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--lp-soft);
-}
-.lp-next ol {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.lp-next ol::before {
-  content: "";
-  position: absolute;
-  top: 14px;
-  bottom: 14px;
-  inset-inline-start: 15px;
-  width: 1px;
-  background: var(--lp-border2);
-}
-.lp-next li {
-  position: relative;
-  display: flex;
-  gap: 16px;
-}
-.lp-next li > span {
-  flex-shrink: 0;
-  display: grid;
-  place-items: center;
-  width: 31px;
-  height: 31px;
-  border-radius: 8px;
-  border: 1px solid var(--lp-border2);
-  background: var(--lp-bg);
-  color: var(--acc);
-  font-size: 12px;
-}
-.lp-next strong {
-  display: block;
-  font-size: 19px;
-  font-weight: 600;
-  line-height: 1.3;
-}
-.lp-next p {
-  margin: 6px 0 0;
-  font-size: 15px;
-  line-height: 1.5;
-  color: var(--lp-soft);
-}
-
-.lp-next-team {
-  margin: 32px 0 0;
-  padding-top: 20px;
-  border-top: 1px solid var(--lp-border);
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--lp-mute);
-}
 
 /* WhatsApp-style light chat. */
 [dir="rtl"] .lp-back {
@@ -905,13 +552,7 @@ body {
   0%, 40%, 80%, 100% { transform: translateX(0); }
   50%, 70% { transform: translateX(-2.5px); }
 }
-.lp-peek {
-  animation: lp-peek 5s cubic-bezier(0.5, 0, 0.2, 1) infinite;
-}
-@keyframes lp-peek {
-  0%, 15%, 95%, 100% { transform: translateY(70%); }
-  30%, 80% { transform: translateY(0); }
-}
+
 .lp-dot {
   animation: lp-dot 1.2s ease-in-out infinite;
 }
@@ -921,87 +562,10 @@ body {
   0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
   30% { transform: translateY(-3px); opacity: 1; }
 }
-.lp-bubble {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  max-width: 86%;
-  padding: 10px 12px 6px;
-  border-radius: 14px;
-  font-size: 15px;
-  line-height: 1.5;
-  color: #f2f2f2;
-}
-.lp-bubble-in {
-  align-self: flex-start;
-  background: #1c1c1c;
-  border-start-start-radius: 4px;
-}
-.lp-bubble-out {
-  align-self: flex-end;
-  max-width: 80%;
-  background: #26300f;
-  border-start-end-radius: 4px;
-}
 
 /* Venn and orbits. */
-.lp-venn-a { animation: lp-venn-a 5s ease-in-out infinite alternate; }
-.lp-venn-b { animation: lp-venn-b 5s ease-in-out infinite alternate; }
-.lp-venn-mid { animation: lp-venn-mid 5s ease-in-out infinite alternate; }
-@keyframes lp-venn-a { from { transform: translateX(60px); } to { transform: none; } }
-@keyframes lp-venn-b { from { transform: translateX(-60px); } to { transform: none; } }
-@keyframes lp-venn-mid { 0%, 40% { opacity: 0; } 100% { opacity: 1; } }
-.lp-spin {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: lp-spin 46s linear infinite;
-}
-.lp-spin-fast { animation-duration: 28s; }
-.lp-spin-rev { animation-duration: 70s; animation-direction: reverse; }
-@keyframes lp-spin {
-  to { transform: rotate(360deg); }
-}
 
 /* The orbit behind the contact form is decoration; on phones it would sit on the inputs. */
-@media (max-width: 720px) {
-  .lp-orbit {
-    display: none;
-  }
-}
-.lp-chip {
-  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
-}
-.lp-idea {
-  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1), border-color 0.3s ease;
-}
-.lp-idea:hover {
-  transform: translateY(-3px);
-  border-color: #0a0a0a;
-}
-.lp-range {
-  width: 100%;
-  height: 32px;
-  accent-color: #0a0a0a;
-  cursor: pointer;
-}
-.lp-input {
-  min-height: 48px;
-  padding: 12px 0;
-  border: 0;
-  border-bottom: 1px solid #3a3a3a;
-  border-radius: 0;
-  background: transparent;
-  color: #fff;
-  font: inherit;
-  font-size: 17px;
-}
-.lp-input[aria-invalid="true"] {
-  border-bottom-color: #fca5a5;
-}
-.lp-input:-webkit-autofill {
-  -webkit-text-fill-color: #fff;
-  box-shadow: 0 0 0 1000px #000 inset;
-}
 
 /* Scroll-driven effects. Browsers without support show the final state. */
 @media (prefers-reduced-motion: no-preference) {
@@ -1015,87 +579,16 @@ body {
       from { opacity: 0; transform: translateY(24px); }
       to { opacity: 1; transform: none; }
     }
-    .lp-draw-scroll {
-      stroke-dasharray: 1;
-      animation: lp-draw-scroll linear both;
-      animation-timeline: view();
-      animation-range: entry 20% cover 50%;
-    }
-    @keyframes lp-draw-scroll {
-      from { stroke-dashoffset: 1; }
-      to { stroke-dashoffset: 0; }
-    }
-    .lp-late {
-      animation: lp-late linear both;
-      animation-timeline: view();
-      animation-range: cover 40% cover 55%;
-    }
-    @keyframes lp-late {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+    
+    
+    
+    
   }
 }
 
 /* How it works: four steps in a row, stacked on phones. */
-.lp-process {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  position: relative;
-}
+
 /* On wide screens a line runs through the step numbers, like a path. */
-@media (min-width: 960px) {
-  .lp-process::before {
-    content: "";
-    position: absolute;
-    top: 45px;
-    inset-inline: 0;
-    height: 1px;
-    background: var(--lp-border2);
-  }
-  .lp-process li > span {
-    position: relative;
-  }
-}
-.lp-process li {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 28px 0;
-  padding-inline-end: 28px;
-}
-@media (max-width: 720px) {
-  .lp-process li {
-    padding: 18px 0;
-  }
-}
-.lp-process li > span {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  margin-bottom: 6px;
-  border-radius: 9px;
-  border: 1px solid var(--lp-border2);
-  background: var(--lp-card);
-  color: var(--acc);
-  font-size: 12px;
-}
-.lp-process strong {
-  font-size: clamp(20px, 1.8vw, 24px);
-  font-weight: 600;
-  line-height: 1.3;
-}
-.lp-process p {
-  margin: 0;
-  font-size: 16px;
-  line-height: 1.55;
-  color: var(--lp-soft);
-}
 
 /* Contact: one short form, introduced by Effi. */
 .lp-contact-card {
@@ -1210,14 +703,13 @@ body {
 /* A message arriving in the WhatsApp demo: it grows in, so the chat slides up smoothly. */
 [data-wa-new] {
   overflow: hidden;
-  animation: lp-wa-grow 0.42s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: lp-wa-grow 0.42s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
 }
 @keyframes lp-wa-grow {
   from { max-height: 0; opacity: 0; transform: translateY(10px) scale(0.98); padding-block: 0; margin-block: -3px; }
   60% { opacity: 1; }
-  to { max-height: 320px; opacity: 1; transform: none; }
+  to { max-height: 480px; opacity: 1; transform: none; }
 }
-
 
 /* ───────────────── Company profile: calm, editorial, serious ───────────────── */
 
@@ -1294,13 +786,7 @@ body {
   box-shadow: inset 0 0 0 5px var(--lp-card), inset 0 0 0 6px var(--lp-border);
   animation: lp-msg 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
-.lp-ad-tag {
-  align-self: flex-start;
-  padding: 3px 9px;
-  border: 1px solid var(--lp-fg);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-}
+
 .lp-ad-title {
   margin: 0;
   font-size: clamp(26px, 2.4vw, 32px);
@@ -1320,28 +806,8 @@ body {
 }
 
 /* Hebrew is never letter-spaced. */
-[dir="rtl"] .lp-badge-head,
-[dir="rtl"] .lp-badge-rows dt,
-[dir="rtl"] .lp-ad-tag {
-  letter-spacing: 0;
-}
-[dir="rtl"] .lp-badge-head span:first-child,
-[dir="rtl"] .lp-badge-rows dt,
-[dir="rtl"] .lp-ad-tag {
-  font-family: var(--font-sans);
-}
-.lp-badge-rows dt {
-  font-size: 12px;
-}
 
 /* Hebrew is never letter-spaced. */
-[dir="rtl"] .lp-ad-num {
-  letter-spacing: 0;
-}
-.lp-ad-num {
-  font-size: 12px;
-  color: var(--acc);
-}
 
 /* Principles: a numbered list with fine rules, like a report's contents page. */
 .lp-principles {
@@ -1662,5 +1128,30 @@ body {
   }
   .lp-tab {
     flex-shrink: 0;
+  }
+}
+
+/* Hero drawing: the full flow on wide screens, a closer crop on phones. */
+.lp-flow-narrow {
+  display: none !important;
+}
+@media (max-width: 720px) {
+  .lp-flow-wide {
+    display: none !important;
+  }
+  .lp-flow-narrow {
+    display: block !important;
+    overflow: hidden !important;
+  }
+}
+/* Phones: the path shows only the numbers; the card below names the step. */
+@media (max-width: 720px) {
+  .lp-stepper-title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
   }
 }

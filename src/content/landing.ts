@@ -18,7 +18,6 @@ export type Landing = {
     titleA: string;
     titleB: string;
     sub: string;
-    cta: string;
     before: { label: string; text: string };
     after: { label: string; text: string };
     flowAlt: string;
@@ -109,7 +108,6 @@ export const landingHe: Landing = {
     titleA: "פתרונות AI,",
     titleB: "מותאמים לארגון שלכם.",
     sub: "Effi מלווה ארגונים בהטמעה של AI. אנחנו לומדים לעומק איך העבודה מתנהלת, מאתרים יחד איתכם איפה היא נתקעת, ובונים פתרונות שעובדים על המערכות הקיימות.",
-    cta: "יצירת קשר",
     before: { label: "היום", text: "ידני · מפוזר · איטי" },
     after: { label: "עם אפי", text: "אוטומטי · מחובר · מהיר" },
     flowAlt: "קווים סבוכים ואיטיים נכנסים לצומת אחד, ויוצאים ממנו כקווים ישרים ומהירים",
@@ -253,7 +251,6 @@ export const landingEn: Landing = {
     titleA: "AI solutions,",
     titleB: "tailored to your organization.",
     sub: "Effi helps organizations adopt AI. We learn in depth how the work runs, find together with you where it gets stuck, and build solutions that work on your existing systems.",
-    cta: "Contact",
     before: { label: "Today", text: "Manual · scattered · slow" },
     after: { label: "With Effi", text: "Automated · connected · fast" },
     flowAlt: "Tangled, slow lines enter a single node and leave it as straight, fast lines",
@@ -364,7 +361,7 @@ export const landingEn: Landing = {
     ],
   },
   contact: {
-    meta: "First conversation at no cost · no commitment · at a time that suits you",
+    meta: "First conversation at no cost · No commitment · At a time that suits you",
     titleA: "We'd be glad",
     titleB: "to continue the conversation.",
     greeting: "Leave your name and phone, and we'll get back to you soon.",

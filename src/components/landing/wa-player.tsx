@@ -35,6 +35,8 @@ export function WaPlayer() {
       el.hidden = false;
       void el.offsetWidth;
       el.setAttribute("data-wa-new", "");
+      // Drop the grow-in styles once it has played, so nothing stays clipped.
+      el.addEventListener("animationend", () => el.removeAttribute("data-wa-new"), { once: true });
     };
 
     const play = async () => {

@@ -50,47 +50,58 @@ export function Hero({ t }: { t: Landing }) {
               <span style={{ color: "var(--lp-fg2)" }}>{h.after.text}</span>
             </div>
           </div>
-          <svg viewBox="0 70 1200 270" width="100%" role="img" aria-label={h.flowAlt} style={{ display: "block", overflow: "visible" }}>
-            <g className="lp-flow-art">
-              <g fill="none" strokeLinecap="round">
-                {TANGLE.map((d, i) => (
-                  <path
-                    key={d}
-                    className="lp-draw"
-                    pathLength={1}
-                    d={d}
-                    style={{ stroke: "var(--lp-tangle)", opacity: TANGLE_OPACITY[i], animationDelay: `${i * 0.25}s` }}
-                    strokeWidth="1.5"
-                  />
-                ))}
-                {STRAIGHT.map((d) => (
-                  <path key={d} className="lp-draw-late" pathLength={1} d={d} strokeWidth="2" style={{ stroke: "var(--acc)" }} />
-                ))}
-              </g>
-              {TANGLE.map((d, i) => (
-                <circle key={d} r="3" style={{ fill: i === 0 ? "var(--lp-fg2)" : "var(--lp-mute)" }}>
-                  <animateMotion dur={`${9 + i}s`} begin={`${i * 2}s`} repeatCount="indefinite" path={d} />
-                </circle>
-              ))}
-              <g className="lp-fade-in">
-                {[0, 1, 2, 0, 2].map((line, i) => (
-                  <circle key={i} r="4" style={{ fill: "var(--acc)" }}>
-                    <animateMotion dur="1.6s" begin={`${[0, 0.55, 1.05, 0.8, 0.25][i]}s`} repeatCount="indefinite" path={STRAIGHT[line]} />
-                  </circle>
-                ))}
-                {[114, 194, 274].map((y) => (
-                  <rect key={y} x="34" y={y} width="12" height="12" rx="2" style={{ fill: "var(--acc)" }} />
-                ))}
-              </g>
-              <rect x="598" y="178" width="44" height="44" rx="6" strokeWidth="1.5" style={{ fill: "var(--lp-bg)", stroke: "var(--lp-fg)" }} />
-              <rect className="lp-pulse" x="613" y="193" width="14" height="14" rx="2" style={{ fill: "var(--acc)" }} />
-            </g>
-            <text x="620" y="252" textAnchor="middle" fontSize="13" style={{ fill: "var(--lp-fg)", fontFamily: "var(--font-plex-mono), monospace" }} letterSpacing="2">
-              EFFI
-            </text>
-          </svg>
+          <Flow viewBox="0 70 1200 270" className="lp-flow-wide" label={h.flowAlt} />
+          <Flow viewBox="230 90 780 230" className="lp-flow-narrow" label={h.flowAlt} />
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * The flow drawing: tangled lines go into Effi's box and come out straight.
+ * Phones get a closer crop so the drawing isn't tiny.
+ */
+function Flow({ viewBox, className, label }: { viewBox: string; className: string; label: string }) {
+  return (
+    <svg viewBox={viewBox} width="100%" role="img" aria-label={label} className={className} style={{ display: "block", overflow: "visible" }}>
+      <g className="lp-flow-art">
+        <g fill="none" strokeLinecap="round">
+          {TANGLE.map((d, i) => (
+            <path
+              key={d}
+              className="lp-draw"
+              pathLength={1}
+              d={d}
+              style={{ stroke: "var(--lp-tangle)", opacity: TANGLE_OPACITY[i], animationDelay: `${i * 0.25}s` }}
+              strokeWidth="1.5"
+            />
+          ))}
+          {STRAIGHT.map((d) => (
+            <path key={d} className="lp-draw-late" pathLength={1} d={d} strokeWidth="2" style={{ stroke: "var(--acc)" }} />
+          ))}
+        </g>
+        {TANGLE.map((d, i) => (
+          <circle key={d} r="3" style={{ fill: i === 0 ? "var(--lp-fg2)" : "var(--lp-mute)" }}>
+            <animateMotion dur={`${9 + i}s`} begin={`${i * 2}s`} repeatCount="indefinite" path={d} />
+          </circle>
+        ))}
+        <g className="lp-fade-in">
+          {[0, 1, 2, 0, 2].map((line, i) => (
+            <circle key={i} r="4" style={{ fill: "var(--acc)" }}>
+              <animateMotion dur="1.6s" begin={`${[0, 0.55, 1.05, 0.8, 0.25][i]}s`} repeatCount="indefinite" path={STRAIGHT[line]} />
+            </circle>
+          ))}
+          {[114, 194, 274].map((y) => (
+            <rect key={y} x="34" y={y} width="12" height="12" rx="2" style={{ fill: "var(--acc)" }} />
+          ))}
+        </g>
+        <rect x="598" y="178" width="44" height="44" rx="6" strokeWidth="1.5" style={{ fill: "var(--lp-bg)", stroke: "var(--lp-fg)" }} />
+        <rect className="lp-pulse" x="613" y="193" width="14" height="14" rx="2" style={{ fill: "var(--acc)" }} />
+      </g>
+      <text x="620" y="252" textAnchor="middle" fontSize="13" style={{ fill: "var(--lp-fg)", fontFamily: "var(--font-plex-mono), monospace" }} letterSpacing="2">
+        EFFI
+      </text>
+    </svg>
   );
 }
