@@ -1207,9 +1207,15 @@ body {
   background: rgba(91, 140, 255, 0.12);
   color: var(--acc);
 }
-/* A message arriving in the WhatsApp demo. */
+/* A message arriving in the WhatsApp demo: it grows in, so the chat slides up smoothly. */
 [data-wa-new] {
-  animation: lp-msg 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  overflow: hidden;
+  animation: lp-wa-grow 0.42s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes lp-wa-grow {
+  from { max-height: 0; opacity: 0; transform: translateY(10px) scale(0.98); padding-block: 0; margin-block: -3px; }
+  60% { opacity: 1; }
+  to { max-height: 320px; opacity: 1; transform: none; }
 }
 
 
@@ -1410,4 +1416,218 @@ body {
 }
 .lp-contact-side {
   justify-content: flex-start;
+}
+
+/* Our approach: a path with four stops, and the current step in full below. */
+.lp-stepper {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 3vw, 40px);
+}
+.lp-stepper-rail {
+  position: relative;
+}
+.lp-stepper-path {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--count), minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lp-stepper-track {
+  position: absolute;
+  top: 21px;
+  inset-inline: 21px calc(100% / var(--count) - 21px);
+  height: 2px;
+  background: var(--lp-border2);
+}
+.lp-stepper-fill {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: calc(var(--active) / (var(--count) - 1) * 100%);
+  background: var(--acc);
+  transition: width 0.6s cubic-bezier(0.3, 0.7, 0.2, 1);
+}
+.lp-stepper-dot {
+  position: absolute;
+  top: -6px;
+  inset-inline-start: calc(var(--active) / (var(--count) - 1) * 100% - 7px);
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: var(--acc);
+  box-shadow: 0 0 0 4px var(--lp-bg);
+  transition: inset-inline-start 0.6s cubic-bezier(0.3, 0.7, 0.2, 1);
+  display: none;
+}
+.lp-stepper-path li button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+.lp-stepper-num {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  border: 1px solid var(--lp-border2);
+  background: var(--lp-card);
+  color: var(--lp-mute);
+  font-size: 13px;
+  transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+}
+.lp-stepper-title {
+  font-size: clamp(16px, 1.6vw, 22px);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--lp-mute);
+  transition: color 0.35s ease;
+}
+.lp-stepper-path li[data-state="done"] .lp-stepper-num {
+  border-color: var(--acc);
+  color: var(--acc);
+}
+.lp-stepper-path li[data-state="now"] .lp-stepper-num {
+  border-color: var(--acc);
+  background: var(--acc);
+  color: #fff;
+  transform: scale(1.08);
+}
+.lp-stepper-path li[data-state="now"] .lp-stepper-title,
+.lp-stepper-path li[data-state="done"] .lp-stepper-title {
+  color: var(--lp-fg);
+}
+.lp-stepper-path li button:hover .lp-stepper-title {
+  color: var(--lp-fg);
+}
+.lp-stepper-path li button:focus-visible .lp-stepper-num {
+  outline: 2px solid var(--acc);
+  outline-offset: 3px;
+}
+.lp-stepper-card {
+  display: grid;
+  gap: 12px;
+  max-width: 760px;
+  padding: clamp(24px, 3vw, 36px);
+  border: 1px solid var(--lp-border2);
+  border-radius: 16px;
+  background: var(--lp-card);
+  box-shadow: 0 24px 50px -36px rgba(40, 30, 10, 0.35);
+  animation: lp-step-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@keyframes lp-step-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+.lp-stepper-count {
+  font-size: 12px;
+  color: var(--acc);
+}
+.lp-stepper-card h3 {
+  margin: 0;
+  font-family: var(--font-serif), var(--font-sans);
+  font-size: clamp(26px, 2.6vw, 36px);
+  font-weight: 500;
+  line-height: 1.15;
+}
+.lp-stepper-card p {
+  margin: 0;
+  font-size: clamp(16px, 1.3vw, 18px);
+  line-height: 1.6;
+  color: var(--lp-fg2);
+}
+.lp-stepper-output {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 6px;
+  padding-top: 16px;
+  border-top: 1px solid var(--lp-line);
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--lp-soft);
+}
+.lp-stepper-output svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--acc);
+}
+.lp-stepper-output b {
+  font-weight: 600;
+  color: var(--lp-fg);
+}
+
+/* Principles: the item in the middle of the screen is lit, with Effi's block beside it. */
+.lp-rules {
+  position: relative;
+}
+.lp-rules[data-live] li {
+  transition: opacity 0.4s ease;
+}
+.lp-rules[data-live] li:not([data-active]) {
+  opacity: 0.38;
+}
+.lp-rules li[data-active] > span {
+  color: var(--acc);
+  font-weight: 600;
+}
+.lp-rules[data-live]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline-start: -26px;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  border-radius: 2px;
+  background: var(--acc);
+  transform: translateY(var(--dot-y, 0));
+  transition: transform 0.5s cubic-bezier(0.3, 0.7, 0.2, 1);
+}
+@media (min-width: 960px) {
+  .lp-principles-head {
+    position: sticky;
+    top: 120px;
+  }
+}
+@media (max-width: 720px) {
+  .lp-rules[data-live]::before {
+    display: none;
+  }
+  .lp-stepper-title {
+    font-size: 14px;
+  }
+  .lp-stepper-num {
+    width: 36px;
+    height: 36px;
+  }
+  .lp-stepper-track {
+    top: 18px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lp-stepper-fill,
+  .lp-stepper-num,
+  .lp-rules[data-live]::before,
+  .lp-rules[data-live] li {
+    transition: none;
+  }
+  .lp-stepper-card,
+  [data-wa-new] {
+    animation: none;
+  }
 }

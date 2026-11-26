@@ -65,7 +65,10 @@ export type Landing = {
     titleA: string;
     titleB: string;
     lead: string;
-    steps: { title: string; body: string }[];
+    /** Label before each step's outcome, and "of" for "02 of 04". */
+    outputLabel: string;
+    of: string;
+    steps: { title: string; body: string; output: string }[];
   };
   contact: {
     meta: string;
@@ -198,11 +201,13 @@ export const landingHe: Landing = {
     titleA: "קודם מבינים.",
     titleB: "אחר כך בונים.",
     lead: "כל פרויקט מתחיל באפיון משותף. אנחנו לא מגיעים עם מוצר מוכן, אלא עם שאלות, ובונים רק את מה שבאמת יעזור.",
+    outputLabel: "מה יוצא מהשלב",
+    of: "מתוך",
     steps: [
-      { title: "שיחת היכרות", body: "מכירים את הארגון, את הצוותים ואת מה שמעסיק אתכם היום." },
-      { title: "אפיון משותף", body: "יושבים עם האנשים שעושים את העבודה, ומאתרים יחד איפה היא נתקעת ומה כדאי לפתור קודם." },
-      { title: "פיילוט ממוקד", body: "בונים פתרון לתהליך אחד, על המערכות שכבר יש לכם, וקובעים מראש איך מודדים הצלחה." },
-      { title: "הרחבה וליווי", body: "כשהתוצאות ברורות, מרחיבים לתהליכים נוספים, וממשיכים ללוות ולשפר." },
+      { title: "שיחת היכרות", body: "מכירים את הארגון, את הצוותים ואת מה שמעסיק אתכם היום.", output: "הבנה משותפת של מה הכי חשוב לכם." },
+      { title: "אפיון משותף", body: "יושבים עם האנשים שעושים את העבודה, ומאתרים יחד איפה היא נתקעת ומה כדאי לפתור קודם.", output: "מפה של התהליכים ונקודות התקיעה, וסדר עדיפויות מוסכם." },
+      { title: "פיילוט ממוקד", body: "בונים פתרון לתהליך אחד, על המערכות שכבר יש לכם, וקובעים מראש איך מודדים הצלחה.", output: "פתרון שעובד בתהליך אחד, ותוצאות שאפשר למדוד." },
+      { title: "הרחבה וליווי", body: "כשהתוצאות ברורות, מרחיבים לתהליכים נוספים, וממשיכים ללוות ולשפר.", output: "תוכנית הרחבה, וליווי שוטף לאורך הדרך." },
     ],
   },
   contact: {
@@ -331,11 +336,13 @@ export const landingEn: Landing = {
     titleA: "First we understand.",
     titleB: "Then we build.",
     lead: "Every project starts with joint discovery. We don't arrive with a ready-made product but with questions, and build only what will really help.",
+    outputLabel: "What comes out of it",
+    of: "of",
     steps: [
-      { title: "Intro conversation", body: "Getting to know the organization, the teams and what's on your mind today." },
-      { title: "Joint discovery", body: "We sit with the people who do the work and find together where it gets stuck and what's worth solving first." },
-      { title: "Focused pilot", body: "We build a solution for one process, on the systems you already have, and agree in advance how success is measured." },
-      { title: "Expansion & support", body: "Once the results are clear, we expand to more processes, and keep supporting and improving." },
+      { title: "Intro conversation", body: "Getting to know the organization, the teams and what's on your mind today.", output: "A shared understanding of what matters most to you." },
+      { title: "Joint discovery", body: "We sit with the people who do the work and find together where it gets stuck and what's worth solving first.", output: "A map of the processes and sticking points, with agreed priorities." },
+      { title: "Focused pilot", body: "We build a solution for one process, on the systems you already have, and agree in advance how success is measured.", output: "A working solution in one process, with measurable results." },
+      { title: "Expansion & support", body: "Once the results are clear, we expand to more processes, and keep supporting and improving.", output: "An expansion plan, and ongoing support along the way." },
     ],
   },
   contact: {

@@ -28,24 +28,32 @@ export function WaPlayer() {
     const wait = (ms: number) => new Promise<void>((done) => timers.push(window.setTimeout(done, ms)));
     let cancelled = false;
 
+    // Show an element with a short grow-in, so the bubbles above slide up
+    // smoothly instead of jumping.
+    const show = (el: HTMLElement) => {
+      el.removeAttribute("data-wa-new");
+      el.hidden = false;
+      void el.offsetWidth;
+      el.setAttribute("data-wa-new", "");
+    };
+
     const play = async () => {
-      await wait(400);
+      await wait(300);
       for (const message of messages) {
         if (cancelled) return;
         const incoming = message.dataset.wa === "in";
         if (incoming && typing) {
-          typing.hidden = false;
-          await wait(1000);
+          show(typing);
+          await wait(850);
           typing.hidden = true;
         } else {
-          await wait(1200);
+          await wait(900);
         }
         if (cancelled) return;
-        message.hidden = false;
-        message.setAttribute("data-wa-new", "");
-        await wait(600);
+        show(message);
+        await wait(450);
       }
-      if (typing && !cancelled) typing.hidden = false;
+      if (typing && !cancelled) show(typing);
     };
 
     const io = new IntersectionObserver(
@@ -54,7 +62,7 @@ export function WaPlayer() {
         io.disconnect();
         void play();
       },
-      { threshold: 0.4 },
+      { threshold: 0.35 },
     );
     io.observe(body);
     return () => {

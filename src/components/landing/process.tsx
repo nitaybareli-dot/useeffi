@@ -1,7 +1,8 @@
 import type { Landing } from "@/content/landing";
 import { Label } from "./parts";
+import { Stepper } from "./stepper";
 
-/** How working with us goes, step by step, with the stress on how little it asks of you. */
+/** Our approach: four steps you can scroll or click through, one at a time. */
 export function Process({ t }: { t: Landing }) {
   const p = t.process;
   return (
@@ -17,17 +18,7 @@ export function Process({ t }: { t: Landing }) {
             {p.lead}
           </p>
         </div>
-        <ol className="lp-process">
-          {p.steps.map((step, i) => (
-            <li key={step.title} className="lp-rv">
-              <span className="lp-mono" aria-hidden="true">
-                0{i + 1}
-              </span>
-              <strong>{step.title}</strong>
-              <p>{step.body}</p>
-            </li>
-          ))}
-        </ol>
+        <Stepper p={p} />
       </div>
     </section>
   );
