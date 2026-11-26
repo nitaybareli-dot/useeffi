@@ -1631,3 +1631,36 @@ body {
     animation: none;
   }
 }
+
+/* Area cards: a gentle lift on hover, and a small accent rule above the title. */
+.lp-ad {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.lp-ad::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--acc);
+}
+@media (hover: hover) {
+  .lp-ad:hover {
+    transform: translateY(-3px);
+    box-shadow: inset 0 0 0 5px var(--lp-card), inset 0 0 0 6px var(--lp-border), 0 18px 36px -28px rgba(40, 30, 10, 0.35);
+  }
+}
+/* Phones: the area tabs sit on one swipeable row instead of three. */
+@media (max-width: 720px) {
+  .lp-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-inline: -20px;
+    padding-inline: 20px;
+    scrollbar-width: none;
+  }
+  .lp-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .lp-tab {
+    flex-shrink: 0;
+  }
+}

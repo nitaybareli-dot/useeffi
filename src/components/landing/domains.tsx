@@ -13,10 +13,10 @@ export function Domains({ t }: { t: Landing }) {
 
   return (
     <section className="lp-light" style={{ borderTop: "1px solid var(--lp-border)" }}>
-      <div className="lp-wrap lp-section" style={{ display: "flex", flexDirection: "column", gap: "clamp(32px, 4vw, 48px)" }}>
+      <div className="lp-wrap lp-section" style={{ display: "flex", flexDirection: "column", gap: "clamp(28px, 3vw, 40px)" }}>
         <div className="lp-rv" style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <Label n="03">{r.label}</Label>
-          <h2 className="lp-h2">
+          <h2 className="lp-h2" style={{ fontSize: "clamp(32px, 3.6vw, 56px)" }}>
             {r.titleA}{" "}
             <span className="lp-dim">{r.titleB}</span>
           </h2>
@@ -43,7 +43,6 @@ export function Domains({ t }: { t: Landing }) {
         <div id="domain-panel" role="tabpanel" aria-labelledby={`domain-tab-${tab.id}`} className="lp-ads" key={tab.id}>
           {tab.items.map((item, i) => (
             <article key={item.title} className="lp-ad" style={{ animationDelay: `${i * 70}ms` }}>
-              <span className="lp-mono lp-ad-num">0{i + 1}</span>
               <h3 className="lp-ad-title">{item.title}</h3>
               <p className="lp-ad-does">{item.does}</p>
             </article>

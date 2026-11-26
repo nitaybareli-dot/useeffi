@@ -155,6 +155,15 @@ export const landingHe: Landing = {
         ],
       },
       {
+        id: "agriculture",
+        name: "חקלאות ומזון",
+        items: [
+          { title: "חדרי קירור ומלאי", does: "מעקב רציף אחרי טמפרטורות ומלאי, והתראה כשמשהו חורג." },
+          { title: "דיווחים ותעודות", does: "ריכוז הדיווחים לרשויות וללקוחות, בלי לרדוף אחרי ניירת." },
+          { title: "הזמנות ולקוחות", does: "הזמנות נקלטות מהוואטסאפ ומהמייל, והלקוח מקבל עדכון." },
+        ],
+      },
+      {
         id: "real-estate",
         name: "נדל״ן ובנייה",
         items: [
@@ -287,6 +296,15 @@ export const landingEn: Landing = {
           { title: "Purchasing & stock", does: "Tracking stock and preparing purchase orders for approval." },
           { title: "Quality control", does: "One report of the shift's checks, with alerts on anything missed." },
           { title: "Knowledge & training", does: "Answers for employees from the procedures, in their own language." },
+        ],
+      },
+      {
+        id: "agriculture",
+        name: "Agriculture & food",
+        items: [
+          { title: "Cold rooms & stock", does: "Continuous tracking of temperatures and stock, with an alert when something is off." },
+          { title: "Reports & certificates", does: "Reports for authorities and customers in one place, without chasing paperwork." },
+          { title: "Orders & customers", does: "Orders come in from WhatsApp and email, and the customer gets an update." },
         ],
       },
       {
