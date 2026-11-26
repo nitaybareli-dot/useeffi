@@ -125,25 +125,25 @@ body {
   background: var(--lp-bg);
   color: var(--lp-fg);
 }
-/* Light theme: the page goes white; the Effi demo stays dark to stand out. */
+/* Light theme: warm paper; the Effi demo stays dark to stand out. */
 .lp[data-theme="light"] {
   --acc: #3b6ef5;
-  --lp-line: #e8e5de;
+  --lp-line: #e3ddd1;
   --lp-mute: #77756f;
   --lp-soft: #5c5b56;
-  --lp-paper: #f3f0e9;
-  --lp-bg: #fcfbf8;
+  --lp-paper: #ede7db;
+  --lp-bg: #f6f2ea;
   --lp-fg: #0a0a0a;
   --lp-fg2: #3a3a36;
   --lp-dim-c: #a3a19b;
-  --lp-border: #e8e5de;
-  --lp-border2: #d9d5cc;
-  --lp-card: #fff;
-  --lp-card2: #f7f5f0;
-  --lp-field: #fff;
-  --lp-bubble: #f1eee8;
+  --lp-border: #e3ddd1;
+  --lp-border2: #d5cec0;
+  --lp-card: #fcfaf6;
+  --lp-card2: #f0ebe1;
+  --lp-field: #fdfbf8;
+  --lp-bubble: #ece6db;
   --lp-gridline: rgba(0, 0, 0, 0.045);
-  --lp-header: rgba(252, 251, 248, 0.86);
+  --lp-header: rgba(246, 242, 234, 0.86);
   --lp-tangle: #a8a59e;
   --lp-wm-tail: #b4b1aa;
   --lp-err: #c2410c;
