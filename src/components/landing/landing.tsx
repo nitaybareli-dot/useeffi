@@ -6,7 +6,9 @@ import { Chat } from "./chat";
 import { Contact } from "./contact";
 import { Hero } from "./hero";
 import { Domains } from "./domains";
-import { Principles } from "./principles";
+import { Calc } from "./calc";
+import { Team } from "./team";
+import { Why } from "./why";
 import { Process } from "./process";
 import { Avatar } from "./avatar";
 import { CtaButton } from "./parts";
@@ -14,7 +16,7 @@ import { Wordmark } from "./wordmark";
 
 /**
  * The landing page, one guided story in both languages:
- * who we are → our approach → what it looks like → areas → principles → about and contact.
+ * meet Effi → areas → Effi in action → savings → how it works → team → why now → contact.
  */
 export function Landing({ shell, t }: { shell: Shell; t: LandingCopy }) {
   return (
@@ -24,10 +26,12 @@ export function Landing({ shell, t }: { shell: Shell; t: LandingCopy }) {
 
       <main id="main">
         <Hero t={t} />
-        <Process t={t} />
-        <Chat t={t} />
         <Domains t={t} />
-        <Principles t={t} />
+        <Chat t={t} />
+        <Calc t={t} />
+        <Process t={t} />
+        <Team t={t} />
+        <Why t={t} />
         <Contact t={t} privacyHref={shell.privacyHref} />
       </main>
 

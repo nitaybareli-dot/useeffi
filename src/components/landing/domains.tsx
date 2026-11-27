@@ -18,7 +18,7 @@ export function Domains({ t }: { t: Landing }) {
     <section className="lp-light" style={{ borderTop: "1px solid var(--lp-border)" }}>
       <div className="lp-wrap lp-section" style={{ display: "flex", flexDirection: "column", gap: "clamp(28px, 3vw, 40px)" }}>
         <div className="lp-rv" style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-          <Label n="03">{r.label}</Label>
+          <Label n="01">{r.label}</Label>
           <h2 className="lp-h2" style={{ fontSize: "clamp(32px, 3.6vw, 56px)" }}>
             {r.titleA}{" "}
             <span className="lp-dim">{r.titleB}</span>

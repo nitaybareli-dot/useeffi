@@ -1,4 +1,6 @@
 import type { Landing } from "@/content/landing";
+import { Avatar } from "./avatar";
+import { CtaButton } from "./parts";
 
 const TANGLE = [
   "M1190,200 C1150,80 1100,330 1060,210 C1030,110 980,90 970,190 C960,300 1060,300 1030,220 C1000,140 920,130 900,230 C885,310 960,320 950,250 C940,170 860,150 830,210 C810,250 780,260 760,220 C740,180 700,200 640,200",
@@ -38,6 +40,33 @@ export function Hero({ t }: { t: Landing }) {
         <p className="lp-lead" style={{ maxWidth: 620, fontSize: "clamp(18px, 1.6vw, 22px)", color: "var(--lp-fg2)" }}>
           {h.sub}
         </p>
+
+        <ul className="lp-badges">
+          {h.badges.map((b) => (
+            <li key={b.text}>
+              <BadgeIcon name={b.icon} />
+              <span>{b.text}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div className="lp-hero-cta">
+          <p className="lp-hero-q">{h.ctaQuestion}</p>
+          <div className="lp-hero-btns">
+            <CtaButton href="#contact" location="hero" size="lg">
+              <span className="lp-btn-effi">
+                <Avatar size={26} invert />
+              </span>
+              {h.ctaPrimary}
+            </CtaButton>
+            <a href="#in-action" className="lp-btn lp-btn-lg lp-btn-ghost">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M8 5.5v13l11-6.5z" />
+              </svg>
+              {h.ctaSecondary}
+            </a>
+          </div>
+        </div>
 
         <div style={{ alignSelf: "stretch", textAlign: "start", marginTop: "clamp(8px, 2vw, 24px)", display: "flex", flexDirection: "column", gap: 14 }}>
           <div style={{ display: "flex", justifyContent: "space-between", gap: 16, fontSize: 13 }}>
@@ -104,4 +133,20 @@ function Flow({ viewBox, className, label }: { viewBox: string; className: strin
       </text>
     </svg>
   );
+}
+
+/** Line icons for the hero facts. */
+function BadgeIcon({ name }: { name: "moon" | "coins" | "heart" | "infinity" }) {
+  const common = { width: 20, height: 20, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true } as const;
+  if (name === "moon") return <svg {...common}><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" /></svg>;
+  if (name === "coins")
+    return (
+      <svg {...common}>
+        <ellipse cx="12" cy="6" rx="7" ry="3" />
+        <path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6" />
+        <path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6" />
+      </svg>
+    );
+  if (name === "heart") return <svg {...common}><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" /></svg>;
+  return <svg {...common}><path d="M7 8.5c-2 0-3.5 1.6-3.5 3.5S5 15.5 7 15.5c3.5 0 6.5-7 10-7 2 0 3.5 1.6 3.5 3.5S19 15.5 17 15.5c-3.5 0-6.5-7-10-7z" /></svg>;
 }

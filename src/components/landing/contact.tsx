@@ -64,16 +64,18 @@ export function Contact({ t, privacyHref }: { t: Landing; privacyHref: string })
   return (
     <section id="contact" className="lp-grid" style={{ position: "relative", overflow: "hidden", borderTop: "1px solid var(--lp-border)" }}>
       <div className="lp-wrap lp-section" style={{ position: "relative", display: "flex", flexDirection: "column", gap: "clamp(32px, 4vw, 48px)" }}>
-        <div className="lp-rv lp-about">
-          <Label n="05">{c.aboutLabel}</Label>
-          <h2 className="lp-h2">{c.aboutTitle}</h2>
-          <p className="lp-lead">{c.team}</p>
-        </div>
+        <p className="lp-rv lp-closing">
+          {t.closing.a}{" "}
+          <span className="lp-dim">{t.closing.b}</span>
+        </p>
 
-        <h3 className="lp-rv lp-contact-title">
-          {c.titleA}{" "}
-          <span className="lp-dim">{c.titleB}</span>
-        </h3>
+        <div className="lp-rv" style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          <Label n="07">{t.headerCta}</Label>
+          <h2 className="lp-contact-title" style={{ margin: 0, padding: 0, border: 0 }}>
+            {c.titleA}{" "}
+            <span className="lp-dim">{c.titleB}</span>
+          </h2>
+        </div>
 
         <div id="contact-chat" className="lp-rv lp-contact-card">
           {done ? (

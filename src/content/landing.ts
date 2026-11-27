@@ -21,6 +21,12 @@ export type Landing = {
     before: { label: string; text: string };
     after: { label: string; text: string };
     flowAlt: string;
+    /** Short facts under the intro, each with an icon. */
+    badges: { icon: "moon" | "coins" | "heart" | "infinity"; text: string }[];
+    /** Question and two buttons right above the drawing. */
+    ctaQuestion: string;
+    ctaPrimary: string;
+    ctaSecondary: string;
   };
   chat: {
     label: string;
@@ -96,6 +102,43 @@ export type Landing = {
     aboutTitle: string;
     team: string;
   };
+  calc: {
+    label: string;
+    titleA: string;
+    titleB: string;
+    lead: string;
+    employees: string;
+    hours: string;
+    cost: string;
+    /** Share of the manual hours Effi takes over, 0–1. */
+    share: number;
+    shareNote: string;
+    monthly: string;
+    yearly: string;
+    hoursSaved: string;
+    perMonth: string;
+    currency: string;
+    disclaimer: string;
+    cta: string;
+  };
+  team: {
+    label: string;
+    title: string;
+    lead: string;
+    members: { name: string; role: string }[];
+    storyDraft: string;
+    storyHint: string;
+  };
+  why: {
+    label: string;
+    titleA: string;
+    titleB: string;
+    points: { title: string; text: string }[];
+    close: string;
+    card: { heading: string; name: string; rows: { k: string; v: string }[]; status: string };
+  };
+  /** Big statement right before the form. */
+  closing: { a: string; b: string };
   footer: { tagline: string; privacy: string };
 };
 
@@ -106,16 +149,25 @@ export const landingHe: Landing = {
   headerCta: "יצירת קשר",
   hero: {
     eyebrow: "הטמעת AI בארגונים",
-    titleA: "פתרונות AI,",
-    titleB: "מותאמים לארגון שלכם.",
-    sub: "Effi מלווה ארגונים בהטמעה של AI. אנחנו לומדים לעומק איך העבודה מתנהלת, מאתרים יחד איתכם איפה היא נתקעת, ובונים פתרונות שעובדים על המערכות הקיימות.",
+    titleA: "תכירו את אפי.",
+    titleB: "העובד הדיגיטלי החדש שלכם.",
+    sub: "הוא מכיר את העסק שלכם, מתחבר למערכות הקיימות ועובד בשבילכם 24 שעות ביממה. מקסימום תפוקה. מינימום הוצאות.",
     before: { label: "היום", text: "ידני · מפוזר · איטי" },
     after: { label: "עם אפי", text: "אוטומטי · מחובר · מהיר" },
     flowAlt: "קווים סבוכים ואיטיים נכנסים לצומת אחד, ויוצאים ממנו כקווים ישרים ומהירים",
+    badges: [
+      { icon: "moon", text: "עובד 24/7" },
+      { icon: "coins", text: "בלי פנסיה" },
+      { icon: "heart", text: "לא חולה אף פעם" },
+      { icon: "infinity", text: "תמיד זמין" },
+    ],
+    ctaQuestion: "רוצים שהעסק שלכם ימשיך לעבוד גם כשאתם לא?",
+    ctaPrimary: "בואו נגייס את אפי",
+    ctaSecondary: "תראו את אפי בפעולה",
   },
   chat: {
-    label: "איך זה נראה בפועל",
-    titleA: "הטכנולוגיה עושה את השגרה.",
+    label: "אפי בפעולה",
+    titleA: "אפי עושה את השגרה.",
     titleB: "ההחלטות נשארות אצלכם.",
     lead: "דוגמה לבוקר של מנהל: הודעה אחת בוואטסאפ, עם מה שכבר טופל ומה מחכה להחלטה שלו. בלי מערכת חדשה ללמוד.",
     phoneLabel: "מה המנהל מקבל בבוקר",
@@ -141,8 +193,8 @@ export const landingHe: Landing = {
   },
   domains: {
     label: "תחומים",
-    titleA: "איפה אנחנו",
-    titleB: "עוזרים לארגונים.",
+    titleA: "איך אפי עוזר",
+    titleB: "לארגונים.",
     tabs: [
       {
         id: "manufacturing",
@@ -205,10 +257,10 @@ export const landingHe: Landing = {
     ],
   },
   process: {
-    label: "הגישה שלנו",
-    titleA: "קודם מבינים.",
-    titleB: "אחר כך בונים.",
-    lead: "כל פרויקט מתחיל באפיון משותף. אנחנו לא מגיעים עם מוצר מוכן, אלא עם שאלות, ובונים רק את מה שבאמת יעזור.",
+    label: "איך זה הולך לעבוד",
+    titleA: "למצוא לאפי עבודה בעסק שלכם?",
+    titleB: "זאת כבר העבודה שלנו.",
+    lead: "אנחנו לא מצפים מכם למפות תהליכים, לאתר כשלים או להבין איפה אפשר לשלב AI. אנחנו מגיעים אליכם, שואלים את השאלות הנכונות, מזהים את ההזדמנויות ובונים את האפי שהעסק שלכם באמת צריך.",
     outputLabel: "מה יוצא מהשלב",
     of: "מתוך",
     steps: [
@@ -220,8 +272,8 @@ export const landingHe: Landing = {
   },
   contact: {
     meta: "שיחה ראשונה בלי עלות · בלי התחייבות · בזמן שנוח לכם",
-    titleA: "נשמח להמשיך",
-    titleB: "את השיחה.",
+    titleA: "אתם מומחים בעסק שלכם.",
+    titleB: "אנחנו מומחים בלייעל אותו.",
     greeting: "השאירו שם וטלפון, ונחזור אליכם בהקדם.",
     name: "שם",
     phone: "טלפון",
@@ -239,6 +291,59 @@ export const landingHe: Landing = {
     aboutTitle: "מי עומד מאחורי Effi",
     team: "Effi הוקמה על ידי שותפים עם שנים של ניסיון בפיתוח תוכנה, מוצר וניהול טכנולוגי בחברות הייטק. אנחנו לא מוכרים תוכנה. אנחנו פותרים בעיות, ונשארים איתכם עד שהפתרון עובד.",
   },
+  calc: {
+    label: "מחשבון חיסכון",
+    titleA: "עובד יותר.",
+    titleB: "עולה פחות.",
+    lead: "כמה כסף אפי יכול לחסוך לעסק שלכם? הזיזו את הסמנים וגלו.",
+    employees: "עובדים במשרד ובאדמיניסטרציה",
+    hours: "שעות בשבוע לכל עובד על עבודה ידנית",
+    cost: "עלות שעת עבודה ממוצעת",
+    share: 0.6,
+    shareNote: "בהנחה שאפי לוקח בערך 60% מהעבודה הידנית.",
+    monthly: "חיסכון בחודש",
+    yearly: "חיסכון בשנה",
+    hoursSaved: "שעות שמתפנות",
+    perMonth: "בחודש",
+    currency: "₪",
+    disclaimer: "הערכה בלבד. המספרים האמיתיים יוצאים מהאפיון.",
+    cta: "בואו נבדוק את המספרים שלכם",
+  },
+  team: {
+    label: "מי אנחנו",
+    title: "מי עומד מאחורי אפי",
+    lead: "בסוף, אנשים רוצים לעבוד מול אנשים. אפי הוא הטכנולוגיה. אנחנו האנשים שמכירים אתכם, בונים אותו ונשארים איתכם עד שהוא עובד.",
+    members: [
+      { name: "נתאי בראלי", role: "שותף מייסד" },
+      { name: "אור", role: "שותף מייסד" },
+      { name: "יהודה בנד", role: "שותף מייסד" },
+    ],
+    storyDraft: "כאן יבוא סיפור אישי קצר: איך התחלנו, למשל מהעסק המשפחתי שייעלנו.",
+    storyHint: "טיוטה · צריך טקסט ותמונות מכם",
+  },
+  why: {
+    label: "למה עכשיו",
+    titleA: "למה דווקא אפי,",
+    titleB: "ולמה דווקא עכשיו?",
+    points: [
+      { title: "אנחנו בעיצומה של מהפכה", text: "עסקים שמתחילים עכשיו בונים יתרון משמעותי על המתחרים שלהם." },
+      { title: "מוקדם יותר, יתרון גדול יותר", text: "ככל שמתחילים מוקדם יותר, יש יותר זמן ללמוד, לשפר ולבנות יתרון תחרותי." },
+      { title: "עובד שלא מתעייף", text: "בלי תשלומי פנסיה, בלי ימי מחלה, ועם מוטיבציה שלא נגמרת." },
+    ],
+    close: "בסוף, אתם לא צריכים ״להכניס AI לעסק״. אתם צריכים אפי.",
+    card: {
+      heading: "כרטיס עובד",
+      name: "אפי",
+      rows: [
+        { k: "תפקיד", v: "עובד דיגיטלי" },
+        { k: "מחלקה", v: "בק אופיס" },
+        { k: "משמרת", v: "24/7" },
+        { k: "ימי מחלה", v: "0" },
+      ],
+      status: "מחפש עסק לעבוד בו",
+    },
+  },
+  closing: { a: "תנו לאפי לעבוד.", b: "תנו לעסק שלכם לגדול." },
   footer: { tagline: "פתרונות AI מותאמים לארגונים", privacy: "מדיניות פרטיות" },
 };
 
@@ -249,16 +354,25 @@ export const landingEn: Landing = {
   headerCta: "Contact",
   hero: {
     eyebrow: "AI implementation for organizations",
-    titleA: "AI solutions,",
-    titleB: "tailored to your organization.",
-    sub: "Effi helps organizations adopt AI. We learn in depth how the work runs, find together with you where it gets stuck, and build solutions that work on your existing systems.",
+    titleA: "Meet Effi.",
+    titleB: "Your new digital employee.",
+    sub: "Effi knows your business, connects to your existing systems and works for you around the clock. Maximum output. Minimum cost.",
     before: { label: "Today", text: "Manual · scattered · slow" },
     after: { label: "With Effi", text: "Automated · connected · fast" },
     flowAlt: "Tangled, slow lines enter a single node and leave it as straight, fast lines",
+    badges: [
+      { icon: "moon", text: "Works 24/7" },
+      { icon: "coins", text: "No pension" },
+      { icon: "heart", text: "Never sick" },
+      { icon: "infinity", text: "Always available" },
+    ],
+    ctaQuestion: "Want your business to keep working even when you don't?",
+    ctaPrimary: "Let's hire Effi",
+    ctaSecondary: "See Effi in action",
   },
   chat: {
-    label: "What it looks like",
-    titleA: "Technology handles the routine.",
+    label: "Effi in action",
+    titleA: "Effi handles the routine.",
     titleB: "The decisions stay with you.",
     lead: "A manager's morning, for example: one WhatsApp message with what's already handled and what's waiting for their call. No new system to learn.",
     phoneLabel: "What the manager gets in the morning",
@@ -284,7 +398,7 @@ export const landingEn: Landing = {
   },
   domains: {
     label: "Areas",
-    titleA: "Where we help",
+    titleA: "How Effi helps",
     titleB: "organizations.",
     tabs: [
       {
@@ -348,10 +462,10 @@ export const landingEn: Landing = {
     ],
   },
   process: {
-    label: "Our approach",
-    titleA: "First we understand.",
-    titleB: "Then we build.",
-    lead: "Every project starts with joint discovery. We don't arrive with a ready-made product but with questions, and build only what will really help.",
+    label: "How it will work",
+    titleA: "Finding Effi a job in your business?",
+    titleB: "That's our job.",
+    lead: "We don't expect you to map processes, find failures or figure out where AI fits. We come to you, ask the right questions, spot the opportunities and build the Effi your business really needs.",
     outputLabel: "What comes out of it",
     of: "of",
     steps: [
@@ -363,8 +477,8 @@ export const landingEn: Landing = {
   },
   contact: {
     meta: "First conversation at no cost · No commitment · At a time that suits you",
-    titleA: "We'd be glad",
-    titleB: "to continue the conversation.",
+    titleA: "You're the experts in your business.",
+    titleB: "We're the experts in making it efficient.",
     greeting: "Leave your name and phone, and we'll get back to you soon.",
     name: "Name",
     phone: "Phone",
@@ -382,5 +496,58 @@ export const landingEn: Landing = {
     aboutTitle: "Who is behind Effi",
     team: "Effi was founded by partners with years of experience in software, product and technology leadership at tech companies. We don't sell software. We solve problems, and stay with you until the solution works.",
   },
+  calc: {
+    label: "Savings calculator",
+    titleA: "Works more.",
+    titleB: "Costs less.",
+    lead: "How much could Effi save your business? Move the sliders and see.",
+    employees: "Office and admin employees",
+    hours: "Weekly hours per employee on manual work",
+    cost: "Average hourly cost",
+    share: 0.6,
+    shareNote: "Assuming Effi takes over about 60% of the manual work.",
+    monthly: "Saved per month",
+    yearly: "Saved per year",
+    hoursSaved: "Hours freed up",
+    perMonth: "per month",
+    currency: "₪",
+    disclaimer: "An estimate only. The real numbers come out of discovery.",
+    cta: "Let's check your numbers",
+  },
+  team: {
+    label: "About us",
+    title: "Who is behind Effi",
+    lead: "In the end, people want to work with people. Effi is the technology. We're the people who get to know you, build it and stay with you until it works.",
+    members: [
+      { name: "Nitay Bareli", role: "Co-founder" },
+      { name: "Or", role: "Co-founder" },
+      { name: "Yehuda Band", role: "Co-founder" },
+    ],
+    storyDraft: "A short personal story goes here: how we started, for example with the family business we made efficient.",
+    storyHint: "Draft · needs text and photos from you",
+  },
+  why: {
+    label: "Why now",
+    titleA: "Why Effi,",
+    titleB: "and why now?",
+    points: [
+      { title: "We're in the middle of a revolution", text: "Businesses that start now build a real edge over their competitors." },
+      { title: "Earlier means a bigger edge", text: "The earlier you start, the more time you have to learn, improve and build an advantage." },
+      { title: "An employee who never tires", text: "No pension payments, no sick days, and motivation that never runs out." },
+    ],
+    close: "In the end, you don't need to \"bring AI into the business\". You need Effi.",
+    card: {
+      heading: "Employee card",
+      name: "Effi",
+      rows: [
+        { k: "Role", v: "Digital employee" },
+        { k: "Department", v: "Back office" },
+        { k: "Shift", v: "24/7" },
+        { k: "Sick days", v: "0" },
+      ],
+      status: "Looking for a business to work in",
+    },
+  },
+  closing: { a: "Let Effi work.", b: "Let your business grow." },
   footer: { tagline: "AI solutions tailored to organizations", privacy: "Privacy policy" },
 };

@@ -9,7 +9,7 @@ export function Process({ t }: { t: Landing }) {
     <section style={{ borderTop: "1px solid var(--lp-border)" }}>
       <div className="lp-wrap lp-section" style={{ display: "flex", flexDirection: "column", gap: "clamp(40px, 5vw, 64px)" }}>
         <div className="lp-rv" style={{ display: "flex", flexDirection: "column", gap: 20, maxWidth: 760 }}>
-          <Label n="01">{p.label}</Label>
+          <Label n="04">{p.label}</Label>
           <h2 className="lp-h2" style={{ fontSize: "clamp(32px, 3.6vw, 56px)" }}>
             {p.titleA}{" "}
             <span className="lp-dim">{p.titleB}</span>
